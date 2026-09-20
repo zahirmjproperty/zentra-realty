@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>F2 · Send &amp; track signatures | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=47074d00">
+<style>
+ .who{display:grid;grid-template-columns:1.4fr .9fr 1fr 1.2fr auto;gap:8px;align-items:center}
+ .who input,.who select{width:100%}
+ .rowline{padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.04)}
+ .rowline:last-child{border-bottom:0}
+ .linkbox{font-family:var(--mono);font-size:11.5px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:7px 9px;word-break:break-all}
+ .count{font-size:12.5px;font-weight:700}
+ .count.due{color:var(--amber)} .count.late{color:var(--red)} .count.ok{color:var(--green)}
+ .eng{border-left:3px solid var(--gold);padding-left:10px}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>F2 &middot; Send &amp; track signatures</h1>
+        <p>The agency side of signing. Add the parties, the system gives each one a private link, chases the ones who are slow, and starts the stamping clock the moment the last signature lands.</p>
+      </div>
+      <span class="badge-demo">PHASE 2 DEMO &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="flag eng"><b>Engine note:</b> this demo generates its own links so the flow can be approved before we pay for anything. When the SigningCloud account is ready, the same buttons create real envelopes and the legally recognised signature &amp; certificate come from that engine &mdash; the screens do not change.</div>
+
+    <div class="note" id="verLock" style="margin-bottom:10px"></div>
+    <h2 class="sec"><span class="num">1</span> The document</h2>
+    <div class="card">
+      <div class="grid g3" style="gap:12px">
+        <div><label class="small muted">Document</label><div id="docLine" style="font-weight:700">ZTH-LOAR-000101 &middot; Letter of Appointment (Rent)</div></div>
+        <div><label class="small muted">Property</label><div id="docProp">18-3, Jalan Seri Harmoni 2/5, 43200 Kajang</div></div>
+        <div><label class="small muted">Deal reference</label><div class="mono" id="docDeal">DEAL-2026-0915-01</div></div>
+      </div>
+      <div class="actions"><button class="btn ghost sm" onclick="location.href='f1.html'">Create another document (F1)</button>
+      <button class="btn ghost sm" onclick="window.open('sign.html?step=1','_blank')">Preview what the client sees</button></div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Parties &mdash; in signing order</h2>
+    <div class="card">
+      <div class="who small muted" style="font-weight:700"><div>Name</div><div>Role</div><div>Mobile</div><div>Email</div><div></div></div>
+      <div id="signers"></div>
+      <div class="actions">
+        <button class="btn ghost sm" onclick="addSigner()">+ Add party</button>
+        <button class="btn sm" onclick="sendAll()">Generate &amp; send links</button>
+        <button class="btn ghost sm" onclick="resetAll()">Reset demo</button>
+      </div>
+      <p class="small muted" style="margin-top:8px">Signing order matters: the landlord signs first, then the tenant, then the negotiator countersigns. In production each link is single-use and tied to the recipient&rsquo;s mobile number.</p>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Status board</h2>
+    <div class="card">
+      <table class="tbl"><thead><tr><th>Party</th><th>Role</th><th>Link</th><th>Status</th><th>Signed at</th><th></th></tr></thead><tbody id="board"></tbody></table>
+      <div class="actions"><button class="btn ghost sm" onclick="chase()">Send reminders now</button><span class="small muted" id="chaseNote"></span></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> After the last signature</h2>
+    <div class="grid g2">
+      <div class="card"><h3 style="margin-top:0;font-size:14.5px">Stamping clock (LHDN)</h3>
+        <p class="small muted">A tenancy agreement must be stamped within <b>30 days from the last signature</b>. The clock starts by itself &mdash; nobody has to remember.</p>
+        <div id="stampBox" class="small">Waiting for all parties to sign&hellip;</div>
+      </div>
+      <div class="card"><h3 style="margin-top:0;font-size:14.5px">Package &amp; delivery</h3>
+        <p class="small muted">When complete, the system files one package for the deal: the signed document, the completion certificate with audit trail, and (for a tenancy) the stamp certificate once paid.</p>
+        <ul class="small"><li>Soft copy sent to every party by WhatsApp and email</li><li>Client can download or print it any time &mdash; no hardcopy needed</li><li>Agency keeps the archive copy with the audit log</li></ul>
+      </div>
+    </div>
+  <div class="grid g2" style="margin-top:16px">
+<div class="card">
+<h3 style="margin-top:0;font-size:14.5px">Reminders and escalation</h3>
+<table class="tbl">
+<tr><th>When</th><th>Channel</th><th>Sent to</th></tr>
+<tr><td>Day 1</td><td>WhatsApp + email</td><td>The party who has not signed</td></tr>
+<tr><td>Day 3</td><td>WhatsApp + email</td><td>Same party</td></tr>
+<tr><td>Day 7</td><td>SMS + call task</td><td>The negotiator</td></tr>
+<tr><td>Day 14</td><td>Alert</td><td>Agency Head</td></tr>
+</table>
+<p class="small muted" style="margin-bottom:0">Reminders stop the moment the party signs. Every send is written to the access log, so nobody has to argue about who was chased.</p>
+</div>
+</div>
+<div class="grid g2" style="margin-top:16px">
+<div class="card">
+<h3 style="margin-top:0;font-size:14.5px">Completion certificate &mdash; goes to every party</h3>
+<ul class="check">
+<li><b>Owner</b> &mdash; WhatsApp + email copy</li>
+<li><b>Tenant</b> &mdash; WhatsApp + email copy</li>
+<li><b>Negotiator</b> &mdash; Copy for the agent file</li>
+<li><b>Agency archive</b> &mdash; Locked, with the SHA-256 fingerprint</li>
+</ul>
+<p class="small muted" style="margin-bottom:0">The certificate shows who signed, when, from which device, and the fingerprint of the final PDF &mdash; so a dispute is settled by a document, not a memory.</p>
+</div>
+</div>
+<div class="grid g2" style="margin-top:16px">
+<div class="card">
+<h3 style="margin-top:0;font-size:14.5px">Client without WhatsApp or a phone? Paper intake</h3>
+<ol class="small" style="padding-left:18px;margin:8px 0 0">
+<li style="margin-bottom:6px">Print the pack from this screen (page numbers and initials boxes are printed for you).</li>
+<li style="margin-bottom:6px">The client signs with a pen; every page is photographed, including the initials.</li>
+<li style="margin-bottom:6px">Upload the photos here &mdash; the system checks the page count before accepting.</li>
+<li style="margin-bottom:6px">Two people from the agency verify and mark it: paper, verified by name and date.</li>
+<li style="margin-bottom:6px">The audit log records the paper route, so the file is never a gap in the chain.</li>
+</ol>
+</div>
+<div class="card">
+<h3 style="margin-top:0;font-size:14.5px">When a delivery fails</h3>
+<div class="small" style="margin:6px 0">WhatsApp rejected or the number is not on WhatsApp &rarr; the link is marked <b>not delivered</b> and the negotiator gets a task.</div>
+<div class="small" style="margin:6px 0">Email bounced &rarr; try the second contact on the party record.</div>
+<div class="small" style="margin:6px 0">Fifteen days with no delivery &rarr; the document is flagged at the Agency Head level.</div>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const KEY = 'zth_sign2';
+const DOCID = 'ZTH-LOAR-000101', DOCVER = 1, LINK_DAYS = 7;
+const LSg=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}, LSs=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const DEF = () => ([
+  {name:'Noraini binti Hassan', role:'Landlord', mob:'60123456789', mail:'noraini@example.com', status:'Not sent', token:'', at:'', exp:'', log:[]},
+  {name:'Ahmad Faizal bin Osman', role:'Tenant', mob:'60198887766', mail:'faizal@example.com', status:'Not sent', token:'', at:'', exp:'', log:[]},
+  {name:'Nadia Rahman', role:'Negotiator (countersign)', mob:'60122310119', mail:'nadia@zentra.example', status:'Not sent', token:'', at:'', exp:'', log:[]}
+]);
+let S = LSg(KEY, null);
+if (!S) { S = {signers: DEF(), sentAt:'', doneAt:'', lockNote:''}; LSs(KEY, S); }
+function save(){ LSs(KEY, S); }
+function stamp(){ const d=new Date(); return d.toLocaleDateString('en-GB')+' '+d.toTimeString().slice(0,5); }
+function logIt(s, e){ s.log = s.log || []; s.log.unshift({t:stamp(), e:e}); if(s.log.length>8) s.log.pop(); }
+function expireCheck(){
+  let changed=false;
+  S.signers.forEach(s=>{ if(s.token && s.exp && new Date(s.exp) < new Date() && s.status!=='Signed' && s.status!=='Revoked'){ s.status='Expired'; logIt(s,'link expired after '+LINK_DAYS+' days'); changed=true; } });
+  if(changed) save();
+}
+function chip(st){
+  const m = {'Not sent':'gray','Sent':'info','Opened':'warn','Signed':'ok','Declined':'bad','Expired':'bad','Revoked':'bad','Not delivered':'warn'};
+  return '<span class="pill ' + (m[st]||'gray') + '">' + st + '</span>';
+}
+function linkPath(s){ return location.origin + location.pathname.replace('f2.html','sign.html') + '?t=' + s.token; }
+function live(s){ return s.token && s.status!=='Revoked' && s.status!=='Expired'; }
+function daysLeft(s){ if(!s.exp) return ''; const d=Math.ceil((new Date(s.exp)-new Date())/864e5); return d<0?('expired '+Math.abs(d)+'d ago'):(d+'d left'); }
+function render(){
+  expireCheck();
+  const host = $('signers'); host.innerHTML = '';
+  S.signers.forEach((s,i) => {
+    const d = document.createElement('div'); d.className = 'rowline';
+    d.innerHTML = '<div class="who">' +
+      '<input class="i" value="' + s.name + '" oninput="edit(' + i + ',\'name\',this.value)">' +
+      '<select class="i" onchange="edit(' + i + ',\'role\',this.value)">' + ['Landlord','Tenant','Purchaser','Vendor','Negotiator (countersign)','Witness']
+        .map(r => '<option' + (r === s.role ? ' selected' : '') + '>' + r + '</option>').join('') + '</select>' +
+      '<input class="i" value="' + s.mob + '" oninput="edit(' + i + ',\'mob\',this.value)">' +
+      '<input class="i" value="' + s.mail + '" oninput="edit(' + i + ',\'mail\',this.value)">' +
+      '<button class="btn ghost sm" onclick="del(' + i + ')">Remove</button></div>';
+    host.appendChild(d);
+  });
+  const tb = $('board'); tb.innerHTML = '';
+  S.signers.forEach((s,i) => {
+    const tr = document.createElement('tr');
+    const lc = s.token ? '<span class="linkbox">' + s.token + '</span><div class="small muted">expires in ' + daysLeft(s) + '</div>' : '&mdash;';
+    let act = '';
+    if (live(s)) {
+      act = '<button class="btn ghost sm" onclick="wa(' + i + ')">WhatsApp</button> <button class="btn ghost sm" onclick="mail(' + i + ')">Email</button> ' +
+            '<button class="btn ghost sm" onclick="copyLink(' + i + ')">Copy link</button> ' +
+            '<button class="btn sm" onclick="signed(' + i + ')">Mark signed</button> ' +
+            '<button class="btn ghost sm" onclick="revoke(' + i + ')">Revoke</button>' + ' <button class="btn ghost sm" onclick="notOk(' + i + ')" title="Mark as not delivered and log it">Not delivered</button>';
+    } else if (s.status === 'Signed') {
+      act = '<span class="small muted">signed &middot; certificate issued</span>';
+    } else {
+      act = '<button class="btn sm" onclick="regen(' + i + ')">Generate new link</button> <button class="btn ghost sm" onclick="decline(' + i + ')">Mark declined</button>';
+    }
+    const lastLog = (s.log && s.log.length) ? '<div class="small muted">' + s.log[0].t + ' &mdash; ' + s.log[0].e + '</div>' : '';
+    tr.innerHTML = '<td><b>' + s.name + '</b>' + lastLog + '</td><td>' + s.role + '</td>' +
+      '<td class="small">' + lc + '</td>' + '<td>' + chip(s.status) + '</td><td class="small muted">' + (s.at || '&mdash;') + '</td>' +
+      '<td style="white-space:nowrap">' + act + '</td>';
+    tb.appendChild(tr);
+  });
+  $('verLock').innerHTML = '<b>Version ' + DOCVER + ' &middot; locked</b> &mdash; ' + DOCID + ' was issued at this version. Editing it now creates version ' + (DOCVER+1) + ' and <b>revokes every link above</b>; a client holding an old link can no longer sign it.';
+  stampBox();
+}
+
+function edit(i,k,v){ S.signers[i][k] = v; save(); }
+function addSigner(){ S.signers.push({name:'New party', role:'Witness', mob:'60', mail:'', status:'Not sent', token:'', at:'', exp:'', log:[]}); save(); render(); }
+function del(i){ S.signers.splice(i,1); save(); render(); }
+function newToken(){ return 'ZTH-SIGN-' + Math.random().toString(36).slice(2,6).toUpperCase() + Math.random().toString(36).slice(2,6).toUpperCase(); }
+function issue(i, why){
+  const s = S.signers[i];
+  s.token = newToken(); s.status = 'Sent'; s.exp = new Date(Date.now() + LINK_DAYS*864e5).toISOString();
+  logIt(s, why + ' \u00b7 link valid ' + LINK_DAYS + ' days');
+}
+function sendAll(){
+  let n = 0;
+  S.signers.forEach((s,i) => { if (!live(s)){ issue(i, s.token ? 'new link issued (previous revoked)' : 'link sent'); n++; } });
+  S.sentAt = new Date().toISOString(); save(); render();
+  $('chaseNote').textContent = n + ' link(s) issued \u00b7 each link works once, expires in ' + LINK_DAYS + ' days, and every open, signature or failure is written to the audit log.';
+}
+function regen(i){ issue(i, 'link regenerated by agency'); save(); render(); $('chaseNote').textContent = 'New link issued for ' + S.signers[i].name + '. The previous link no longer works.'; }
+
+function notOk(i){ const s=S.signers[i]; s.status='Not delivered'; logIt(s,'delivery failed \u2014 WhatsApp/email rejected; negotiator given a task'); save(); render(); }
+function revoke(i){ const s=S.signers[i]; s.status='Revoked'; s.token=''; logIt(s,'link revoked by agency (client can no longer sign this version)'); save(); render(); }
+function decline(i){ const s=S.signers[i]; s.status='Declined'; logIt(s,'party declined to sign'); save(); render(); $('chaseNote').textContent = s.name + ' declined. The agency is alerted and the document cannot complete until this is resolved.'; }
+function copyLink(i){ const s=S.signers[i]; navigator.clipboard && navigator.clipboard.writeText(linkPath(s)); $('chaseNote').textContent = 'Link copied for ' + s.name + ' (single use, expires ' + new Date(s.exp).toLocaleDateString('en-GB') + ').'; }
+function wa(i){
+  const s = S.signers[i];
+  const msg = 'Zentra Property Group: ' + DOCID + ' (Letter of Appointment - Rent) is ready for your signature. This link is personal to you and expires in ' + LINK_DAYS + ' days: ' + linkPath(s);
+  window.open('https://wa.me/' + s.mob.replace(/[^0-9]/g,'') + '?text=' + encodeURIComponent(msg), '_blank');
+  if (s.status === 'Sent') { s.status = 'Opened'; logIt(s,'sent by WhatsApp to ' + s.mob); save(); render(); }
+}
+function mail(i){
+  const s = S.signers[i];
+  window.open('mailto:' + s.mail + '?subject=' + encodeURIComponent('Please sign: ' + DOCID) + '&body=' + encodeURIComponent('This link is personal to you and expires in ' + LINK_DAYS + ' days: ' + linkPath(s)), '_blank');
+  logIt(s,'sent by email to ' + s.mail); save(); render();
+}
+function signed(i){
+  const s = S.signers[i];
+  s.status = 'Signed'; s.at = stamp(); logIt(s,'signed by ' + s.role.toLowerCase() + ' (OTP verified)'); save();
+  if (S.signers.every(x => x.status === 'Signed')) { S.doneAt = new Date().toISOString(); logIt(s,'all parties signed \u2014 certificate issued'); save(); }
+  render();
+}
+function chase(){
+  const pend = S.signers.filter(s => s.status !== 'Signed');
+  const exp = S.signers.filter(s => s.status === 'Expired' || s.status === 'Revoked');
+  const dec = S.signers.filter(s => s.status === 'Declined');
+  let msg = pend.length ? (pend.length + ' outstanding \u00b7 reminders scheduled at day 1, 3, 7 and 14; after day 14 the Agency Head is alerted.') : 'Nothing to chase \u2014 every party has signed.';
+  if (exp.length) msg += ' ' + exp.length + ' link(s) expired or revoked \u2014 issue a new link.';
+  if (dec.length) msg += ' ' + dec.length + ' party declined \u2014 resolve before this document can complete.';
+  $('chaseNote').textContent = msg;
+}
+function stampBox(){
+  const all = S.signers.length && S.signers.every(s => s.status === 'Signed');
+  const box = $('stampBox');
+  if (!all){ box.innerHTML = '<span class="pill gray">clock not started</span><div style="margin-top:8px" class="small muted">The due date is created automatically when the <b>last</b> party signs (execution date). For a tenancy that is 30 days from that moment.</div>'; return; }
+  const done = new Date(S.doneAt || Date.now());
+  const due = new Date(done.getTime() + 30*864e5);
+  const left = Math.ceil((due - new Date()) / 864e5);
+  const cls = left < 0 ? 'late' : (left <= 7 ? 'due' : 'ok');
+  box.innerHTML = '<div class="count ' + cls + '">' + (left < 0 ? (Math.abs(left) + ' days overdue') : (left + ' days left')) + '</div>' +
+    '<div class="small" style="margin-top:4px">Last signature (execution date): <b>' + done.toLocaleString('en-GB') + '</b><br>Stamping due by: <b>' + due.toLocaleDateString('en-GB') + '</b></div>' +
+    '<div class="small muted" style="margin-top:8px">Action owner: <select class="i" style="max-width:220px;display:inline-block" onchange="S.owner=this.value;save()"><option>Solicitors of the owner</option><option>Owner</option><option>Operations (Zentra)</option><option>Tenant</option></select> &mdash; the penalty for late stamping falls on whoever is named here, so the letter must say it too.</div>' +
+    '<div class="small muted" style="margin-top:6px">Deposit evidence: <b>RM1,100</b> held by <b>Solicitors of the owner</b> &middot; receipt OR-2026-000231 &middot; the agency does not hold client money.</div>' +
+'    \'<div class="small" style="margin-top:6px"><b>Estimated duty:</b> RM48 &mdash; RM12,000 annual rent &divide; RM250 &times; RM1 (min RM10). Confirm on the MyTax calculator on the day.</div>' +
+'    \'<div class="small muted" style="margin-top:4px">If late: RM50 or 10% of the duty (whichever is higher) within 3 months; RM100 or 20% after. Name the payer in the letter itself.</div>' +
+    '<div class="actions"><button class="btn ghost sm" onclick="alert(\'In production this creates the e-stamping submission in MyTax e-Duti Setem (STAMPS was discontinued on 31 Dec 2025) and files the stamp certificate back into the package.\')">Open stamping task</button>' +
+    '<button class="btn ghost sm" onclick="alert(\'Package: signed document + completion certificate + audit log + deposit evidence, delivered to every party.\')">Build the package</button></div>';
+}
+function resetAll(){ S = {signers: DEF(), sentAt:'', doneAt:'', lockNote:''}; save(); render(); }
+render();
+if (location.search.indexOf('demo=done') > -1){ sendAll(); S.signers.forEach((s,i)=>signed(i)); S.doneAt=new Date().toISOString(); save(); render(); }
+</script>
+<script src="assets/notif.js?v=47074d00"></script>
+<script src="assets/nav.js?v=47074d00"></script>
+  <script src="assets/ui.js?v=47074d00"></script>
+</body>
+</html>
