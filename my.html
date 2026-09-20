@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Dashboard — Zentra Realty</title>
+<link rel="stylesheet" href="assets/agency.css?v=e78e7d8c">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="side"></aside>
+  <main class="main">
+    <div class="ctxbar">
+      <span class="ctxbar-t">Signed in as <b>Aisy Karim</b> · Negotiator · REN 30412</span>
+      <span class="ctxbar-r"><button class="btn ghost sm" onclick="alert('Language: English (US) / Bahasa Malaysia — the switch applies to every screen, letters stay bilingual.')">EN / BM</button>
+      <button class="btn ghost sm" onclick="alert('Income statement (PDF) — your own earnings only, generated from the payout ledger. Useful for bank loan applications. It is never issued with another agent\\'s figures on it.')">Download income statement</button></span>
+    </div>
+
+    <h1 class="h1">My Dashboard</h1>
+    <p class="lead">Four questions, answered without asking anyone: where is my level, why is my claim held, when do I get paid, and what do I do today.</p>
+
+    <div class="grid g4" style="margin-top:18px">
+      <div class="kpi"><div class="lab">Closed production (YTD)</div><div class="v">RM 1.24 m</div><div class="trend up">+RM 310k vs last quarter</div></div>
+      <div class="kpi"><div class="lab">Commission earned (MTD)</div><div class="v">RM 6,800.00</div><div class="trend">3 deals in progress</div></div>
+      <div class="kpi"><div class="lab">Waiting for approval</div><div class="v">RM 2,120.00</div><div class="trend">Expected within 3 working days</div></div>
+      <div class="kpi"><div class="lab">Paid to me (YTD)</div><div class="v">RM 41,860.00</div><div class="trend up">Last payment 12 Sep 2026</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Where my level stands</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div class="h3">L2 · Negotiator · 60%</div>
+        <p class="small muted">Next: <b>L3 · Negotiator · 70%</b> at <b>RM 1.50 m</b> closed production (agency fee basis, not transaction value).</p>
+        <div class="pbar"><span style="width:83%"></span></div>
+        <p class="small muted" style="margin:8px 0 0">RM 1.24 m of RM 1.50 m — <b>RM 260k to go</b></p>
+        <table class="tbl" style="margin-top:12px">
+          <tr><th>Component</th><th class="num">%</th><th>Paid from</th></tr>
+          <tr><td>Declared commission</td><td class="num">40%</td><td>Professional fee (capped by law)</td></tr>
+          <tr><td>Marketing reward — my level</td><td class="num">20%</td><td>Agency's own share</td></tr>
+          <tr><td><b>Total to me</b></td><td class="num"><b>60%</b></td><td>Rises with level, never the 40%</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="h3">What moves me up</div>
+        <ul class="check">
+          <li><span><b>RM 1.50 m closed production</b> — deals completed, stamped and paid, not letters signed</span></li>
+          <li><span><b>Deals that count</b>: subsale, rental and project sales all count; the measure is the agency fee, so one big-ticket deal with a small fee does not skip a level</span></li>
+          <li><span><b>Nothing else</b> — bringing in new agents never raises a level and never pays a sen. That line is in the rules for a reason</span></li>
+        </ul>
+        <p class="small muted" style="margin-bottom:0">Where this stands: RM 260k left, roughly 2 rental deals plus 1 subsale at your current average.</p>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> My deals — and what is blocking each one</h2>
+    <div class="card" style="padding:0;overflow:auto">
+      <table class="tbl">
+        <tr><th>Unit</th><th>Client side</th><th>Stage</th><th>Blocked by</th><th>Next step</th><th class="num">My share when it pays</th></tr>
+        <tr><td class="mono">632001</td><td>Tenant (rental RM2,300)</td><td>Awaiting tenant signature</td><td class="muted">Tenant — link expires in 4 days</td><td>Chase by WhatsApp; link auto-revokes 20 Sep</td><td class="num">RM 1,380.00</td></tr>
+        <tr><td class="mono">631977</td><td>Owner (sale, RM 780,000)</td><td>Letter of appointment signed</td><td class="muted">Waiting for the owner to confirm the asking price</td><td>Confirm price, then issue the confirmation letter</td><td class="num">RM 9,360.00</td></tr>
+        <tr><td class="mono">631045</td><td>Landlord (rental RM1,250)</td><td>Tenancy agreement stamped</td><td class="muted">Owner's solicitor — stamp (MyTax e-Duti Setem)</td><td>Nothing on you — waiting on the portal</td><td class="num">RM 1,062.50</td></tr>
+        <tr><td class="mono">630812</td><td>Landlord (rental RM1,900)</td><td>Paid (12 Sep 2026)</td><td class="muted">—</td><td>Closed</td><td class="num">RM 1,596.00</td></tr>
+      </table>
+    </div>
+    <p class="small muted">Nothing is marked "in progress" without saying who is holding it up. If the block is on the client or the solicitor, the system says so — it never puts the delay on you.</p>
+
+    <h2 class="sec"><span class="num">3</span> When I get paid — and why, if I am not</h2>
+    <div class="card" style="padding:0;overflow:auto">
+      <table class="tbl">
+        <tr><th>Document</th><th>Unit</th><th class="num">Amount to me</th><th>Stage</th><th>Reason if held / expected date</th></tr>
+        <tr><td class="mono">ZTH-PVS-000101</td><td class="mono">631045</td><td class="num">RM 1,062.50</td><td><span class="pill warn">AWAITING PAYMENT</span></td><td>Waiting on MyTax e-Duti Setem confirmation · expected <b>22 Sep 2026</b></td></tr>
+        <tr><td class="mono">ZTH-PVS-000098</td><td class="mono">630812</td><td class="num">RM 1,596.00</td><td><span class="pill ok">PAID</span></td><td>Paid 12 Sep 2026 · ref PVS-000098</td></tr>
+        <tr><td class="mono">ZTH-CLM-000104</td><td class="mono">632001</td><td class="num">RM 1,380.00</td><td><span class="pill info">SUBMITTED</span></td><td>Ops review · expected within 3 working days</td></tr>
+        <tr><td class="mono">ZTH-CLM-000099</td><td class="mono">631977</td><td class="num">RM 9,360.00</td><td><span class="pill bad">HELD</span></td><td>REN renewal receipt not yet uploaded — <b>your action</b> · expected 18 Sep 2026 once uploaded</td></tr>
+      </table>
+    </div>
+    <p class="small muted"><b>How to read a hold:</b> a gate checks whether the work has been <i>earned</i>. Once it qualifies, the money is due and the system always shows the reason plus the date it is expected to release. A hold with no expected date escalates to the Agency Head automatically after 30 days. <a href="#" onclick="alert('Appeal raised: your claim ZTH-CLM-000099 was sent to the Agency Head with the ledger, the documents and the milestone timeline attached. You will get a decision within 3 working days - and you can see the same record they see.');return false;">Something wrong with a figure? Appeal it here →</a></p>
+
+    <h2 class="sec"><span class="num">4</span> What I do today</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div class="h3">Your tasks (3)</div>
+        <ul class="check">
+          <li><span><b>Upload your REN renewal receipt</b> — blocks RM 9,360.00 · due 18 Sep 2026</span></li>
+          <li><span><b>Chase the tenant on 632001</b> — signing link expires in 4 days, then it must be reissued</span></li>
+          <li><span><b>Confirm the asking price on 631977</b> — the confirmation letter cannot be generated without it</span></li>
+        </ul>
+        <p class="small muted" style="margin-bottom:0"><a href="onboard.html">Open onboarding &amp; profile →</a></p>
+      </div>
+      <div class="card">
+        <div class="h3">My documents (recent)</div>
+        <table class="tbl">
+          <tr><th>ID</th><th>Type</th><th>Status</th></tr>
+          <tr><td class="mono">ZTH-LOCR-000118</td><td>Confirmation (rental)</td><td><span class="pill ok">SIGNED</span></td></tr>
+          <tr><td class="mono">ZTH-LOAR-000101</td><td>Appointment (rental)</td><td><span class="pill ok">SIGNED</span></td></tr>
+          <tr><td class="mono">ZTH-LOAS-000204</td><td>Appointment (sale)</td><td><span class="pill info">SENT</span></td></tr>
+        </table>
+        <p class="small muted" style="margin-bottom:0"><a href="search.html">All my records →</a></p>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">5</span> My team, my referrer, my override</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div class="h3">Who introduced me, who I lead</div>
+        <p class="small">Introduced by <b>Faizal Omar</b> (L4 · Senior negotiator) — recorded for guidance and support, <b>not</b> as a payment right.</p>
+        <table class="tbl">
+          <tr><th>In my team</th><th>Level</th><th class="num">Group production</th></tr>
+          <tr><td>2 negotiators</td><td>L1 · L2</td><td class="num">RM 1.02 m</td></tr>
+        </table>
+        <p class="small muted" style="margin-bottom:0">You see the group total only. Individual earnings of the people you lead are never shown to anyone, including their leader.</p>
+      </div>
+      <div class="card">
+        <div class="h3">Override — only after it is actually earned</div>
+        <table class="tbl">
+          <tr><th>Source deal</th><th>Status</th><th class="num">Override</th></tr>
+          <tr><td class="mono">630812</td><td><span class="pill ok">EARNED — PAID</span></td><td class="num">RM 95.00</td></tr>
+          <tr><td class="mono">631045</td><td><span class="pill warn">NOT YET EARNED</span></td><td class="num">RM 63.75 <span class="muted">(pending stamping)</span></td></tr>
+        </table>
+        <p class="small muted" style="margin-bottom:0">Override is the gap between your level and your leader's level, capped (L5 15%, L6 10%) and paid from the agency's share — never out of the negotiator's commission. You need L5 to receive any override.</p>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">6</span> My own goal (separate from the ladder)</h2>
+    <div class="card">
+      <div class="flex"><div class="h3" style="margin:0">Personal target — RM 9,000 commission this month</div>
+        <button class="btn ghost sm" onclick="prompt('New monthly target (RM):','9000')">Change</button></div>
+      <div class="pbar" style="margin-top:12px"><span style="width:76%"></span></div>
+      <p class="small muted" style="margin-bottom:0">RM 6,800.00 of RM 9,000.00 — this bar is yours. It has no effect on your level, your rank or anyone's earnings.</p>
+    </div>
+
+    <p class="small muted" style="margin-top:22px">Privacy: your earnings are visible to you, to the Finance role that pays you, and to the Agency Head — never to your peers and never to the agents you lead. What your leader sees about you is group totals and production, not your payslips.</p>
+  </main>
+</div>
+<script src="assets/levels.js?v=e78e7d8c"></script>
+<script src="assets/nav.js?v=e78e7d8c"></script>
+<script src="assets/notif.js?v=e78e7d8c"></script>
+<script src="assets/ui.js?v=e78e7d8c"></script>
+<script src="assets/agency.js?v=e78e7d8c"></script>
+</body>
+</html>
