@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Deals &amp; documents | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=47074d00">
+<style>
+ .fbar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end}
+ @media (max-width:980px){ .fbar{grid-template-columns:1fr 1fr} }
+ .fbar label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:5px;font-weight:650}
+ .res{font-size:12.5px;color:var(--ink-3)}
+ .tbl td .sub2{display:block;font-size:11px;color:var(--ink-3)}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Deals &amp; documents</h1>
+        <p>Every transaction, letter, receipt and voucher in one searchable place. One deal = one chain of numbered documents, so anything can be found from any end.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP · SAMPLE DATA</span>
+    </div>
+
+    <div class="card">
+      <div class="fbar">
+        <div><label>Search</label><input id="q" class="i" placeholder="Doc ID, property, party, agent…"></div>
+        <div><label>Document type</label><select id="ftype" class="i"><option value="">All types</option></select></div>
+        <div><label>Status</label><select id="fstat" class="i"><option value="">Any status</option></select></div>
+        <div><label>Month</label><select id="fmonth" class="i"><option value="">Any month</option></select></div>
+        <div style="display:flex;gap:8px"><button class="btn ghost" id="reset">Reset</button><button class="btn gold" id="csv">Export CSV</button></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 6px">
+        <span class="res" id="count"></span>
+        <span class="small muted">Click a column heading to sort</span>
+      </div>
+      <div style="overflow:auto">
+        <table class="tbl" id="tbl">
+          <thead><tr>
+            <th data-k="id">Document</th><th data-k="type">Type</th><th data-k="property">Property</th>
+            <th data-k="party">Party</th><th data-k="agent">Negotiator</th>
+            <th data-k="date" class="num">Date</th><th data-k="amount" class="num">Amount</th><th data-k="status">Status</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> What the search is for</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">From any end</h3><p class="small muted" style="margin-bottom:0">Start with the property, the owner&rsquo;s name, the voucher number or the negotiator &mdash; the chain links them all.</p></div>
+      <div class="card"><h3 style="margin-top:0">Audit in seconds</h3><p class="small muted" style="margin-bottom:0">Filter by month, export CSV, hand it to the accountant or the auditor without retyping anything.</p></div>
+      <div class="card"><h3 style="margin-top:0">Nothing disappears</h3><p class="small muted" style="margin-bottom:0">Cancelled and expired records stay visible with their status &mdash; a gap in the record is a risk, not a tidy-up.</p></div>
+    </div>
+  </main>
+</div>
+<script src="assets/notif.js?v=47074d00"></script>
+<script src="assets/nav.js?v=47074d00"></script>
+<script src="assets/ui.js?v=47074d00"></script>
+<script>
+const R = [
+ {id:'ZTH-LOAR-000101', type:'Appointment (rent)', property:'18-3, Jalan Seri Harmoni 2/5, Kajang', party:'Noraini binti Hassan', agent:'Nadia Rahman', date:'2026-09-02', amount:1100, status:'Signed'},
+ {id:'ZTH-LOCR-000101', type:'Confirmation (rent)', property:'18-3, Jalan Seri Harmoni 2/5, Kajang', party:'Ahmad Faizal bin Osman', agent:'Nadia Rahman', date:'2026-09-08', amount:1188, status:'Signed'},
+ {id:'ZTH-TA-000101', type:'Tenancy agreement', property:'18-3, Jalan Seri Harmoni 2/5, Kajang', party:'Noraini binti Hassan / Ahmad Faizal', agent:'Nadia Rahman', date:'2026-09-08', amount:0, status:'Stamped'},
+ {id:'ZTH-INV-2026-000101', type:'Tax invoice', property:'18-3, Jalan Seri Harmoni 2/5, Kajang', party:'Noraini binti Hassan', agent:'Nadia Rahman', date:'2026-09-10', amount:1188, status:'Paid'},
+ {id:'ZTH-OR-2026-000101', type:'Official receipt', property:'18-3, Jalan Seri Harmoni 2/5, Kajang', party:'Noraini binti Hassan', agent:'Nadia Rahman', date:'2026-09-12', amount:1188, status:'Issued'},
+ {id:'ZTH-CLM-000102', type:'Commission claim', property:'12-1, Jalan Harmoni 3/7, Bangi', party:'Faizal Omar', agent:'Faizal Omar', date:'2026-09-11', amount:7680, status:'Approved'},
+ {id:'ZTH-PVS-000102', type:'Payout voucher', property:'12-1, Jalan Harmoni 3/7, Bangi', party:'Faizal Omar', agent:'Faizal Omar', date:'2026-09-14', amount:6528, status:'Released'},
+ {id:'ZTH-LOAS-000103', type:'Appointment (sale)', property:'B-07-03, Ehsan Residence, Bangi', party:'Azman bin Yusof', agent:'Aisy Karim', date:'2026-09-05', amount:0, status:'Awaiting signature'},
+ {id:'ZTH-LOCS-000103', type:'Confirmation (sale)', property:'B-07-03, Ehsan Residence, Bangi', party:'Lim Wei Shen', agent:'Aisy Karim', date:'2026-09-12', amount:19200, status:'Awaiting signature'},
+ {id:'ZTH-CLM-000103', type:'Commission claim', property:'B-07-03, Ehsan Residence, Bangi', party:'Aisy Karim', agent:'Aisy Karim', date:'2026-09-13', amount:19200, status:'Submitted'},
+ {id:'ZTH-LOAR-000104', type:'Appointment (rent)', property:'A-12-05, Vista Harmoni, Seri Kembangan', party:'Siti Aishah binti Rahim', agent:'Siti Nurhaliza binti Aziz', date:'2026-08-28', amount:1800, status:'Signed'},
+ {id:'ZTH-LOCR-000104', type:'Confirmation (rent)', property:'A-12-05, Vista Harmoni, Seri Kembangan', party:'Tan Chee Keong', agent:'Siti Nurhaliza binti Aziz', date:'2026-09-01', amount:2052, status:'Signed'},
+ {id:'ZTH-PVS-000104', type:'Payout voucher', property:'A-12-05, Vista Harmoni, Seri Kembangan', party:'Siti Nurhaliza binti Aziz', agent:'Siti Nurhaliza binti Aziz', date:'2026-09-06', amount:1744, status:'Released'},
+ {id:'ZTH-LOAR-000105', type:'Appointment (rent)', property:'C-03-01, Harmoni Suites, Kajang', party:'Rohana binti Ismail', agent:'Ameer Haziq', date:'2026-08-20', amount:1500, status:'Expired'},
+ {id:'ZTH-LOAS-000106', type:'Appointment (sale)', property:'Lot 4471, Jalan Ladang, Semenyih', party:'Koperasi Ladang Semenyih', agent:'Ameer Haziq', date:'2026-08-14', amount:0, status:'Cancelled'},
+ {id:'ZTH-LOCR-000107', type:'Confirmation (rent)', property:'28, Jalan Damai 4, Bangi', party:'Kumar Rajendran', agent:'Nadia Rahman', date:'2026-08-11', amount:2268, status:'Signed'},
+ {id:'ZTH-INV-2026-000107', type:'Tax invoice', property:'28, Jalan Damai 4, Bangi', party:'Kumar Rajendran', agent:'Nadia Rahman', date:'2026-08-13', amount:2268, status:'Paid'},
+ {id:'ZTH-LOCR-000108', type:'Confirmation (rent)', property:'D-09-11, Harmoni Heights, Putrajaya', party:'Nurul Izzah binti Kamal', agent:'Faizal Omar', date:'2026-07-30', amount:2916, status:'Signed'},
+ {id:'ZTH-TA-000108', type:'Tenancy agreement', property:'D-09-11, Harmoni Heights, Putrajaya', party:'Nurul Izzah binti Kamal', agent:'Faizal Omar', date:'2026-08-02', amount:0, status:'Awaiting stamping'},
+ {id:'ZTH-CLM-000108', type:'Commission claim', property:'D-09-11, Harmoni Heights, Putrajaya', party:'Faizal Omar', agent:'Faizal Omar', date:'2026-08-04', amount:4860, status:'Paid'},
+ {id:'ZTH-PVS-000108', type:'Payout voucher', property:'D-09-11, Harmoni Heights, Putrajaya', party:'Faizal Omar', agent:'Faizal Omar', date:'2026-08-06', amount:4131, status:'Released'},
+ {id:'ZTH-LOAS-000109', type:'Appointment (sale)', property:'12-9, Jalan Bukit Indah, Kajang', party:'Goh Siew Lan', agent:'Nadia Rahman', date:'2026-07-22', amount:0, status:'Signed'},
+ {id:'ZTH-LOCS-000109', type:'Confirmation (sale)', property:'12-9, Jalan Bukit Indah, Kajang', party:'Ong Beng Huat', agent:'Nadia Rahman', date:'2026-07-29', amount:26400, status:'Signed'},
+ {id:'ZTH-CLM-000109', type:'Commission claim', property:'12-9, Jalan Bukit Indah, Kajang', party:'Nadia Rahman', agent:'Nadia Rahman', date:'2026-08-01', amount:26400, status:'Paid'}
+];
+const el=id=>document.getElementById(id);
+const money=n=>n>0?('RM'+n.toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2})):'—';
+let sortK='date', sortDir=-1;
+const uniq=(k)=>[...new Set(R.map(r=>r[k]))].sort();
+uniq('type').forEach(t=>el('ftype').insertAdjacentHTML('beforeend',`<option>${t}</option>`));
+uniq('status').forEach(t=>el('fstat').insertAdjacentHTML('beforeend',`<option>${t}</option>`));
+[...new Set(R.map(r=>r.date.slice(0,7)))].sort().reverse().forEach(m=>{
+  const lbl=new Date(m+'-01').toLocaleString('en-US',{month:'long',year:'numeric'});
+  el('fmonth').insertAdjacentHTML('beforeend',`<option value="${m}">${lbl}</option>`);
+});
+function rows(){
+  const q=el('q').value.trim().toLowerCase();
+  let out=R.filter(r=>{
+    if(q && !(r.id+r.property+r.party+r.agent).toLowerCase().includes(q)) return false;
+    if(el('ftype').value && r.type!==el('ftype').value) return false;
+    if(el('fstat').value && r.status!==el('fstat').value) return false;
+    if(el('fmonth').value && !r.date.startsWith(el('fmonth').value)) return false;
+    return true;
+  });
+  out.sort((a,b)=>{ const x=a[sortK],y=b[sortK];
+    if(typeof x==='number') return (x-y)*sortDir;
+    return String(x).localeCompare(String(y))*sortDir; });
+  return out;
+}
+function pillClass(s){
+  if(/Signed|Paid|Released|Stamped|Issued/.test(s)) return 'money';
+  if(/Awaiting|Submitted/.test(s)) return 'stamping';
+  if(/Expired|Cancelled/.test(s)) return 'gray';
+  return 'signature';
+}
+function draw(){
+  const out=rows();
+  el('count').textContent = `${out.length} of ${R.length} records` + (out.length? ` · total RM${out.reduce((a,b)=>a+b.amount,0).toLocaleString('en-MY',{minimumFractionDigits:2})}`:'');
+  el('tbl').querySelector('tbody').innerHTML = out.map(r=>`
+    <tr>
+      <td><b>${r.id}</b></td>
+      <td>${r.type}<span class="sub2">${r.status==='Awaiting stamping'?'stamping window open':''}</span></td>
+      <td>${r.property}</td>
+      <td>${r.party}</td>
+      <td>${r.agent}</td>
+      <td class="num">${r.date}</td>
+      <td class="num">${money(r.amount)}</td>
+      <td><span class="pill ${pillClass(r.status)}">${r.status}</span></td>
+    </tr>`).join('') || '<tr><td colspan="8" class="muted" style="padding:14px">No records match those filters.</td></tr>';
+}
+document.querySelectorAll('#tbl th').forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k; if(!k) return;
+  if(sortK===k) sortDir*=-1; else { sortK=k; sortDir=-1; }
+  draw();
+});
+['q','ftype','fstat','fmonth'].forEach(i=>{el(i).oninput=draw; el(i).onchange=draw;});
+el('reset').onclick=()=>{ ['q','ftype','fstat','fmonth'].forEach(i=>el(i).value=''); draw(); };
+el('csv').onclick=()=>{
+  const out=rows();
+  const head=['Document','Type','Property','Party','Negotiator','Date','Amount','Status'];
+  const csv=[head.join(',')].concat(out.map(r=>[r.id,r.type,r.property,r.party,r.agent,r.date,r.amount,r.status].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','))).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='zentra-realty-records.csv'; a.click();
+};
+draw();
+</script>
+</body>
+</html>
