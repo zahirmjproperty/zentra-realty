@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Agent Registry | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=e78e7d8c">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Agent registry</h1>
+        <p>Every negotiator with the records the agency must hold: REN tag, insurance, level, team, and payout status.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE · SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Active</div><div class="val">12</div><div class="sub">2 pending onboarding</div></div>
+      <div class="kpi warn"><div class="lab">REN tag expiring &lt; 60 days</div><div class="val">2</div><div class="sub">reminder sent to leader</div></div>
+      <div class="kpi warn"><div class="lab">PI insurance expiring</div><div class="val">1</div><div class="sub">blocks payout release</div></div>
+      <div class="kpi"><div class="lab">Average level</div><div class="val">68%</div><div class="sub">commission + Marketing Bonus</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Roster</h2>
+    <div class="card wrap-tbl">
+      <table class="tbl">
+        <tr>
+          <th>Agent</th><th>ID</th><th>REN tag</th><th>PI insurance</th>
+          <th class="num">Level</th><th>Team leader</th><th>Status</th>
+        </tr>
+        <tr><td><b>A. Rahman</b><br><span class="small muted">Group Leader</span></td><td class="mono">AG-001</td><td>REN 12345 <span class="pill green">valid</span></td><td>31 Mar 2027</td><td class="num"><b>90%</b></td><td>—</td><td><span class="pill green">Active</span></td></tr>
+        <tr><td><b>S. Tan</b><br><span class="small muted">Team Leader</span></td><td class="mono">AG-002</td><td>REN 20488 <span class="pill green">valid</span></td><td>31 Mar 2027</td><td class="num"><b>85%</b></td><td>A. Rahman</td><td><span class="pill green">Active</span></td></tr>
+        <tr><td><b>N. Iskandar</b><br><span class="small muted">Negotiator</span></td><td class="mono">AG-003</td><td>REN 31102 <span class="pill amber">expires 42d</span></td><td>31 Mar 2027</td><td class="num">75%</td><td>S. Tan</td><td><span class="pill green">Active</span></td></tr>
+        <tr><td><b>M. Faiz</b><br><span class="small muted">Negotiator</span></td><td class="mono">AG-004</td><td>REN 28910 <span class="pill green">valid</span></td><td>31 Mar 2027</td><td class="num">70%</td><td>S. Tan</td><td><span class="pill green">Active</span></td></tr>
+        <tr><td><b>J. Lim</b><br><span class="small muted">Negotiator</span></td><td class="mono">AG-005</td><td>REN 33447 <span class="pill amber">expires 55d</span></td><td class="mono">15 Oct 2026 <span class="pill red">38d</span></td><td class="num">70%</td><td>S. Tan</td><td><span class="pill amber">Payout hold</span></td></tr>
+        <tr><td><b>P. Devi</b><br><span class="small muted">Team Leader</span></td><td class="mono">AG-006</td><td>REN 19875 <span class="pill green">valid</span></td><td>31 Mar 2027</td><td class="num"><b>85%</b></td><td>A. Rahman</td><td><span class="pill green">Active</span></td></tr>
+        <tr><td><b>H. Zulkifli</b><br><span class="small muted">Negotiator</span></td><td class="mono">AG-007</td><td>REN 35120 <span class="pill green">valid</span></td><td>31 Mar 2027</td><td class="num">60%</td><td>P. Devi</td><td><span class="pill green">Active</span></td></tr>
+        <tr><td><b>L. Wong</b><br><span class="small muted">Negotiator (new)</span></td><td class="mono">AG-008</td><td class="mono">pending <span class="pill gray">submitted</span></td><td class="mono">pending</td><td class="num">50%</td><td>P. Devi</td><td><span class="pill violet">Onboarding</span></td></tr>
+      </table>
+      <p class="small muted" style="margin-bottom:0">4 more negotiators in the second group (AG-009 … AG-012).</p>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Agent file — sample</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div style="display:flex;gap:14px;align-items:center">
+          <div class="mark" style="width:46px;height:46px;border-radius:12px;background:var(--navy);color:#f5f1e4;display:grid;place-items:center;font-weight:700">ST</div>
+          <div><h3 style="margin:0">S. Tan</h3><p class="small muted" style="margin:0">Team Leader · under A. Rahman · joined Mar 2024</p></div>
+          <span class="pill green" style="margin-left:auto">Active</span>
+        </div>
+        <div class="hr"></div>
+        <table class="tbl">
+          <tr><td class="muted">Level</td><td class="num"><b>85%</b> <span class="small muted">(commission 40% + Marketing Bonus 45%)</span></td></tr>
+          <tr><td class="muted">Leader override</td><td class="num">15% of fee, shared with group leader</td></tr>
+          <tr><td class="muted">REN tag</td><td class="num">REN 20488 · expires 31 Aug 2027</td></tr>
+          <tr><td class="muted">PI insurance</td><td class="num">covered to 31 Mar 2027</td></tr>
+          <tr><td class="muted">YTD deals</td><td class="num">14 <span class="small muted">(9 subsale · 5 project)</span></td></tr>
+          <tr><td class="muted">YTD paid</td><td class="num">RM182,450.00</td></tr>
+          <tr><td class="muted">Downline</td><td class="num">3 negotiators <span class="small muted">(AG-003, AG-004, AG-005)</span></td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Onboarding checklist — gates before first payout</h3>
+        <ul class="check">
+          <li><span class="ok">✓</span><div>Signed agency agreement (states commission ≤ 40% and Marketing Bonus terms)</div></li>
+          <li><span class="ok">✓</span><div>REN tag registered / renewed with the Board</div></li>
+          <li><span class="ok">✓</span><div>Professional indemnity insurance in force</div></li>
+          <li><span class="ok">✓</span><div>Bank details verified against ID</div></li>
+          <li><span class="no">✕</span><div>Tax information captured (self-billed e-invoice fields)</div></li>
+          <li><span class="no">✕</span><div>PDPA consent + code of conduct acknowledged</div></li>
+        </ul>
+        <div class="note" style="margin-top:12px">Payouts are hard-blocked while any gate is open — the engine will not release a voucher (this is how the "Payout hold" status on AG-005 works).</div>
+      </div>
+    </div>
+
+    <p class="foot-note">Zentra Realty prototype · Agent registry screen · sample data</p>
+  </main>
+</div>
+<script src="assets/agency.js?v=e78e7d8c"></script>
+<script src="assets/levels.js?v=e78e7d8c"></script>
+<script src="assets/notif.js?v=e78e7d8c"></script>
+<script src="assets/nav.js?v=e78e7d8c"></script>
+  <script src="assets/ui.js?v=e78e7d8c"></script>
+</body>
+</html>
