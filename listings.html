@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Listing Monitor | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=d206f7d3">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<style>
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tools input[type=search]{padding:8px 12px;border-radius:8px;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);font:inherit;font-size:13.5px;min-width:240px}
+.tools input[type=search]:focus{outline:none;border-color:var(--gold)}
+.tools .count{margin-left:auto;font-size:12.5px;color:var(--ink-3)}
+.lrow{cursor:pointer}
+.lrow:hover td{background:var(--gold-soft)}
+.thumb{width:46px;height:34px;object-fit:cover;border-radius:6px;border:1px solid var(--line);display:block}
+.lid{font-weight:700;font-size:13px}
+.lsub{font-size:11.5px;color:var(--ink-3)}
+.bar{display:flex;gap:3px;align-items:center}
+.bar i{display:block;width:9px;height:7px;border-radius:2px;background:rgba(148,163,184,.28)}
+.bar i.ok{background:var(--green)}
+.bar i.wait{background:var(--amber)}
+.bar i.no{background:rgba(148,163,184,.28)}
+.chn{font-size:11.5px;color:var(--ink-3);margin-left:6px}
+.empty{padding:26px;text-align:center;color:var(--ink-3);font-size:13px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Listing monitor</h1>
+        <p>Every listing the agency holds, with its business status and how far its marketing has actually got. Click a row for the full history.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <h2 class="sec"><span class="num">1</span> All listings</h2>
+    <div class="card">
+      <div class="tools">
+        <input type="search" id="q" placeholder="Search id, title, agent or area">
+        <button class="btn ghost fil on" data-f="all">All</button>
+        <button class="btn ghost fil" data-f="active">Live</button>
+        <button class="btn ghost fil" data-f="offer">Under offer</button>
+        <button class="btn ghost fil" data-f="renewal">Renewal due</button>
+        <button class="btn ghost fil" data-f="draft">Draft</button>
+        <button class="btn ghost fil" data-f="sold">Sold</button>
+        <span class="count" id="count"></span>
+      </div>
+      <table class="tbl">
+        <thead><tr>
+          <th>Listing</th><th>Agent</th><th>Area and type</th><th class="num">Price</th>
+          <th>Status</th><th>Channel coverage</th><th>Zentra Push</th><th>Last activity</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden>No listing matches that filter.</div>
+      <p class="small" style="color:var(--ink-3);margin:14px 0 0">
+        Channel coverage counts placements that are actually live; the bar shows live (green), queued or awaiting a human (amber) and not yet placed (grey).
+        Zentra Push column shows the mirror reference when the agent holds an account on both systems.
+      </p>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Status meanings</h2>
+    <div class="grid g3" id="legend"></div>
+
+  </main>
+</div>
+<script src="assets/realty-listings.js?v=d206f7d3"></script>
+<script src="assets/nav.js?v=d206f7d3"></script>
+<script>
+const R = window.ZR, el = id => document.getElementById(id);
+const L = R.ZR_LISTINGS;
+const money = n => 'RM' + n.toLocaleString('en-US');
+let filter = 'all', q = '';
+
+function lastTs(id){
+  const h = R.historyOf(id);
+  return h.length ? h[0].ts : '';
+}
+function drawKpis(){
+  const n = v => L.filter(l => l.status === v).length;
+  el('kpis').innerHTML = [
+    ['All listings', L.length, n('active') + ' live on the market'],
+    ['Under offer', n('offer'), 'adverts stay up until the SPA'],
+    ['Sold', n('sold'), 'adverts withdrawn automatically'],
+    ['Renewal due', n('renewal') + n('draft'), n('renewal') + ' lapsed adverts, ' + n('draft') + ' draft']
+  ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
+}
+
+function coverage(l){
+  const states = Object.values(l.channels).map(c => c[0]);
+  const ok = states.filter(s => s === 'live' || s === 'native').length;
+  const wait = states.filter(s => s === 'assist' || s === 'queued' || s === 'submitted').length;
+  if (!l.placed) return '<span class="small" style="color:var(--ink-3)">Not published yet</span>';
+  const total = Math.max(l.placed, 6);
+  let bar = '';
+  for (let i = 0; i < total; i++) bar += '<i class="' + (i < ok ? 'ok' : (i < ok + wait ? 'wait' : 'no')) + '"></i>';
+  const st = (l.stale || []).length;
+  return '<div class="bar">' + bar + '</div><span class="chn">' + ok + ' live &middot; ' + wait + ' pending' + (st ? ' &middot; <b style="color:var(--amber)">' + st + ' out of date</b>' : '') + '</span>';
+}
+
+function drawRows(){
+  const t = q.trim().toLowerCase();
+  let list = L.filter(l => filter === 'all' || l.status === filter);
+  if (t) list = list.filter(l => (l.id + ' ' + l.title + ' ' + l.agent + ' ' + l.location + ' ' + l.type).toLowerCase().includes(t));
+  el('rows').innerHTML = list.map(l =>
+    '<tr class="lrow" data-id="' + l.id + '">'
+    + '<td><div style="display:flex;gap:10px;align-items:center">'
+    + (l.hero ? '<img class="thumb" src="' + l.hero + '" alt="">' : '')
+    + '<div><div class="lid">' + l.id + '</div><div class="lsub">' + l.title + '</div></div></div></td>'
+    + '<td class="small">' + l.agent + '</td>'
+    + '<td class="small">' + l.location + '<br><span class="lsub">' + l.type + '</span></td>'
+    + '<td class="num">' + money(l.price) + '</td>'
+    + '<td><span class="chip ' + R.stCls(l.status) + '">' + R.stLabel(l.status) + '</span></td>'
+    + '<td>' + coverage(l) + '</td>'
+    + '<td class="small">' + (l.realty && l.realty.mirrored
+        ? '<span class="chip st-native">' + l.realty.id + '</span>'
+        : '<span class="small" style="color:var(--ink-3)">No account</span>') + '</td>'
+    + '<td class="small">' + (lastTs(l.id) || '&mdash;') + '</td></tr>').join('');
+  el('empty').hidden = list.length > 0;
+  el('count').textContent = list.length + ' of ' + L.length + ' shown';
+  document.querySelectorAll('.lrow').forEach(r => {
+    r.onclick = () => { location.href = 'listing.html?id=' + r.dataset.id; };
+  });
+}
+
+document.querySelectorAll('.fil').forEach(b => b.onclick = () => {
+  filter = b.dataset.f;
+  document.querySelectorAll('.fil').forEach(x => x.classList.toggle('on', x === b));
+  drawRows();
+});
+el('q').oninput = e => { q = e.target.value; drawRows(); };
+
+const NOTES = {
+  active:  'On the market and advertised. Renewals are tracked per channel so nothing quietly lapses.',
+  offer:   'An offer or booking is in. Adverts stay live until the SPA is signed, then withdraw everywhere at once.',
+  sold:    'Completed. Every advert is withdrawn within the hour and the placement history is kept for the commission file.',
+  renewal: 'The portal adverts lapsed; the listing is still available. An assist session is scheduled to republish.',
+  draft:   'Started but never published. Nothing is on any channel yet.'
+};
+el('legend').innerHTML = R.ZR_STATUS_ORDER.filter(k => NOTES[k]).map(k =>
+  '<div class="card"><span class="chip ' + R.stCls(k) + '">' + R.stLabel(k) + '</span>'
+  + '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:10px 0 0">' + NOTES[k] + '</p></div>').join('');
+
+drawKpis(); drawRows();
+</script>
+</body>
+</html>
