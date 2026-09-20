@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Commission Engine | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=e4a08bea">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Commission engine</h1>
+        <p>Type a professional fee and a level. The engine splits it into the <b>declared commission</b> (hard cap 40%) and the <b>Marketing Bonus</b> paid from the agency share — then issues both vouchers.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE · SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g2" id="calcOut">
+      <div class="card">
+        <h3 style="margin-top:0">Deal input</h3>
+        <div class="chips" style="margin-bottom:14px">
+          <button class="chip on" data-preset="1018.52,85,15,40">Zahir's rental case · commission base RM1,018.52 (fee RM1,100 + 8% SST)</button>
+          <button class="chip" data-preset="19200,85,15,40">Subsale · agency commission RM19,200 · level 85% &#8594; paid RM16,320</button>
+          <button class="chip" data-preset="30000,70,15,40">Subsale · commission base RM30,000 · level 70%</button>
+          <button class="chip" data-preset="8000,50,15,40">New agent · commission base RM8,000 · level 50%</button>
+        </div>
+
+        <div class="grid g2" style="gap:12px">
+          <div class="field"><label class="f" for="fee">Commission base — fee net of SST (RM)</label><input class="i" id="fee" type="number" step="0.01" value="1018.52"><div class="hint">Fee invoiced to the client, excluding SST. IQI's rental case: fee RM1,100 + RM88 SST &rarr; base RM1,018.52.</div></div>
+          <div class="field"><label class="f" for="commPct">Declared commission (%)</label><input class="i" id="commPct" type="number" step="0.5" value="40"><div class="hint">Capped by the engine at 40%.</div></div>
+          <div class="field"><label class="f" for="levelPct">Agent level (%)</label><input class="i" id="levelPct" type="number" step="0.5" value="85"><div class="hint">Commission + Marketing Bonus combined.</div></div>
+          <div class="field"><label class="f" for="leaderPct">Leader override (%)</label><input class="i" id="leaderPct" type="number" step="0.5" value="15"><div class="hint">From the agency share, paid as Marketing Bonus.</div></div>
+        </div>
+
+        <div class="hr"></div>
+        <h3 style="margin:0 0 10px">Voucher details (sample)</h3>
+        <div class="grid g2" style="gap:12px">
+          <div class="field"><label class="f" for="vno">Voucher base no.</label><input class="i" id="vno" value="1074615"></div>
+          <div class="field"><label class="f" for="vdate">Date</label><input class="i" id="vdate" value="30/06/2026"></div>
+          <div class="field"><label class="f" for="vagent">Payee</label><input class="i" id="vagent" value="ZAHIRUDDIN (AGENCY HEAD)"></div>
+          <div class="field"><label class="f" for="vunit">Unit / reference</label><input class="i" id="vunit" value="ZTH-0001"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Payout split</h3>
+        <div class="wf" id="wf"></div>
+        <div class="legend">
+          <span><i style="background:#c9a227"></i>Commission</span>
+          <span><i style="background:#a78bfa"></i>Bonus · agent</span>
+          <span><i style="background:#6bb5e0"></i>Bonus · leader</span>
+          <span><i style="background:#64748b"></i>Agency residual</span>
+        </div>
+
+        <div class="grid g2" style="gap:12px;margin-top:16px">
+          <div class="kpi blue"><div class="lab">Declared commission</div><div class="val" id="outComm">—</div><div class="sub" id="outCommPct">—</div></div>
+          <div class="kpi"><div class="lab">Marketing Bonus — agent</div><div class="val" id="outMb">—</div><div class="sub" id="outMbPct">—</div></div>
+          <div class="kpi"><div class="lab">Total to negotiator</div><div class="val" id="outAgentTotal">—</div><div class="sub" id="outAgentPct">—</div></div>
+          <div class="kpi"><div class="lab">Leader override</div><div class="val" id="outLeader">—</div><div class="sub" id="outLeaderPct">—</div></div>
+          <div class="kpi"><div class="lab">Agency residual</div><div class="val" id="outAgency">—</div><div class="sub">after commission, bonuses and override</div></div>
+          <div class="kpi warn"><div class="lab">Declared vs paid</div><div class="val" id="outDeclaredPct">—</div><div class="sub">declared commission · <span id="outPaidPct">—</span> of fee actually paid out</div></div>
+        </div>
+
+        <div class="hr"></div>
+        <h3 style="margin:0 0 8px">Milestone release (negotiator amount)</h3>
+        <table class="tbl" id="payoutTbl">
+          <tr><th>Milestone</th><th class="num">Share</th><th class="num">Amount</th></tr>
+          <tbody id="payoutRows"></tbody>
+        </table>
+        <p class="small muted" style="margin-bottom:0">The engine only releases a milestone when the matching document is attached and the agent passes the payout gates (REN tag, insurance, e-invoice data).</p>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Documents produced</h2>
+    <div class="grid g2">
+      <div class="voucher">
+        <h4>Payment voucher — <span id="v1no">PVS-1074615</span></h4>
+        <div class="co">Zentra Property Group · negotiator's commission</div>
+        <div class="small">Pay to: <b id="vAgent">—</b> · Date: <span id="v1date">—</span> · Ref: <span id="vUnit">—</span></div>
+        <table>
+          <tr><th>A/C</th><th>Description</th><th class="num">Amount (RM)</th></tr>
+          <tr><td class="mono">602-100</td><td>40% Negotiator's Commission — <span id="vUnit2">ZTH-0001</span></td><td class="num" id="v1amt">—</td></tr>
+        </table>
+        <div class="tot"><span>Total</span><span id="vTotal1">—</span></div>
+      </div>
+
+      <div class="voucher">
+        <h4>Payment voucher — <span id="v2no">PVS-1074615-1</span></h4>
+        <div class="co">Zentra Property Group · marketing account</div>
+        <div class="small">Pay to: <b id="v2Agent">—</b> · Date: <span id="v2date">—</span> · Ref: <span id="v2Unit">—</span></div>
+        <table>
+          <tr><th>A/C</th><th>Description</th><th class="num">Amount (RM)</th></tr>
+          <tr><td class="mono">602-150</td><td>Marketing Bonus — <span id="v2Unit2">ZTH-0001</span><br><span class="small muted" id="v2break">—</span></td><td class="num" id="v2amt">—</td></tr>
+        </table>
+        <div class="tot"><span>Total</span><span id="vTotal2">—</span></div>
+      </div>
+    </div>
+
+    <p class="small mono" id="roundNote" style="margin:8px 0 0">&mdash;</p>
+
+    <h2 class="sec"><span class="num">2</span> Engine checks</h2>
+    <div class="card">
+      <ul class="check" id="complianceList"></ul>
+    </div>
+
+    <p class="foot-note">Zentra Realty prototype · Commission engine · every number above is computed from your inputs<br>Sample data for review only. Rules are configurable and subject to written agency agreements and legal review.</p>
+  <p class="small muted" style="margin-top:14px">Account codes are kept separate on purpose: the capped negotiator commission (602-100) and the agency-funded marketing reward (602-150) must be distinguishable in the ledger, not only in the wording.</p>
+  <p class="small muted" style="margin-top:14px"><b>Rounding:</b> every split carries a rounding-adjustment line so the payee total is exact to the sen. Any odd sen is absorbed by the agency share — it is never silently folded into a payee amount, because a figure that does not reconcile is the first thing an auditor asks about.</p>
+</main>
+</div>
+<script src="assets/agency.js?v=e4a08bea"></script>
+<script>
+  /* keep the duplicate unit fields in sync (display only) */
+  document.addEventListener("input", function (e) {
+    var map = { vunit: ["vUnit", "vUnit2", "v2Unit", "v2Unit2"], vagent: ["vAgent", "v2Agent"] };
+    Object.keys(map).forEach(function (src) {
+      if (e.target && e.target.id === src) {
+        map[src].forEach(function (id) { var el = document.getElementById(id); if (el) el.textContent = e.target.value; });
+      }
+    });
+  });
+</script>
+<script src="assets/notif.js?v=e4a08bea"></script>
+<script src="assets/nav.js?v=e4a08bea"></script>
+  <script src="assets/ui.js?v=e4a08bea"></script>
+</body>
+</html>
