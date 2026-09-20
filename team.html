@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Team &amp; Referrers | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=e78e7d8c">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Team &amp; referrers</h1>
+        <p>Every negotiator has a <b>referrer</b> (the person who brought them in). The referrer chain is what the override engine walks when a deal closes — it is also what makes the payout auditable.</p>
+      </div>
+      <span class="badge-demo">SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Active negotiators</div><div class="val">12</div><div class="sub">3 inactive — tag or insurance lapsed</div></div>
+      <div class="kpi"><div class="lab">Group sales YTD</div><div class="val">RM 184,500</div><div class="sub">personal RM 61,200 · group RM 123,300</div></div>
+      <div class="kpi"><div class="lab">Override pool YTD</div><div class="val">RM 18,495</div><div class="sub">cap 10% of group fees (applied per tier gap)</div></div>
+      <div class="kpi warn"><div class="lab">Compliance flags</div><div class="val">2</div><div class="sub">1 tag expiring · 1 insurance expiring</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Management upline (who supervises whom) — referral record shown separately</h2>
+    <div class="card">
+      <div class="tree">
+        <div class="node l0"><b>Zahir MJ</b><span class="tag">Agency Head · PEA 2684</span><span class="tag ref">introduced by: Hamdan Hussin (external) &middot; record only, not a payee &middot; no REN/PEA &rarr; RM0 override</span></div>
+        <div class="node l1"><b>Nadia Rahman</b><span class="tag">L6 · Group Leader · 90%</span><span class="tag ref">referrer: Zahir MJ</span></div>
+        <div class="node l2"><b>Faizal Omar</b><span class="tag">L4 · Senior negotiator · 75%</span><span class="tag ref">referrer: Nadia Rahman</span></div>
+        <div class="node l3"><b>Aisy Karim</b><span class="tag">L2 · Negotiator · 6%0%</span><span class="tag ref">referrer: Faizal Omar</span></div>
+        <div class="node l3"><b>Ameer Haziq</b><span class="tag">L2 · Negotiator · 6%0%</span><span class="tag ref">referrer: Faizal Omar</span></div>
+      </div>
+      <p class="small muted" style="margin:14px 0 0">IQI's <b>My Team</b> screen records exactly this: a <i>Referrer</i> column next to <i>Title</i>, with personal and group sales side by side. Our version adds the level used by the payout engine.</p>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Team performance</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="tbl">
+        <tr><th>Name</th><th>Title</th><th>Referrer</th><th class="num">Level</th><th class="num">Personal sales</th><th class="num">Group sales</th><th class="num">Override earned</th><th>Status</th></tr>
+        <tr><td>Zahir MJ</td><td>Agency Head</td><td class="muted">Hamdan Hussin</td><td class="num">—</td><td class="num">61,200</td><td class="num">184,500</td><td class="num">—</td><td><span class="pill ok">ACTIVE</span></td></tr>
+        <tr><td>Nadia Rahman</td><td>L6 · Group Leader</td><td class="muted">Zahir MJ</td><td class="num">90%</td><td class="num">48,900</td><td class="num">123,300</td><td class="num">6,780</td><td><span class="pill ok">ACTIVE</span></td></tr>
+        <tr><td>Faizal Omar</td><td>L4 · Senior negotiator</td><td class="muted">Nadia Rahman</td><td class="num">75%</td><td class="num">32,400</td><td class="num">74,400</td><td class="num">4,120</td><td><span class="pill ok">ACTIVE</span></td></tr>
+        <tr><td>Aisy Karim</td><td>Negotiator</td><td class="muted">Faizal Omar</td><td class="num">60%</td><td class="num">18,600</td><td class="num">—</td><td class="num">—</td><td><span class="pill ok">ACTIVE</span></td></tr>
+        <tr><td>Ameer Haziq</td><td>Negotiator</td><td class="muted">Faizal Omar</td><td class="num">60%</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td><span class="pill bad">INACTIVE</span></td></tr>
+        <tr><td>Kumar Raj</td><td>Negotiator</td><td class="muted">Nadia Rahman</td><td class="num">70%</td><td class="num">44,100</td><td class="num">—</td><td class="num">—</td><td><span class="pill warn">TAG EXPIRING</span></td></tr>
+      </table>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> How an override is triggered</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0">Rule set (config)</h3>
+        <ul class="check">
+          <li><b>Override is paid on closed deals only</b> — never on recruitment, never on a joining fee.</li>
+          <li>Override comes out of the <b>agency share</b>, is labeled <b>Marketing Bonus</b>, and posts to its <b>own</b> account code (602-150) &mdash; never merged into the declared commission line (602-100).</li>
+          <li>Levels are earned on <b>production</b> (closed production, rolling 12 months) — exactly as in the ladder: L1 REN tag + onboarding &middot; L2 RM600k &middot; L3 RM1.5m &middot; L4 RM2.5m + 2 mentored agents &middot; L5 RM3.5m + 3 producing agents &middot; L6 RM6m + 2 team leaders.</li>
+          <li><b>Qualification:</b> a leader only earns override on a member in the month the member completes a deal, and only while the leader keeps 3 personally-closed deals per year.</li>
+          <li><b>Referrer ≠ leader:</b> the referral record (who introduced whom) carries <b>no payment right</b>. Override runs on the management upline only, and only to registered, active agents (Act 242).</li>
+          <li><b>Rate versioning:</b> rates are locked to the version in force when the agreement was signed (v1.0, effective 01 Jan 2026). A ladder change applies to new agreements only &mdash; it never rewrites what an existing agent already signed.</li>
+          <li><b>Cap + clawback:</b> override stops at the annual cap; if a deal falls through after payout, the engine raises a clawback against the next run.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Worked example</h3>
+        <p class="small muted" style="margin-top:0">Negotiator Aisy (level 60%) closes a subsale with a fee of RM10,000. The chain that pays is her <b>management upline</b> (who supervises her, not who introduced her): Faizal Omar (L4 · 75%) &rarr; Nadia Rahman (L6 · 90%, override capped at 10%). A referrer who is not her leader is kept as a record and is paid <b>RM0</b>.</p>
+        <table class="tbl">
+          <tr><th>Bucket</th><th class="num">%</th><th class="num">RM</th></tr>
+          <tr><td>Negotiator's commission (declared)</td><td class="num">40%</td><td class="num">4,000</td></tr>
+          <tr><td>Marketing Bonus — Aisy (L2 · 60%)</td><td class="num">20%</td><td class="num">2,000</td></tr>
+          <tr><td>Override — Faizal (gap 60% → L4 · 75%)</td><td class="num">15%</td><td class="num">1,500</td></tr>
+          <tr><td>Override — Nadia (L6 · cap 10%, tier gap 15% → capped)</td><td class="num">10%</td><td class="num">1,000</td></tr>
+          <tr><td>Agency residual</td><td class="num">15%</td><td class="num">1,500</td></tr>
+          <tr><td><b>Total</b></td><td class="num"><b>100%</b></td><td class="num"><b>10,000</b></td></tr>
+        </table>
+        <p class="small muted" style="margin-bottom:0">Only the first line is <i>commission</i>. Everything else is a Marketing Bonus paid from the agency share — the same wording discipline as the IQI vouchers.</p>
+      </div>
+    </div>
+
+    <p class="foot-note">Zentra Realty prototype · Team &amp; referrers · levels, caps and qualification rules are placeholders for Zahir to set<br>Sample data for review only.</p>
+  </main>
+</div>
+<script src="assets/agency.js?v=e78e7d8c"></script>
+<script src="assets/levels.js?v=e78e7d8c"></script>
+<script src="assets/notif.js?v=e78e7d8c"></script>
+<script src="assets/nav.js?v=e78e7d8c"></script>
+  <script src="assets/ui.js?v=e78e7d8c"></script>
+</body>
+</html>
