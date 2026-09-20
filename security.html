@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Security &amp; access | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=47074d00">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Security, access &amp; records</h1>
+        <p>Who may see what, how agents prove who they are, and how long records are kept. This is the page an auditor, a lawyer or a regulator would ask for first.</p>
+      </div>
+      <span class="badge-demo">POLICY &amp; CONTROLS &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Roles defined</div><div class="val">6</div><div class="sub">Agency Head to client</div></div>
+      <div class="kpi blue"><div class="lab">Agent 2FA coverage</div><div class="val">100%</div><div class="sub">required at first login</div></div>
+      <div class="kpi"><div class="lab">Retention</div><div class="val">7 years</div><div class="sub">documents, signatures, audit log</div></div>
+      <div class="kpi warn"><div class="lab">Last restore test</div><div class="val">2 Sep</div><div class="sub">verified, 0 documents lost</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Access matrix <span class="small muted" style="font-weight:500">&mdash; least privilege by role</span></h2>
+    <div class="card">
+      <table class="tbl">
+        <thead><tr><th>Function</th><th>Agency Head</th><th>Team Leader</th><th>Negotiator</th><th>Operations</th><th>Finance</th><th>Client</th></tr></thead>
+        <tbody id="matrix"></tbody>
+      </table>
+      <p class="small muted" style="margin-bottom:0">Rules that matter: a negotiator sees <b>only their own deals</b>. A Team Leader sees the team they introduced. Commission figures of other agents are never visible to peers. Operations can prepare and send documents but cannot change fees. Only the Agency Head approves a payout. A client sees only the documents of their own transaction.</p>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Agent identity &amp; sign-in</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0">Two-factor authentication for agents</h3>
+        <table class="tbl">
+          <tr><th>Control</th><th>Setting</th></tr>
+          <tr><td>Sign-in</td><td>Email + password, then a 6-digit code (app or SMS)</td></tr>
+          <tr><td>Mandatory for</td><td>Every role except the client view</td></tr>
+          <tr><td>Devices</td><td>New device requires code + email alert to the agent</td></tr>
+          <tr><td>Sessions</td><td>Expire after 12 hours of inactivity; one active device per agent by default</td></tr>
+          <tr><td>Failed attempts</td><td>5 wrong passwords locks the account for 30 minutes and alerts the Agency Head</td></tr>
+          <tr><td>Offboarding</td><td>Access revoked the same day the agent leaves; documents and audit log are kept</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Signature links issued to clients</h3>
+        <table class="tbl">
+          <tr><th>Control</th><th>Setting</th></tr>
+          <tr><td>Personal</td><td>One link per party, never shared or forwarded</td></tr>
+          <tr><td>Expiry</td><td>7 days by default; new link required after that</td></tr>
+          <tr><td>Single use</td><td>Link stops working once that party has signed</td></tr>
+          <tr><td>Revocable</td><td>Agency can revoke instantly; old links die when a new version is issued</td></tr>
+          <tr><td>OTP</td><td>6-digit code, 3 attempts, then the link locks for 30 minutes</td></tr>
+          <tr><td>Logged</td><td>Every open, OTP failure, signature, decline and expiry</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Backup &amp; retention</h2>
+    <div class="card">
+      <table class="tbl">
+        <tr><th>What</th><th>How</th><th>How long</th></tr>
+        <tr><td>Documents &amp; certificates</td><td>Every signed package written to the transaction folder; hash recorded</td><td><b>7 years</b></td></tr>
+        <tr><td>Audit log</td><td>Append-only, each entry chained to the previous fingerprint</td><td><b>7 years</b> (not editable, not deletable)</td></tr>
+        <tr><td>Daily backup</td><td>Automatic copy off the server every night</td><td>7 days rolling</td></tr>
+        <tr><td>Monthly backup</td><td>Second copy at a different location, checked monthly</td><td>24 months</td></tr>
+        <tr><td>Restore test</td><td>Performed quarterly and recorded with the result</td><td>Result kept with the audit log</td></tr>
+      </table>
+      <p class="small muted" style="margin-bottom:0">If a document is ever lost from the working system it is restored from backup <b>with its audit log</b>, so the chain of custody survives. Nothing is ever hard-deleted: a cancelled document is marked <b>VOID</b> and keeps its number.</p>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Client money &mdash; the rule this system follows</h2>
+    <div class="card">
+      <div class="note warn"><b>Decision (16 Sep 2026):</b> deposits and rent are held by the <b>solicitors of the respective party</b> (or paid directly to the owner). Zentra Realty <b>never holds client money</b> and no negotiator is ever the holder.</div>
+      <p class="small" style="margin-bottom:0">Why this matters: under the Valuers, Appraisers and Estate Agents Act 1981 and the 1986 Rules, a registered firm that receives client money must keep it in a <b>separate client account</b> and may not accept client money at all without professional indemnity and fidelity guarantee cover (Rule 57). By keeping the agency out of the money flow, the system records <b>evidence</b> &mdash; who holds the deposit, the receipt reference and the date &mdash; without taking on a licence obligation the agency does not need. This is also why every letter states the holder explicitly.</p>
+    </div>
+  </main>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const Y='<span class="ok">&#10003;</span>', N='<span class="small muted">&mdash;</span>', P='<span class="pill warn">own deals</span>';
+const ROWS=[
+ ['Create letters (LOA / LOC)',Y,Y,Y,Y,N,N],
+ ['Send documents for signature',Y,Y,Y,Y,N,N],
+ ['See fees and commission of others',Y,Y,N,N,Y,N],
+ ['See own commission',Y,Y,Y,N,Y,'<span class="pill info">own deal</span>'],
+ ['Approve a commission claim',Y,N,N,N,Y,N],
+ ['Release a payout',Y,N,N,N,Y,N],
+ ['Edit the fee scale / template',Y,N,N,N,N,N],
+ ['See the audit trail',Y,Y,N,Y,Y,N],
+ ['Export the monthly compliance report',Y,N,N,Y,Y,N],
+ ['Open their own signed documents',Y,Y,Y,Y,Y,Y]
+];
+$('matrix').innerHTML = ROWS.map(r=>'<tr><td>'+r[0]+'</td>'+r.slice(1).map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('');
+</script>
+<script src="assets/notif.js?v=47074d00"></script>
+<script src="assets/nav.js?v=47074d00"></script>
+<script src="assets/ui.js?v=47074d00"></script>
+</body>
+</html>
