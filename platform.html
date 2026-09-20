@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Platform map | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=47074d00">
+<style>
+ .mod{border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:14px;background:rgba(255,255,255,.04)}
+ .mod h3{margin:0 0 6px;font-size:14.5px}
+ .mod ul{margin:6px 0 0 16px;padding:0;font-size:12.5px;color:#94a3b8}
+ .mod li{margin-bottom:3px}
+ .mod.z{border-top:4px solid var(--navy)} .mod.m{border-top:4px solid var(--gold)} .mod.s{border-top:4px solid var(--blue)}
+ .core{border:2px dashed var(--navy-3);border-radius:12px;padding:14px;background:rgba(255,255,255,.04)}
+ .core h3{margin:0 0 6px;font-size:14.5px}
+ .arrowdown{text-align:center;color:var(--navy-3);font-size:20px;margin:6px 0}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Platform map &mdash; one platform, separate modules</h1>
+        <p>Can the property management system and the agency system live in one system? <b>Yes &mdash; one platform with separate modules.</b> They share the boring parts (login, people, properties, files, notifications) and keep the sensitive parts apart (money ledgers, client records, compensation).</p>
+      </div>
+      <span class="badge-demo">ARCHITECTURE &middot; FOR DECISION</span>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Picture it</h2>
+    <div class="grid g3">
+      <div class="mod z"><h3>Zentra &middot; Agency module</h3><div class="small muted">Estate agency practice (registered EA)</div>
+        <ul><li>Agents, hierarchy, referrers</li><li>Commission + Marketing Bonus + override</li><li>Claims, payouts, vouchers</li><li>Letters, e-sign, stamping</li></ul></div>
+      <div class="mod m"><h3>Mr Tanah &middot; Property management module</h3><div class="small muted">Management, tenancy, renovation</div>
+        <ul><li>Units, tenancies, bills, deposits</li><li>Maintenance + renovation jobs</li><li>Owner statements, 10% management fee</li><li>Listing records</li></ul></div>
+      <div class="mod s"><h3>Zentra &middot; Project sales module</h3><div class="small muted">New project sales</div>
+        <ul><li>Project pages, EOI, bookings</li><li>Developer liaison, HIMS / e-SPA</li><li>Agent allocation by project</li></ul></div>
+    </div>
+    <div class="arrowdown">&#9660; &nbsp; all three sit on one core &nbsp; &#9660;</div>
+    <div class="core"><h3>Shared core (build once, use by all modules)</h3>
+      <div class="grid g2" style="gap:10px">
+        <ul class="small" style="margin:0 0 0 16px"><li>Login &amp; roles (Agency Head, Leader, Agent, Client, Tenant, Owner)</li><li><b>One people registry</b> &mdash; a landlord who is also a seller is one record</li><li><b>One property registry</b> &mdash; the same unit keeps one ID across modules</li></ul>
+        <ul class="small" style="margin:0 0 0 16px"><li>File storage + document archive with IDs</li><li>Notification service (WhatsApp / email / Telegram)</li><li>Audit log &mdash; who did what, when</li><li>Backups and monitoring</li></ul>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> What is shared, what must stay apart</h2>
+    <table class="tbl"><thead><tr><th>Layer</th><th>Shared in one platform?</th><th>Why</th></tr></thead><tbody>
+      <tr><td>People &amp; properties</td><td><span class="pill ok">Shared</span></td><td>One owner, one unit &mdash; no duplicate records, one history</td></tr>
+      <tr><td>Login, roles, audit log, files, notifications</td><td><span class="pill ok">Shared</span></td><td>Build once; agencies and management need the same plumbing</td></tr>
+      <tr><td>Documents &amp; e-signature</td><td><span class="pill info">Shared engine, separate templates</span></td><td>The signing engine is the same; the letterheads and clauses differ by entity and brand</td></tr>
+      <tr><td><b>Money ledgers</b></td><td><span class="pill bad">Separate</span></td><td>Management fee income, renovation income, agency commission and client money are different books, different TIN, different rules</td></tr>
+      <tr><td><b>Client money &amp; deposits</b></td><td><span class="pill bad">Separate</span></td><td>Estate agency practice rules on client accounts must never mix with management collections</td></tr>
+      <tr><td><b>Agent compensation</b></td><td><span class="pill bad">Separate</span></td><td>Who earns what is confidential to the agency module &mdash; management staff must not see it</td></tr>
+      <tr><td>Branding seen by clients</td><td><span class="pill bad">Separate</span></td><td>A tenant sees Mr Tanah; a seller sees Zentra. One system, two front doors</td></tr>
+    </tbody></table>
+
+    <h2 class="sec"><span class="num">3</span> Why not simply put everything in one pile</h2>
+    <div class="grid g2">
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Three real risks</h3>
+        <ul class="small"><li><b>Entity &amp; audit risk</b> &mdash; one set of books for two businesses is hard to defend in an audit or tax review.</li>
+        <li><b>Confidentiality risk</b> &mdash; commission structures and client deposit records leaking across teams.</li>
+        <li><b>Blast radius</b> &mdash; one bug or outage stopping collection of rent <i>and</i> agent payouts at once.</li></ul></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">What you gain by keeping one platform</h3>
+        <ul class="small"><li>One login, one app to train staff on, one backup and monitoring setup.</li>
+        <li>One server bill instead of two &mdash; roughly <b>half the running cost</b>.</li>
+        <li>Cross-sell happens naturally: an owner managed by Mr Tanah is offered the agency to sell; a buyer becomes a managed tenant.</li>
+        <li>Later, the agency module can be licensed to other agencies on its own without touching Mr Tanah.</li></ul></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> How we get there without rebuilding twice</h2>
+    <table class="tbl"><thead><tr><th>Step</th><th>What we do now</th><th>Why it matters later</th></tr></thead><tbody>
+      <tr><td>1</td><td>Every document gets an ID (<span class="mono">ZTH-LOAR-000101</span>) and every deal a deal ID</td><td>Records can move from Sheets to a database without renumbering</td></tr>
+      <tr><td>2</td><td>One people list and one property list, used by both MT and Zentra work</td><td>Migration becomes a copy, not a reconciliation exercise</td></tr>
+      <tr><td>3</td><td>Keep modules separate inside the existing setup (separate Sheets and files per module)</td><td>Each module can be lifted into the web app one at a time</td></tr>
+      <tr><td>4</td><td>Upgrade to the web app when a trigger fires (30+ agents, 2,000+ documents a year, client portal needed)</td><td>No wasted spend before it is needed</td></tr>
+    </tbody></table>
+
+    <div class="flag"><b>Recommendation:</b> one platform, three modules, share the core, keep the money and the brands apart. Build the MVP module by module on the setup we already pay for, then lift all three into one web app together when the triggers say so &mdash; not before.</div>
+  </main>
+</div>
+<script src="assets/notif.js?v=47074d00"></script>
+<script src="assets/nav.js?v=47074d00"></script>
+  <script src="assets/ui.js?v=47074d00"></script>
+</body>
+</html>
