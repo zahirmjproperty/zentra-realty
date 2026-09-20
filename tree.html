@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Team tree | Zentra Realty</title>
+<link rel="stylesheet" href="assets/agency.css?v=e0a21a1f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+ .tree{margin:0;padding:0;list-style:none}
+ .tree ul{list-style:none;margin:0;padding-left:26px;position:relative}
+ .tree ul::before{content:"";position:absolute;left:11px;top:0;bottom:14px;width:2px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.04));border-radius:2px}
+ .tree li{position:relative;margin:10px 0}
+ .tree ul>li::before{content:"";position:absolute;left:-15px;top:26px;width:15px;height:2px;background:rgba(255,255,255,.04)}
+ .node{display:flex;gap:12px;align-items:center;padding:11px 14px;border:1px solid var(--line-2);border-radius:14px;background:rgba(255,255,255,.04);box-shadow:var(--sh-1);transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease}
+ .node:hover{box-shadow:var(--sh-3);transform:translateY(-1px);border-color:#bfe0cf}
+ .node .av{width:38px;height:38px;border-radius:11px;flex:0 0 38px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#f5f1e4;background:linear-gradient(150deg,var(--navy-3),var(--navy))}
+ .node.lead .av{background:linear-gradient(150deg,var(--gold),#e8ce86);color:#1a1206}
+ .node.head .av{background:linear-gradient(150deg,#0b1b2e,#0b1b2e)}
+ .node .who{flex:1;min-width:0}
+ .node .nm{font-weight:700;font-size:13.5px;letter-spacing:-.01em}
+ .node .rl{font-size:11.5px;color:var(--ink-3)}
+ .node .metrics{display:flex;gap:14px;text-align:right}
+ .node .metrics div{min-width:74px}
+ .node .metrics .k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+ .node .metrics .v{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
+ @media (max-width:820px){ .node{flex-wrap:wrap} .node .metrics{width:100%;justify-content:space-between;text-align:left} .node .metrics div{min-width:0} }
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Team tree</h1>
+        <p>The management upline the reward engine walks (who supervises whom &mdash; the only chain that pays). Every node is a real negotiator; every ringgit traced here comes from a completed property transaction — <b>never</b> from recruiting someone.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP · SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Negotiators</div><div class="val">6</div><div class="sub">1 agency head · 1 team leader · 4 negotiators</div></div>
+      <div class="kpi blue"><div class="lab">Group sales YTD</div><div class="val">RM14.36 m</div><div class="sub">all agents combined</div></div>
+      <div class="kpi"><div class="lab">Deepest referral chain</div><div class="val">3</div><div class="sub">levels below the agency head</div></div>
+      <div class="kpi warn"><div class="lab">Recruitment fees</div><div class="val">RM0.00</div><div class="sub">joining the agency is free — by design</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> The team, as the engine sees it</h2>
+    <div class="card">
+      <div class="row" style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+        <button class="btn ghost" id="modeRef">Management upline</button>
+        <button class="btn ghost" id="modeProd">Sort by production</button>
+        <span class="small muted" id="modeNote" style="margin-left:auto">Viewing: management upline (who supervises whom — the only chain that pays)</span>
+      </div>
+      <ul class="tree" id="tree"></ul>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="h3" style="margin:0 0 6px">Referral record &mdash; kept, but never paid</div>
+      <table class="tbl">
+        <tr><th>Person</th><th>Introduced by</th><th>Registration</th><th class="num">Override rights</th></tr>
+        <tr><td>Zahiruddin bin Mat Jailaini <span class="small muted">(Agency Head)</span></td><td>Hamdan Hussin <span class="small muted">(external)</span></td><td><span class="pill red">no REN/PEA</span></td><td class="num">RM0 &mdash; record only</td></tr>
+      </table>
+      <p class="small muted" style="margin:10px 0 0">This is the case that decides whether the whole structure is safe: a founder introduced by an unregistered outsider. The introduction stays on file; the engine pays nothing to it, because <b>Act 242</b> allows fee sharing only with registered agents.</p>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> How a completed sale walks the chain</h2>
+    <div class="grid g2">
+      <div class="card">
+        <table class="tbl">
+          <tr><th>Layer</th><th>Who</th><th class="num">Share of agency commission</th></tr>
+          <tr><td>Negotiator</td><td>the agent who closed</td><td class="num">up to 40% declared + level award</td></tr>
+          <tr><td>Team leader</td><td>the leader who supervises (management upline)</td><td class="num">15% of team fees from the agency share &middot; L6 cap 10%</td></tr>
+          <tr><td>Agency</td><td>Zentra Property Group</td><td class="num">remainder &mdash; office, compliance, PI cover</td></tr>
+        </table>
+        <p class="small muted" style="margin-bottom:0">A leader earns from a deal <b>only when the deal completes</b>. If nobody under them sells for a year, they earn nothing from the chain &mdash; which is exactly what keeps this an agency, not a recruiting scheme.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">The red line we hold</h3>
+        <ul class="check">
+          <li><span class="ok">&#10003;</span><div><b>No joining fee.</b> RM0 to become a negotiator.</div></li>
+          <li><span class="ok">&#10003;</span><div><b>No reward for recruiting.</b> A leader benefits from production, not headcount.</div></li>
+          <li><span class="ok">&#10003;</span><div><b>Every ringgit traces to a deal.</b> Property address, document ID, completed transaction.</div></li>
+          <li><span class="ok">&#10003;</span><div><b>Referrer &ne; leader.</b> Whoever introduced an agent is a record, not a payee. Override follows the management upline only.</div></li>
+          <li><span class="ok">&#10003;</span><div><b>Rank is production-based.</b> Levels move on qualifying sales (the eXP FLQA style), never on the number of people below you.</div></li>
+        </ul>
+        <div class="note warn" style="margin-top:12px">Malaysia&#39;s Direct Sales and Anti-Pyramid Scheme Act 1993 draws the line at <b>where the money comes from</b>. Everything in this tree is funded by the agency&#39;s own share of completed property transactions.</div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/levels.js?v=e0a21a1f"></script>
+<script src="assets/notif.js?v=e0a21a1f"></script>
+<script src="assets/nav.js?v=e0a21a1f"></script>
+<script src="assets/ui.js?v=e0a21a1f"></script>
+<script>
+/* ref = management upline (who supervises). The referral record (who introduced) is a
+   separate field: it carries NO payment right and never walks the override engine. */
+const N = [
+ {id:'z', name:'Zahiruddin bin Mat Jailaini', role:'Agency Head · PEA 2684', p:613333, g:14363333, ref:null, head:true},
+ {id:'n', name:'Nadia Rahman', role:'L6 · Group Leader', p:4940000, g:8209000, ref:'z', lead:true},
+ {id:'f', name:'Faizal Omar', role:'L4 · Senior negotiator', p:3216667, g:3786667, ref:'n'},
+ {id:'s', name:'Siti Nurhaliza binti Aziz', role:'L1 · Negotiator', p:1036667, g:1036667, ref:'f'},
+ {id:'a', name:'Aisy Karim', role:'L2 · Negotiator', p:2413333, g:2413333, ref:'n'},
+ {id:'m', name:'Ameer Haziq', role:'L2 · Negotiator', p:2143333, g:2143333, ref:'z'}
+];
+const rm = n => 'RM ' + (n/1e6).toFixed(2) + ' m';
+const byId = id => N.find(x=>x.id===id);
+function childrenOf(id){ return N.filter(x=>x.ref===id); }
+function sortMode(){
+  const mode = localStorage.getItem('zth_treemode') || 'ref';
+  return mode;
+}
+function node(x){
+  const ini = x.name.split(' ').map(w=>w[0]).slice(0,2).join('');
+  return `<div class="node ${x.head?'head':(x.lead?'lead':'')}">
+    <span class="av">${ini}</span>
+    <span class="who"><span class="nm">${x.name}</span><br><span class="rl">${x.role}${x.ref?` &nbsp;·&nbsp; upline: ${byId(x.ref).name.split(' ')[0]}`:' &nbsp;·&nbsp; agency owner'}</span></span>
+    <span class="metrics">
+      <div><div class="k">Personal</div><div class="v">${rm(x.p)}</div></div>
+      <div><div class="k">Group</div><div class="v">${rm(x.g)}</div></div>
+    </span>
+  </div>`;
+}
+function branch(id, mode){
+  let kids = childrenOf(id);
+  if(mode==='prod') kids = kids.sort((a,b)=>b.g-a.g);
+  return `<ul>` + kids.map(k=>`<li>${node(k)}${branch(k.id,mode)}</li>`).join('') + `</ul>`;
+}
+function render(){
+  const mode = sortMode();
+  const root = N.find(x=>x.head);
+  document.getElementById('tree').innerHTML = `<li>${node(root)}${branch(root.id,mode)}</li>`;
+  document.getElementById('modeNote').textContent = mode==='prod'
+    ? 'Viewing: sorted by production (biggest group first)'
+    : 'Viewing: management upline (who supervises whom — the only chain that pays)';
+  document.getElementById('modeRef').classList.toggle('gold', mode!=='prod');
+  document.getElementById('modeProd').classList.toggle('gold', mode==='prod');
+}
+document.getElementById('modeRef').onclick=()=>{localStorage.setItem('zth_treemode','ref');render();};
+document.getElementById('modeProd').onclick=()=>{localStorage.setItem('zth_treemode','prod');render();};
+render();
+</script>
+</body>
+</html>
