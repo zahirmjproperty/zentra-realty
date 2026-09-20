@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>F1 · Document generator | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=47074d00">
+<style>
+ .ferr{border-color:#E8776A !important;background:rgba(232,119,106,.06)}
+ .emsg{display:none;color:#E8776A;font-size:11.5px;margin-top:3px}
+ .emsg.on{display:block}
+ .plist{border:1px solid var(--line-2);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:rgba(255,255,255,.04)}
+ .prow{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr auto;gap:8px;align-items:center;margin-bottom:6px}
+ .prow input,.prow select{width:100%}
+ .prow.head{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+ .stchip{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.03em}
+ .st-draft{background:rgba(255,255,255,.04);color:#94a3b8}
+ .st-issued{background:rgba(201,162,39,.12);color:#c9a227}
+ .st-signed{background:rgba(95,199,157,.12);color:#5fc79d}
+ .st-void{background:rgba(232,119,106,.12);color:#E8776A}
+ .st-sup{background:rgba(240,179,74,.12);color:#f0b34a}
+ select.agent-sel{font-family:var(--font)}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>F1 &middot; Document generator</h1>
+        <p>Type the deal once. The system validates it, numbers the letter, computes the statutory fee, prints the negotiator's registration number, records the deposit holder, and files a versioned PDF.</p>
+      </div>
+      <span class="badge-demo">LIVE DEMO &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Letters issued</div><div class="val" id="kIss">0</div><div class="sub">this browser session</div></div>
+      <div class="kpi blue"><div class="lab">Professional fee</div><div class="val" id="kFee">RM 0.00</div><div class="sub">statutory scale, before SST</div></div>
+      <div class="kpi"><div class="lab">SST 8%</div><div class="val" id="kSst">RM 0.00</div><div class="sub">code SV</div></div>
+      <div class="kpi warn"><div class="lab">Total payable</div><div class="val" id="kTot">RM 0.00</div><div class="sub">fee + SST</div></div>
+    </div>
+
+    <div class="card" style="padding:12px 14px;margin-bottom:14px"><div class="small muted" style="margin-bottom:8px">Four steps &mdash; you can jump straight to any of them, and leave mid-way without losing your work.</div><div id="steps" style="display:flex;flex-wrap:wrap;gap:8px"></div><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn ghost sm" onclick="saveDraft()">Save draft</button><button class="btn ghost sm" onclick="loadDraft()">Resume draft</button><button class="btn ghost sm" onclick="clearDraft()">Clear draft</button><span class="small muted" id="draftNote" style="align-self:center"></span></div></div>
+    <h2 class="sec"><span class="num">1</span> Deal details</h2>
+    <div class="card">
+      <div class="grid g3">
+        <div class="field"><label>Document type</label>
+          <select id="dtype" class="i"><option value="rent">Letter of Appointment &mdash; to secure a tenant</option><option value="sale">Letter of Appointment &mdash; to secure a purchaser</option></select>
+        </div>
+        <div class="field"><label>Negotiator</label>
+          <select id="agent" class="i"></select>
+          <div class="emsg" id="eAgent">Choose the negotiator who will be named on the letter.</div>
+        <div class="small muted" id="agentInfo" style="margin-top:4px"></div>
+        </div>
+        <div class="field"><label id="lAmount">Monthly rent (RM)</label>
+          <input id="amount" class="i" type="number" value="1100" min="1">
+          <div class="emsg" id="eAmount">Enter an amount within the allowed range.</div>
+        </div>
+      </div>
+      <div class="grid g3">
+        <div class="field"><label>Property address</label><input id="addr" class="i" value="18-3, Jalan Seri Harmoni 2/5, 43000 Kajang, Selangor"><div class="emsg" id="eAddr">Full property address is required.</div></div>
+        <div class="field"><label id="lYears">Tenancy (years)</label><input id="tYears" class="i" type="number" value="1" min="1" max="5"></div>
+        <div class="field"><label id="lOpt">Option to renew (years)</label><input id="tOpt" class="i" type="number" value="1" min="0" max="5"></div>
+      </div>
+      <div class="grid g3">
+        <div class="field"><label>Mandate basis</label><select id="basis" class="i"><option value="non">Non-exclusive (default)</option><option value="ex">Exclusive</option></select></div>
+        <div class="field"><label>Condition / furnishing</label><input id="cond" class="i" value="Fully furnished, as is basis"></div>
+        <div class="field"><label>Validity of mandate</label><select id="validity" class="i"><option value="6">6 months</option><option value="3">3 months</option><option value="12">12 months</option></select></div>
+      </div>
+      <div class="grid g3">
+        <div class="field"><label>Letter title</label><input id="tTitle" class="i" value="Letter of Appointment &mdash; To Secure A Tenant"></div>
+        <div class="field"><label>Statutory ceiling</label><input id="feeCeil" class="i" value="" readonly></div>
+        <div class="field"><label>Fee charged (RM) &mdash; leave blank for the ceiling</label><input id="feeOv" class="i" type="number" value="" min="0" placeholder="Optional"><div class="emsg" id="eFee">The fee may not exceed the statutory ceiling.</div></div>
+      </div>
+      <div class="grid g2">
+        <div class="field"><label>Special conditions (optional)</label><input id="spec" class="i" placeholder="e.g. roof to be repaired before handover"></div>
+        <div class="field" style="align-self:end"><div class="small muted" id="feeHint"></div></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Parties <span class="small muted" style="font-weight:500">&mdash; joint owners and co-buyers/tenants are supported</span></h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0" id="hOwner">Landlord(s)</h3>
+        <div class="plist">
+          <div class="prow head"><div>Full name (as per NRIC)</div><div>NRIC / passport</div><div>Mobile (60&hellip;)</div><div>Email</div><div></div></div>
+          <div id="owners"></div>
+          <button class="btn ghost sm" type="button" onclick="addParty('o')">+ Add another landlord</button>
+        </div>
+        <div class="emsg on" id="eOwner" style="display:none"></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0" id="hCounter">Tenant(s) <span class="small muted" style="font-weight:500">optional at appointment stage</span></h3>
+        <div class="plist">
+          <div class="prow head"><div>Full name (as per NRIC)</div><div>NRIC / passport</div><div>Mobile (60&hellip;)</div><div>Email</div><div></div></div>
+          <div id="counters"></div>
+          <button class="btn ghost sm" type="button" onclick="addParty('c')">+ Add another tenant</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Deposit &amp; stakeholder <span class="small muted" style="font-weight:500">&mdash; Zentra Realty never holds client money</span></h2>
+    <div class="card">
+      <div class="note" style="margin-bottom:12px"><b>Policy:</b> earnest and security deposits are held by the <b>solicitors of the respective party</b> (or paid directly to the owner), never by the agency. This screen records the evidence only &mdash; who holds it, the receipt reference and the date.</div>
+      <div class="grid g4">
+        <div class="field"><label>Earnest deposit (RM)</label><input id="dEarn" class="i" type="number" value="1100" min="0"></div>
+        <div class="field"><label>Held by</label><select id="dHolder" class="i"><option>Solicitors of the owner</option><option>Solicitors of the buyer/tenant</option><option>Paid directly to the owner</option></select></div>
+        <div class="field"><label>Receipt reference</label><input id="dRef" class="i" placeholder="e.g. OR-2026-000231"></div>
+        <div class="field"><label>Received on</label><input id="dDate" class="i" type="date"></div>
+      </div>
+      <div class="emsg" id="eDep">If a deposit has been received, record the holder and receipt reference so the letter can state it.</div>
+    </div>
+
+    <div class="card" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <button class="btn" id="gen">Generate letter</button>
+      <button class="btn ghost" id="sample">Load sample</button>
+      <button class="btn ghost" id="reset">Reset form</button>
+      <span class="small muted" id="vnote">Nothing is uploaded &mdash; this demo runs entirely in your browser.</span>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Archive <span class="small muted" style="font-weight:500">&mdash; numbered, versioned, never re-used</span></h2>
+    <div class="card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+        <span class="small muted" id="arcNote">No letters yet in this browser.</span>
+        <button class="btn ghost sm" id="clearArc" style="margin-left:auto">Clear archive</button>
+      </div>
+      <table class="tbl"><thead><tr><th>Document ID</th><th>Type</th><th>Party</th><th>Status</th><th>Version</th><th class="num">Fee</th><th>Actions</th></tr></thead><tbody id="arcRows"></tbody></table>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="modal"><div class="inner">
+  <div class="bar"><b id="mTitle">Letter</b>
+    <div class="actions">
+      <button class="btn ghost sm" id="printBtn">Print / Save PDF</button>
+      <button class="btn ghost sm" id="signBtn">Send for e-signature</button>
+      <button class="btn sm" id="closeBtn">Close</button>
+    </div>
+  </div>
+  <div id="modalHost" class="paper"></div>
+</div></div>
+<script>
+const $=id=>document.getElementById(id);
+const rm=n=>'RM '+(Math.round(n*100)/100).toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+const AGENTS=[{n:'Nadia Rahman',reg:'REN 12345',lvl:'L6 &middot; Group Leader',pi:'31/03/2027',bank:'Maybank 5123 4567 8901',tin:'IG 45678901230'},{n:'Faizal Omar',reg:'REN 21877',lvl:'L4 &middot; Senior negotiator',pi:'30/11/2026',bank:'CIMB 7012 3456 7801',tin:'IG 51234567890'},{n:'Aisy Karim',reg:'REN 30412',lvl:'L2 &middot; Negotiator',pi:'31/01/2027',bank:'Maybank 5144 9087 6612',tin:'IG 61098723450'},{n:'Ameer Haziq',reg:'REN 29150',lvl:'L2 &middot; Negotiator',pi:'30/06/2027',bank:'RHB 2140 8899 0012',tin:'IG 70023145670'}];
+function showAgent(){ const a=AGENTS[+$('agent').value]||AGENTS[0]; $('agentInfo').innerHTML='<b>'+a.lvl+'</b> &middot; '+a.reg+' &middot; PI insurance to '+a.pi+'<br>Bank '+a.bank+' &middot; TIN '+a.tin+' &mdash; pulled from the agent registry; never retyped on a letter.'; }
+AGENTS.forEach((a,i)=>{const o=document.createElement('option');o.value=i;o.textContent=a.n+' \u00b7 '+a.reg;$('agent').appendChild(o);});
+const isRent=()=>$('dtype').value==='rent';
+const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let DOCS=[];
+DOCS=LS.get('zth_docs2',[]);
+
+/* ---------- parties ---------- */
+function partyRow(kind,idx,val){
+  const d=val||{n:'',ic:'',hp:'',em:''};
+  return '<div class="prow" data-k="'+kind+'">'+
+   '<input class="i p-n" placeholder="Full name" value="'+(d.n||'')+'">'+
+   '<input class="i p-ic" placeholder="900101011234" value="'+(d.ic||'')+'">'+
+   '<input class="i p-hp" placeholder="60123456789" value="'+(d.hp||'')+'">'+
+   '<input class="i p-em" placeholder="name@email.com" value="'+(d.em||'')+'">'+
+   '<button class="btn ghost sm" type="button" onclick="this.closest(\'.prow\').remove()">&times;</button></div>';
+}
+function addParty(kind,val){ const host=$(kind==='o'?'owners':'counters'); host.insertAdjacentHTML('beforeend',partyRow(kind,host.children.length,val)); }
+function readParties(kind){ const host=$(kind==='o'?'owners':'counters'); return [...host.children].map(r=>({n:r.querySelector('.p-n').value.trim(),ic:r.querySelector('.p-ic').value.trim(),hp:r.querySelector('.p-hp').value.trim(),em:r.querySelector('.p-em').value.trim()})).filter(p=>p.n||p.ic||p.hp); }
+
+/* ---------- fee ---------- */
+function ceiling(){ const a=+$('amount').value||0; return isRent()? 1.25*a : 0.03*a; }
+function calcFee(){ const c=ceiling(); const o=+$('feeOv').value||0; return {ceil:c, fee: o>0? Math.min(o,c): c}; }
+function refreshFee(){
+  const {ceil,fee}=calcFee(); const sst=fee*0.08;
+  $('kFee').textContent=rm(fee); $('kSst').textContent=rm(sst); $('kTot').textContent=rm(fee+sst);
+  $('kIss').textContent=DOCS.filter(d=>d.status!=='void').length;
+  if($('feeCeil')) $('feeCeil').value=rm(ceil);
+  $('feeHint').textContent='Statutory ceiling: '+rm(ceil)+(isRent()?' (1.25 months gross rent)':' (3% of price)')+' \u2014 you may charge less, never more.';
+  $('feeOv').classList.toggle('ferr', (+$('feeOv').value||0)>ceil);
+}
+function swapLabels(){
+  const r=isRent();
+  $('hOwner').textContent=r?'Landlord(s)':'Vendor(s)'; $('hCounter').innerHTML=r?'Tenant(s) <span class="small muted" style="font-weight:500">optional at appointment stage</span>':'Purchaser(s) <span class="small muted" style="font-weight:500">optional at appointment stage</span>';
+  $('lAmount').textContent=r?'Monthly rent (RM)':'Asking price (RM)';
+  $('tYears').max=r?3:1;
+  $('lYears').textContent=r?'Tenancy (years)':'Tie-in period (years)';
+}
+
+/* ---------- validation ---------- */
+function valid(kind){ // 'o'|'c'|'all'
+  let ok=true;
+  const mark=(el,bad)=>{ el.classList.toggle('ferr',bad); if(bad) ok=false; };
+  if(kind==='all'){
+    mark($('addr'), $('addr').value.trim().length<12);
+    $('eAddr').classList.toggle('on',$('addr').value.trim().length<12);
+    const a=+$('amount').value||0; const bad=isRent()? (a<300||a>50000) : (a<100000||a>50000000);
+    mark($('amount'),bad); $('eAmount').classList.toggle('on',bad);
+    $('eAmount').textContent=isRent()?'Rent must be between RM300 and RM50,000.':'Price must be between RM100,000 and RM50,000,000.';
+    const {ceil,fee}=calcFee(); const over=((+$('feeOv').value||0)>ceil);
+    mark($('feeOv'),over); $('eFee').classList.toggle('on',over);
+    const dep=+$('dEarn').value||0; const needDep=dep>0 && (!$('dRef').value.trim()||!$('dDate').value);
+    $('eDep').classList.toggle('on',needDep); if(needDep) ok=false;
+  }
+  const ps=readParties(kind==='c'?'c':'o');
+  if(kind!=='c'){
+    const bad=ps.length===0 || ps.some(p=>!/^(\d{12}|[A-Za-z0-9]{6,12})$/.test(p.ic) || !/^60\d{9,10}$/.test(p.hp) || !p.n);
+    $('eOwner').style.display=bad?'block':'none';
+    $('eOwner').textContent='Each landlord needs a full name, a 12-digit NRIC (or passport), and a mobile number starting with 60 (e.g. 60123456789).';
+    if(bad) ok=false;
+    [...$('owners').children].forEach(r=>{ const p={n:r.querySelector('.p-n').value.trim(),ic:r.querySelector('.p-ic').value.trim(),hp:r.querySelector('.p-hp').value.trim()};
+      r.querySelector('.p-n').classList.toggle('ferr',!p.n);
+      r.querySelector('.p-ic').classList.toggle('ferr',!p.ic||!/^(\d{12}|[A-Za-z0-9]{6,12})$/.test(p.ic));
+      r.querySelector('.p-hp').classList.toggle('ferr',!p.hp||!/^60\d{9,10}$/.test(p.hp)); });
+  }
+  return ok;
+}
+
+/* ---------- document ---------- */
+function nextId(kind){ const s=LS.get('zth_seq2',{LOAR:101,LOAS:201}); const n=s[kind]++; LS.set('zth_seq2',s); return 'ZTH-'+kind+'-'+String(n).padStart(6,'0'); }
+function buildLetter(d){
+  const a=AGENTS[+$('agent').value]; const owners=d.owners, counters=d.counters;
+  const sig=(list,label)=>{ let h=''; const rows=Math.max(list.length,1); for(let i=0;i<rows;i++){ const p=list[i]||{n:'—'}; h+='<div class="box"><div class="who">'+p.n+'</div>'+label+'<br>NRIC: '+(p.ic||'—')+'<br><span class="es">Signed by e-signing — '+(d.status==='signed'?'[done]':'[pending]')+'</span></div>'; } return h; };
+  return '<div class="lg">'+
+  '<div class="lh"><div><b>ZENTRA PROPERTY GROUP</b><div class="small muted">Registered estate agency E(1)1584</div></div><div class="right small muted">'+
+    '<div><b>'+d.id+'</b></div><div>Version '+d.ver+' &middot; '+d.status.toUpperCase()+'</div><div>Generated '+d.created+'</div></div></div>'+
+  '<h2 class="ct">'+$('tTitle').value+'</h2>'+
+  '<p class="small">I/We, '+owners.map(p=>p.n).join(' & ')+' (NRIC '+owners.map(p=>p.ic).join(', ')+'), hereby appoint Zentra Property Group to '+(isRent()?'secure a tenant':'secure a purchaser')+' for the property described below, subject to the terms and conditions set out herein.</p>'+
+  '<table class="tbl"><tr><th>Item</th><th>Details</th></tr>'+
+   '<tr><td>Property</td><td>'+$('addr').value+'</td></tr>'+
+   '<tr><td>'+(isRent()?'Monthly rent':'Asking price')+'</td><td>'+rm(+$('amount').value)+'</td></tr>'+
+   (isRent()?'<tr><td>Tenancy / option</td><td>'+$('tYears').value+' year(s), option '+$('tOpt').value+' year(s)</td></tr>':'')+
+   '<tr><td>Condition</td><td>'+$('cond').value+'</td></tr>'+
+   '<tr><td>Mandate</td><td>'+($('basis').value==='ex'?'Exclusive':'Non-exclusive (default)')+' &middot; valid '+$('validity').value+' months from the date hereof</td></tr>'+
+  '</table>'+
+  '<p class="small"><b>Professional fee.</b> The maximum fee under the statutory scale is '+rm(d.ceil)+(isRent()?' (1.25 months gross rent — Schedule 7(C)(2), Valuers, Appraisers and Estate Agents Rules 1986)':' (3% of the transaction price — Schedule 7(C)(1))')+'. The fee charged for this appointment is <b>'+rm(d.fee)+'</b>, plus SST at 8% ('+rm(d.fee*0.08)+'), total <b>'+rm(d.fee*1.08)+'</b>. The fee is payable on completion in accordance with the scale and the terms of this appointment.</p>'+
+  (d.dep>0? '<p class="small"><b>Deposit.</b> A deposit of '+rm(d.dep)+' was received on '+d.dDate+' and is held by <b>'+d.dHolder+'</b> (receipt '+d.dRef+'). The agency does not hold client money: the deposit is not held by Zentra Property Group or by any negotiator, and this letter records the holder for the avoidance of doubt.</p>':'')+
+  (d.notes? '<p class="small"><b>Special conditions.</b> '+d.notes+'</p>':'')+
+  '<p class="small muted">This appointment does not authorise any valuation, and it does not transfer any interest in the property. Documents requiring registration under the National Land Code 1965 must be executed in wet ink.</p>'+
+  '<div class="duo">'+sig(owners,isRent()?'Landlord':'Vendor')+'<div class="box"><div class="who">'+a.n+'</div>Negotiator &middot; '+(a.lvl)+'<br>Registration: <b>'+a.reg+'</b><br><span class="es">Signed by e-signing — [pending]</span></div></div>'+
+  '<div class="foot"><span>'+d.id+' &middot; '+$('tTitle').value+'</span><span>Page 1 of 1</span></div>'+
+  '<div class="dc"><div><b>Document control</b> &mdash; '+d.id+' &middot; version '+d.ver+' &middot; generated by Zentra Realty on '+d.created+' &middot; this PDF is the authoritative soft copy.</div>'+
+  '<div>Issued by Zentra Property Group, a registered estate agency (E(1)1584). Under the Electronic Commerce Act 2006 this document is valid without a handwritten signature when signed electronically.</div>'+
+  '<div><b>Initials:</b> every page is numbered and the client initials at the foot of each page before signing the last one. The initials are captured with the same audit record.</div>'+
+  '<div><b>Not signable electronically:</b> instruments requiring registration under the National Land Code 1965, powers of attorney, wills, trusts and negotiable instruments.</div>'+
+  '<div>Personal data is processed under the Personal Data Protection Act 2010 (see the PDPA notice, Annex A). Retained 7 years. This letter is not legal advice; fees follow the statutory scale referenced above. Verify this document at zentrapropertygroup.com/verify/'+d.id+'.</div></div></div>';
+}
+function collect(){
+  return {owners:readParties('o'),counters:readParties('c'),dep:+$('dEarn').value||0,dHolder:$('dHolder').value,dRef:$('dRef').value.trim(),dDate:$('dDate').value,notes:$('spec').value.trim()};
+}
+function generate(){
+  if(!valid('all')){ $('vnote').textContent='Please fix the highlighted fields — the letter cannot be generated from invalid data.'; return; }
+  const {ceil,fee}=calcFee(); const kind=isRent()?'LOAR':'LOAS';
+  const p=collect(); const now=new Date();
+  const d={id:nextId(kind),type:isRent()?'Appointment (rent)':'Appointment (sale)',kind:kind,ver:1,status:'issued',ceil:ceil,fee:fee,party:p.owners.map(o=>o.n).join(' & ')||'—',created:now.toLocaleDateString('en-GB')+' '+now.toTimeString().slice(0,5),owners:p.owners,counters:p.counters,dep:p.dep,dHolder:p.dHolder,dRef:p.dRef,dDate:p.dDate,notes:p.notes,title:$('tTitle').value};
+  d.letter=buildLetter(d);
+  DOCS.unshift(d); LS.set('zth_docs2',DOCS); renderArc(); viewDoc(d.id); $('vnote').textContent='Letter '+d.id+' created (version 1, status ISSUED). Numbering is never re-used.';
+}
+
+/* ---------- archive ---------- */
+function chip(s){ const m={issued:['st-issued','ISSUED'],draft:['st-draft','DRAFT'],signed:['st-signed','SIGNED'],void:['st-void','VOID'],superseded:['st-sup','SUPERSEDED']}[s]||['st-draft',s.toUpperCase()]; return '<span class="stchip '+m[0]+'">'+m[1]+'</span>'; }
+function renderArc(){
+  const t=$('arcRows'); t.innerHTML='';
+  if(!DOCS.length){ $('arcNote').textContent='No letters yet in this browser.'; return; }
+  DOCS.forEach(d=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td class="mono">'+d.id+'</td><td>'+d.type+'</td><td>'+d.party+'</td><td>'+chip(d.status)+'</td><td>v'+d.ver+'</td><td class="num">'+rm(d.fee)+'</td>'+
+    '<td><button class="btn ghost sm" onclick="viewDoc(\''+d.id+'\')">View</button> '+
+    (d.status==='void'?'':'<button class="btn ghost sm" onclick="amend(\''+d.id+'\')">Amend</button> <button class="btn ghost sm" onclick="voidDoc(\''+d.id+'\')">Void</button>')+'</td>';
+    t.appendChild(tr);
+  });
+  $('arcNote').textContent=DOCS.length+' document(s) in this browser \u00b7 numbering never re-used \u00b7 voided documents keep their number.';
+}
+function find(id){ return DOCS.find(d=>d.id===id); }
+function viewDoc(id){ const d=find(id); if(!d) return; $('mTitle').textContent=d.id+' \u00b7 '+d.status.toUpperCase()+' \u00b7 v'+d.ver; $('modalHost').innerHTML=d.letter; $('modal').classList.add('on'); }
+function amend(id){
+  const d=find(id); if(!d) return;
+  const nd=JSON.parse(JSON.stringify(d)); nd.ver=d.ver+1; nd.status='issued'; nd.created=new Date().toLocaleDateString('en-GB')+' '+new Date().toTimeString().slice(0,5);
+  d.status='superseded'; nd.letter=buildLetter(nd);
+  DOCS.unshift(nd); LS.set('zth_docs2',DOCS); renderArc(); viewDoc(nd.id);
+  $('vnote').textContent='Amendment created: '+nd.id+' v'+nd.ver+'. The previous version is marked SUPERSEDED and any signing links issued for it are revoked.';
+}
+function voidDoc(id){
+  const d=find(id); if(!d) return;
+  d.status='void'; LS.set('zth_docs2',DOCS); renderArc();
+  $('vnote').textContent=d.id+' marked VOID. The number is retained and is not re-used — this is what keeps the register auditable.';
+}
+/* ---------- helpers ---------- */
+function sample(){
+  $('dtype').value='rent'; swapLabels();
+  $('owners').innerHTML=''; addParty('o',{n:'Noraini binti Hassan',ic:'781102085566',hp:'60123456789',em:'noraini@example.com'});
+  $('counters').innerHTML='';
+  $('agent').value='0'; $('amount').value='1100'; $('addr').value='18-3, Jalan Seri Harmoni 2/5, 43000 Kajang, Selangor';
+  $('tYears').value='1'; $('tOpt').value='1'; $('cond').value='Fully furnished, as is basis'; $('basis').value='non'; $('validity').value='6';
+  $('dEarn').value='1100'; $('dRef').value='OR-2026-000231'; $('dDate').value='2026-09-10'; $('spec').value='';
+  refreshFee(); valid('all');
+}
+function reset(){ $('owners').innerHTML=''; $('counters').innerHTML=''; addParty('o'); swapLabels(); refreshFee(); }
+['amount','feeOv','dEarn','dRef','dDate','addr'].forEach(id=>{ const el=$(id); if(el){ el.oninput=refreshFee; el.onchange=refreshFee; } });
+$('dtype').onchange=()=>{ swapLabels(); $('tTitle').value=isRent()?'Letter of Appointment \u2014 To Secure A Tenant':'Letter of Appointment \u2014 To Secure A Purchaser'; refreshFee(); };
+$('gen').onclick=generate; $('sample').onclick=sample; $('reset').onclick=reset;
+$('clearArc').onclick=()=>{ DOCS=[]; LS.set('zth_docs2',DOCS); renderArc(); };
+$('closeBtn').onclick=()=>$('modal').classList.remove('on');
+$('printBtn').onclick=()=>window.print();
+$('signBtn').onclick=()=>{ $('modal').classList.remove('on'); location.href='f2.html'; };
+$('modal').addEventListener('click',e=>{ if(e.target.id==='modal') $('modal').classList.remove('on'); });
+window.addEventListener('keydown',e=>{ if(e.key==='Escape') $('modal').classList.remove('on'); });
+function buildSteps(){ const hs=[...document.querySelectorAll('h2.sec')]; const w=$('steps'); if(!hs.length||!w) return;
+  w.innerHTML=hs.map((h,i)=>'<button class="btn ghost sm" onclick="document.querySelectorAll(String.fromCharCode(39)+\'h2.sec\'+String.fromCharCode(39))['+i+'].scrollIntoView({behavior:String.fromCharCode(39)+\'smooth\'+String.fromCharCode(39)})">'+(i+1)+'. '+h.textContent.replace(/^[^A-Za-z]*[0-9]*/,'').trim().slice(0,42)+'</button>').join(' '); }
+const DK='zth_f1draft';
+function draftNote(t){ const e=$('draftNote'); if(e) e.textContent=t; }
+function saveDraft(){ const v={}; document.querySelectorAll('input.i,select.i,textarea.i').forEach(e=>{ if(e.id) v[e.id]=e.value; }); v._o=$('owners')?$('owners').innerHTML:''; v._c=$('counters')?$('counters').innerHTML:''; LS.set(DK,{v:v,t:new Date().toLocaleString('en-GB')}); draftNote('Draft saved '+new Date().toLocaleString('en-GB')); }
+function loadDraft(){ const d=LS.get(DK,null); if(!d) return draftNote('No draft saved yet.'); Object.keys(d.v).forEach(k=>{ const e=$(k); if(e) e.value=d.v[k]; }); if($('owners')) $('owners').innerHTML=d.v._o; if($('counters')) $('counters').innerHTML=d.v._c; refreshFee(); swapLabels(); showAgent(); draftNote('Draft from '+d.t+' restored.'); }
+function clearDraft(){ LS.set(DK,null); draftNote('Draft cleared \u2014 the letter form is untouched.'); }
+swapLabels(); addParty('o',{n:'Noraini binti Hassan',ic:'781102085566',hp:'60123456789',em:'noraini@example.com'}); refreshFee(); renderArc(); buildSteps(); showAgent(); $('agent').addEventListener('change',showAgent);
+const QP=new URLSearchParams(location.search);
+if(QP.get('demo')){ sample(); generate(); if(QP.get('nomodal')) $('modal').classList.remove('on'); }
+</script>
+<script src="assets/notif.js?v=47074d00"></script>
+<script src="assets/nav.js?v=47074d00"></script>
+<script src="assets/ui.js?v=47074d00"></script>
+</body>
+</html>
