@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Letter of Confirmation | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=e4a08bea">
+<style>
+.ferr input,.ferr select,.ferr textarea{border-color:#E8776A!important;background:rgba(232,119,106,.06)}
+.emsg{display:none;font-size:11.5px;color:#E8776A;margin-top:4px}
+.emsg.on{display:block}
+.plist{display:flex;flex-direction:column;gap:10px}
+.prow{display:grid;grid-template-columns:1.4fr .9fr .9fr .9fr auto;gap:8px;align-items:end}
+@media(max-width:760px){.prow{grid-template-columns:1fr 1fr}}
+.modal{position:fixed;inset:0;background:rgba(6,20,16,.55);display:none;align-items:flex-start;justify-content:center;padding:18px;overflow:auto;z-index:60}
+.modal.on{display:flex}
+.sheet{background:rgba(255,255,255,.04);border-radius:14px;max-width:880px;width:100%;padding:24px 26px}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="ctxbar">The confirmation letter closes the deal: it records what was agreed, the payment schedule, and the milestone that releases each part of the fee.</div>
+    <h1>Letter of Confirmation <span class="pill gold">LIVE DEMO · SAMPLEDATA</span></h1>
+
+    <div class="card" style="padding:12px 14px;margin-bottom:14px">
+      <div id="steps" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn ghost sm" onclick="saveDraft()">Save draft</button>
+        <button class="btn ghost sm" onclick="loadDraft()">Resume draft</button>
+        <button class="btn ghost sm" onclick="clearDraft()">Clear</button>
+        <span class="small muted" id="draftNote" style="align-self:center"></span>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Which confirmation is this?</h2>
+    <div class="card">
+      <div class="grid g3">
+        <div class="field"><label>Document type</label>
+          <select id="dtype" class="i" onchange="swapLabels();refreshFee()">
+            <option value="rent">Letter of Confirmation &mdash; tenancy (LOCR)</option>
+            <option value="sale">Letter of Confirmation &mdash; sale (LOCS)</option>
+          </select>
+        </div>
+        <div class="field"><label>Follows this appointment letter</label>
+          <input id="chain" class="i" value="ZTH-LOAR-000101 (signed)">
+        </div>
+        <div class="field"><label>Negotiator</label>
+          <select id="agent" class="i" onchange="showAgent()"></select>
+          <div class="small muted" id="agentInfo" style="margin-top:4px"></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Parties (the confirmation names every one of them)</h2>
+    <div class="card">
+      <div class="grid g2">
+        <div>
+          <div class="h3" id="tOwner">Landlord(s)</div>
+          <div class="plist" id="owners"></div>
+          <div class="actions" style="margin-top:8px"><button class="btn ghost sm" onclick="addParty('o')">+ Add another</button></div>
+        </div>
+        <div>
+          <div class="h3" id="tTenant">Tenant(s)</div>
+          <div class="plist" id="counters"></div>
+          <div class="actions" style="margin-top:8px"><button class="btn ghost sm" onclick="addParty('c')">+ Add another</button></div>
+        </div>
+      </div>
+      <div class="emsg" id="eParty">Every owner and every counterparty needs a name and a full 12-digit IC (or a passport number).</div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Property, money and schedule</h2>
+    <div class="card">
+      <div class="grid g3">
+        <div class="field"><label>Property address</label><input id="addr" class="i" value="18-3, Jalan Seri Harmoni 2/5, 43200 Kajang"></div>
+        <div class="field"><label id="lAmount">Monthly rent (RM)</label><input id="amount" class="i" type="number" value="1100"></div>
+        <div class="field"><label id="lTerm">Term (years, max 3)</label><input id="term" class="i" type="number" value="1"></div>
+      </div>
+      <div class="grid g3" style="margin-top:10px">
+        <div class="field"><label id="lDep">Security deposit (RM)</label><input id="dep" class="i" type="number" value="2200"></div>
+        <div class="field"><label>Deposit held by</label>
+          <select id="holder" class="i">
+            <option>Solicitors of the landlord</option>
+            <option>Solicitors of the vendor</option>
+            <option>Landlord</option>
+            <option>Vendor</option>
+          </select>
+        </div>
+        <div class="field"><label>Receipt / reference</label><input id="ref" class="i" value="OR-2026-000231"></div>
+      </div>
+      <div class="grid g2" style="margin-top:10px">
+        <div class="field"><label id="lStart">Tenancy starts</label><input id="start" class="i" type="date" value="2026-10-01"></div>
+        <div class="field"><label>Special conditions (optional)</label><input id="spec" class="i" value="Pets not permitted. Air-conditioners serviced every 6 months."></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Inventory (one item per line &mdash; becomes Annexure A)</label>
+        <textarea id="inv" class="i" rows="4">Air-conditioner x2 (living, master bedroom)
+Water heater x2
+Kitchen cabinet + hob + hood
+Refrigerator
+Washing machine</textarea>
+      </div>
+      <div class="emsg" id="eAmount">Amounts and dates must be inside the allowed range.</div>
+    </div>
+
+    <div class="actions" style="margin:16px 0">
+      <button class="btn" onclick="generate()">Generate confirmation letter</button>
+      <button class="btn ghost" onclick="sample()">Sample data</button>
+      <button class="btn ghost" onclick="resetAll()">Reset</button>
+      <span class="small muted" id="genNote"></span>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Letters issued (nothing is deleted &mdash; a cancelled letter keeps its number)</h2>
+    <div class="card" style="padding:0;overflow:auto">
+      <table class="tbl">
+        <tr><th>Document ID</th><th>Property</th><th>Party</th><th>Status</th><th class="num">Fee (RM)</th><th>Created</th><th>Actions</th></tr>
+        <tbody id="arc"><tr><td colspan="7" class="small muted" style="padding:14px">No confirmation letters yet.</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeLetter()">
+  <div class="sheet" id="sheet"></div>
+</div>
+<script src="assets/agency.js?v=e4a08bea"></script>
+<script>
+const $=id=>document.getElementById(id);
+const rm=n=>'RM '+(Math.round(n*100)/100).toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const AGENTS=[
+ {n:'Nadia Rahman',reg:'REN 12345',lvl:'L5 · Team Leader',pi:'PI insurance expires 31 Mar 2027',bank:'Maybank 5123 4567 8901',tin:'IG 1234567890'},
+ {n:'Faizal Omar',reg:'REN 21877',lvl:'L4 · Senior negotiator',pi:'PI insurance expires 12 Jan 2027',bank:'CIMB 7033 2211 8890',tin:'IG 2233445566'},
+ {n:'Aisy Karim',reg:'REN 30412',lvl:'L2 · Negotiator',pi:'PI insurance expires 30 Jun 2027',bank:'Maybank 5144 7788 2210',tin:'IG 3344556677'},
+ {n:'Ameer Haziq',reg:'REN 29150',lvl:'L2 · Negotiator',pi:'PI insurance expires 05 Apr 2027',bank:'RHB 2145 6677 8890',tin:'IG 4455667788'}];
+AGENTS.forEach((a,i)=>{const o=document.createElement('option');o.value=i;o.textContent=a.n+' · '+a.reg;$('agent').appendChild(o)});
+function showAgent(){const a=AGENTS[$('agent').value||0];$('agentInfo').innerHTML='<b>'+a.reg+'</b> · '+a.lvl+' · '+a.pi+'<br>Payment details auto-filled from the registry: <b>'+a.bank+'</b> · TIN '+a.tin+'.'}
+</script>
+<script>
+function partyRow(kind,idx,val){val=val||{};return '<div class="prow"><div class="field" style="margin:0"><input class="i p-n" placeholder="Full name as per IC" value="'+(val.n||'')+'"></div>'+
+'<div class="field" style="margin:0"><input class="i p-ic" placeholder="IC 12 digits" value="'+(val.ic||'')+'"></div>'+
+'<div class="field" style="margin:0"><input class="i p-hp" placeholder="Mobile 60..." value="'+(val.hp||'')+'"></div>'+
+'<div class="field" style="margin:0"><input class="i p-em" placeholder="Email (optional)" value="'+(val.em||'')+'"></div>'+
+'<button class="btn ghost sm" onclick="this.parentNode.remove()">Remove</button></div>';}
+function addParty(kind,val){const h=$(kind==='o'?'owners':'counters');h.insertAdjacentHTML('beforeend',partyRow(kind,h.children.length,val));}
+function readParties(kind){const h=$(kind==='o'?'owners':'counters');return [...h.children].map(r=>({n:r.querySelector('.p-n').value.trim(),ic:r.querySelector('.p-ic').value.trim(),hp:r.querySelector('.p-hp').value.trim(),em:r.querySelector('.p-em').value.trim()}));}
+function isRent(){return $('dtype').value==='rent';}
+function swapLabels(){const r=isRent();$('lAmount').textContent=r?'Monthly rent (RM)':'Sale price (RM)';$('lTerm').textContent=r?'Term (years, max 3)':'SPA period (working days)';$('lDep').textContent=r?'Security deposit (RM)':'Earnest deposit (RM)';$('lStart').textContent=r?'Tenancy starts':'Option date';$('tOwner').textContent=r?'Landlord(s)':'Vendor(s)';$('tTenant').textContent=r?'Tenant(s)':'Purchaser(s)';}
+function fmtDate(d){const p=n=>(n<10?'0':'')+n;return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+function schedule(rent,years){const rows=[];let d=new Date($('start').value||Date.now());for(let i=0;i<12*years;i++){rows.push({no:i+1,due:fmtDate(d),amt:rent});d.setMonth(d.getMonth()+1);}return rows;}
+function validate(){let bad=[];const ic=/^(\d{12}|[A-Za-z0-9]{6,12})$/;const hp=/^60\d{8,10}$/;
+ ['owners','counters'].forEach(k=>{readParties(k==='owners'?'o':'c').forEach((p,i)=>{if(!p.n){bad.push((k==='owners'?'Landlord':'Counterparty')+' '+(i+1)+': name is required');} if(!ic.test(p.ic)){bad.push((k==='owners'?'Landlord':'Counterparty')+' '+(i+1)+': IC must be 12 digits (or a passport number)');} if(p.hp && !hp.test(p.hp)){bad.push((k==='owners'?'Landlord':'Counterparty')+' '+(i+1)+': mobile must start with 60');}});});
+ const amt=+$('amount').value;if(isRent()&&(amt<300||amt>50000))bad.push('Monthly rent must be between RM300 and RM50,000');
+ if(!isRent()&&(amt<100000||amt>50000000))bad.push('Sale price must be between RM100,000 and RM50,000,000');
+ if(isRent()&&(+$('term').value<1||+$('term').value>3))bad.push('Tenancy term for this scale is 1 to 3 years (above 3 years: confirm the fee scale with the Agency Head)');
+ if(!$('addr').value.trim()||$('addr').value.trim().length<12)bad.push('Property address must be complete');
+ if(!$('start').value)bad.push('Start date is required');
+ if(+$('dep').value>0&&!$('ref').value.trim())bad.push('If a deposit is recorded, the receipt or reference must be entered');
+ return bad;}
+</script>
+<script>
+function ceiling(){return isRent()?Math.max(+$('amount').value,1.25*+$('amount').value):Math.max(1000,0.03*+$('amount').value);}
+function head2(kind,id){return '<div class="lg"><div class="lh"><div><b>ZENTRA PROPERTY GROUP</b><div class="small muted">Registered estate agency E(1)1584 &middot; Kuala Lumpur</div></div>'+
+'<div class="small" style="text-align:right"><b>'+id+'</b><br>Version 1 &middot; ISSUED<br>'+new Date().toLocaleString('en-GB')+'</div></div>'+
+'<div class="ct">'+kind+'</div>';}
+function intro(kind){const O=readParties('o'),C=readParties('c');const r=isRent();
+ return '<p class="small">This letter confirms the '+kind.toLowerCase()+' agreed between the parties named below and follows the signed Letter of Appointment <b>'+$('chain').value+'</b>.</p>'+
+ '<div class="box"><b>Property:</b> '+$('addr').value+'<br>'+
+ '<b>'+(r?'Landlord(s)':'Vendor(s)')+':</b> '+O.map(p=>p.n+' ('+p.ic+')').join('; ')+'<br>'+
+ '<b>'+(r?'Tenant(s)':'Purchaser(s)')+':</b> '+C.map(p=>p.n+' ('+p.ic+')').join('; ')+'</div>';}
+function rentSchedule(d){const rows=schedule(+$('amount').value,+$('term').value);
+ return '<table class="tbl sched"><tr><th>#</th><th>Due date</th><th class="num">Amount (RM)</th><th>Period covered</th></tr>'+
+ rows.map(x=>'<tr><td>'+x.no+'</td><td>'+x.due+'</td><td class="num">'+rm(x.amt)+'</td><td>'+(x.no==1?'On signing / before keys':x.no+'-1 month after start')+'</td></tr>').join('')+
+ '<tr class="tot"><td></td><td>Total rent for the term</td><td class="num">'+rm(rows.reduce((a,b)=>a+b.amt,0))+'</td><td></td></tr></table>';}
+</script>
+<script>
+function rentClauses(){const amt=+$('amount').value,dep=+$('dep').value;
+ return ['<b>1. Rent</b> is payable monthly in advance on the first day of each month at '+rm(amt)+', as set out in the schedule above. The agency fee follows the signed Letter of Appointment and never exceeds the statutory ceiling.',
+ '<b>2. Security deposit</b> of '+rm(dep)+' is held by <b>'+$('holder').value+'</b> under receipt <b>'+$('ref').value+'</b>. It is not agency money and Zentra Property Group does not hold client funds. It is refundable within 14 days of vacant possession, less any agreed deduction supported by documents.',
+ '<b>3. Utilities</b> are transferred into the tenant\'s name and paid by the tenant from the commencement date.',
+ '<b>4. Upkeep.</b> The tenant keeps the property in good condition (fair wear and tear excepted) and reports damage within 7 days.',
+ '<b>5. Inspection.</b> The landlord may inspect during business hours with 2 days\' written notice.',
+ '<b>6. Inventory.</b> The inventory in Annexure A forms part of this agreement and is returned in the same condition, ordinary wear excepted.',
+ '<b>7. Stamping.</b> <b>'+$('holder').value.replace(/Solicitors of the /,'')+'</b> stamps this letter within 30 days from the last signature through MyTax e-Duti Setem. If it is late: RM50 or 10% of the duty (whichever is higher) within three months, RM100 or 20% after that. The penalty is borne by the party named here.',
+ '<b>8. Termination.</b> Two months\' written notice. The deposit is not a substitute for notice.',
+ '<b>9. No assignment or subletting</b> without the landlord\'s written consent.',
+ '<b>10. Personal data</b> is processed under the Personal Data Protection Act 2010 (notice attached).',
+ '<b>11. Electronic signature.</b> Both parties agree to sign electronically; under the Electronic Commerce Act 2006 this letter is valid without a handwritten signature. The system PDF is the authoritative soft copy.']; }
+function saleClauses(){const price=+$('amount').value,dep=+$('dep').value;
+ return ['<b>1. Earnest deposit</b> of '+rm(dep)+' (3.24% of the price) is paid on signing, and the balance of the ten per cent deposit (6.76%) within 14 days of acceptance.',
+ '<b>2. Balance of the purchase price</b> (90%) is payable within 90 days from the date of this letter, with one extension of 30 days at 8% per annum on the outstanding sum.',
+ '<b>3. Sale and purchase agreement</b> is prepared by the purchaser\'s solicitor within 21 working days.',
+ '<b>4. Fees</b> follow the signed Letter of Appointment and the statutory scale; a fee above the ceiling can never be charged.',
+ '<b>5. Deposit</b> is held by <b>'+$('holder').value+'</b> under receipt <b>'+$('ref').value+'</b>. It is not agency money.',
+ '<b>6. Vacant possession</b> is delivered on completion, free of encumbrances save those disclosed.',
+ '<b>7. Registered documents</b> (transfer, charge) cannot be signed electronically and are dealt with by the solicitors on the solicitor\'s platform.',
+ '<b>8. Personal data</b> is processed under the Personal Data Protection Act 2010.','<b>9. Electronic signature</b> applies to this letter only; the SPA is executed in the manner its solicitors require.']; }
+</script>
+<script>
+function buildLetter(d){const r=d.type==='rent';
+ let h=head2(r?'LETTER OF CONFIRMATION — TENANCY':'LETTER OF CONFIRMATION — SALE',d.id)+intro(r?'Tenancy':'Sale');
+ h+='<div class="mono small" style="margin:10px 0"><b>Payment schedule</b></div>';
+ h+= r? rentSchedule(d) : '<table class="tbl sched"><tr><th>Milestone</th><th class="num">%</th><th class="num">Amount (RM)</th><th>Trigger</th></tr>'+
+   '<tr><td>Earnest deposit</td><td class="num">3.24%</td><td class="num">'+rm(d.dep)+'</td><td>On signing this letter</td></tr>'+
+   '<tr><td>Balance of deposit</td><td class="num">6.76%</td><td class="num">'+rm(0.10*d.amount-d.dep)+'</td><td>Within 14 days</td></tr>'+
+   '<tr><td>Balance of price</td><td class="num">90%</td><td class="num">'+rm(0.90*d.amount)+'</td><td>Within 90 days (+30 days extension at 8% p.a.)</td></tr></table>';
+ h+='<div style="margin-top:12px">'+(r?rentClauses():saleClauses()).map(c=>'<div class="small" style="margin:6px 0">'+c+'</div>').join('')+'</div>';
+ if(r){const items=$('inv').value.split('\n').map(x=>x.trim()).filter(Boolean);
+  h+='<div style="margin-top:12px"><b class="small">Annexure A — Inventory</b><div class="small muted">Confirmed present at handover; returned in the same condition, ordinary wear excepted.</div>'+
+  '<table class="tbl sched"><tr><th>#</th><th>Item</th><th>Condition at handover</th></tr>'+items.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+x+'</td><td>Good</td></tr>').join('')+'</table></div>';}
+ h+='<div class="duo">'+readParties('o').map(p=>'<div class="who"><b>'+p.n+'</b><div class="small muted">'+(r?'Landlord':'Vendor')+' &middot; '+p.ic+'</div><div class="es">Signed by e-signing &middot; ______________</div></div>').join('')+
+ readParties('c').map(p=>'<div class="who"><b>'+p.n+'</b><div class="small muted">'+(r?'Tenant':'Purchaser')+' &middot; '+p.ic+'</div><div class="es">Signed by e-signing &middot; ______________</div></div>').join('')+'</div>';
+ const a=AGENTS[d.agent];
+ h+='<div class="box small" style="margin-top:12px"><b>Prepared by:</b> '+a.n+' &middot; Registration '+a.reg+' &middot; '+a.lvl+'<br>Statutory ceiling for this transaction: '+rm(d.ceil)+' &middot; fee charged follows the appointment letter.</div>';
+ h+='<div class="foot"><span>'+d.id+' &middot; '+a.reg+'</span><span>Page 1 of 1</span></div>';
+ h+='<div class="dc"><div><b>Document control</b> &mdash; '+d.id+' &middot; version '+d.ver+' &middot; generated '+d.created+' by Zentra Realty &middot; verify at zentrapropertygroup.com/verify/'+d.id+'</div>'+
+ '<div>Issued by Zentra Property Group, a registered estate agency (E(1)1584). Valid without a handwritten signature when signed electronically under the Electronic Commerce Act 2006.</div>'+
+ '<div><b>Initials:</b> the client initials at the foot of every page; initials and signature carry the same timestamp in the audit log.</div>'+
+ '<div>Personal data is processed under the Personal Data Protection Act 2010. Retained 7 years. This letter is not legal advice.</div></div>';
+ return h;}
+</script>
+<script>
+const KEY='zth_loc2', DK='zth_locdraft';
+function store(){return LS.get(KEY,[]);}
+function setStore(v){LS.set(KEY,v);}
+function collect(){const a=AGENTS[$('agent').value||0];return {type:$('dtype').value,chain:$('chain').value,agent:+$('agent').value||0,addr:$('addr').value,amount:+$('amount').value,term:+$('term').value,dep:+$('dep').value,holder:$('holder').value,ref:$('ref').value,start:$('start').value,spec:$('spec').value,inv:$('inv').value,owners:readParties('o'),counters:readParties('c'),ceil:ceiling(),who:a.n};}
+function generate(){const bad=validate();const n=$('genNote');
+ if(bad.length){n.innerHTML='<b style="color:#E8776A">Not generated &mdash; '+bad.length+' problem(s):</b><br>'+bad.map(x=>'&bull; '+x).join('<br>');return;}
+ const d=collect();const list=store();const kind=d.type==='rent'?'LOCR':'LOCS';
+ const seq=LS.get('zth_locseq',{LOCR:101,LOCS:101});d.id='ZTH-'+kind+'-'+String(seq[kind]++).padStart(6,'0');LS.set('zth_locseq',seq);
+ d.ver=1;d.status='issued';d.created=new Date().toLocaleString('en-GB');d.letter=buildLetter(d);
+ list.unshift(d);setStore(list);n.innerHTML='Generated <b>'+d.id+'</b> (version 1).';
+ renderArc();showLetter(d.id);}
+function chip(s){const m={issued:['ok','ISSUED'],void:['bad','VOID'],superseded:['warn','SUPERSEDED']};const x=m[s]||['gray',String(s).toUpperCase()];return '<span class="pill '+x[0]+'">'+x[1]+'</span>';}
+function renderArc(){const l=store();const host=$('arc');
+ if(!l.length){host.innerHTML='<tr><td colspan="7" class="small muted" style="padding:14px">No confirmation letters yet.</td></tr>';return;}
+ host.innerHTML=l.map(d=>'<tr><td class="mono">'+d.id+'</td><td>'+d.addr.slice(0,34)+'</td><td>'+(d.owners[0]?d.owners[0].n:'&mdash;')+'</td><td>'+chip(d.status)+' <span class="small muted">v'+d.ver+'</span></td><td class="num">'+rm(d.ceil)+'</td><td class="small muted">'+d.created+'</td>'+
+ '<td><button class="btn ghost sm" onclick="showLetter(\''+d.id+'\')">View</button> <button class="btn ghost sm" onclick="amend(\''+d.id+'\')">Amend</button> <button class="btn ghost sm" onclick="voidDoc(\''+d.id+'\')">Void</button></td></tr>').join('');}
+function showLetter(id){const d=store().find(x=>x.id===id);if(!d)return;$('sheet').innerHTML=d.letter+'<div class="actions" style="margin-top:14px"><button class="btn" onclick="closeLetter()">Close</button><button class="btn ghost" onclick="alert(\'In production this sends the signing links to every party and starts the 30-day stamping clock on the last signature.\')">Send for signature</button></div>';$('modal').classList.add('on');}
+function closeLetter(){$('modal').classList.remove('on');}
+function voidDoc(id){const l=store();const d=l.find(x=>x.id===id);if(!d)return;if(confirm('Void '+id+'? The number is kept and the record stays in the register.')){d.status='void';setStore(l);renderArc();}}
+function amend(id){const l=store();const d=l.find(x=>x.id===id);if(!d)return;const c=JSON.parse(JSON.stringify(d));c.ver=d.ver+1;c.status='issued';c.created=new Date().toLocaleString('en-GB');c.letter=buildLetter(c);d.status='superseded';l.unshift(c);setStore(l);renderArc();showLetter(c.id);}
+</script>
+<script>
+function buildSteps(){const hs=[...document.querySelectorAll('h2.sec')];const w=$('steps');if(!hs.length||!w)return;
+ w.innerHTML=hs.map((h,i)=>'<button class="btn ghost sm" data-s="'+i+'">'+h.textContent.trim()+'</button>').join('');
+ w.querySelectorAll('button').forEach(b=>b.onclick=()=>document.querySelectorAll('h2.sec')[+b.dataset.s].scrollIntoView({behavior:'smooth'}));}
+function draftNote(t){const e=$('draftNote');if(e)e.textContent=t;}
+function saveDraft(){const v={};document.querySelectorAll('.i').forEach(e=>{if(e.id)v[e.id]=e.value});
+ v._o=$('owners').innerHTML;v._c=$('counters').innerHTML;LS.set(DK,{v:v,t:new Date().toLocaleString('en-GB')});draftNote('Draft saved '+new Date().toLocaleString('en-GB'));}
+function loadDraft(){const d=LS.get(DK,null);if(!d)return draftNote('No draft saved yet.');
+ Object.entries(d.v).forEach(([k,val])=>{const e=$(k);if(e)e.value=val});
+ $('owners').innerHTML=d.v._o;$('counters').innerHTML=d.v._c;swapLabels();showAgent();draftNote('Draft from '+d.t+' restored.');}
+function clearDraft(){LS.set(DK,null);draftNote('Draft cleared.');}
+function sample(){const now=new Date();addParty('c',{n:'Ahmad Faizal bin Osman',ic:'601988887766',hp:'60198887766',em:'faizal@example.com'});
+ addParty('c',{n:'Siti Aminah binti Yusof',ic:'720315045522',hp:'60123334455',em:''});
+ if(+$('agent').value>0)$('agent').value='0';showAgent();swapLabels();draftNote('Sample data ready &mdash; press Generate.');}
+function resetAll(){setStore([]);renderArc();draftNote('Register cleared (demo only).');}
+swapLabels();addParty('o',{n:'Noraini binti Hassan',ic:'781102085566',hp:'60123456789',em:'noraini@example.com'});showAgent();buildSteps();renderArc();
+const QP=new URLSearchParams(location.search);
+if(QP.get('type')){$('dtype').value=QP.get('type');if(QP.get('type')==='sale'){$('amount').value=680000;$('dep').value=22032;$('term').value=21;}swapLabels();}
+if(QP.get('demo')){sample();generate();if(QP.get('nomodal'))closeLetter();}
+</script>
+<script src="assets/notif.js?v=e4a08bea"></script>
+<script src="assets/nav.js?v=e4a08bea"></script>
+<script src="assets/ui.js?v=e4a08bea"></script>
+</body>
+</html>
