@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Sign a document | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=a79a02f7">
+<style>
+  body{background:rgba(255,255,255,.04)}
+  .phone{max-width:460px;margin:0 auto;background:rgba(255,255,255,.04);min-height:100vh;box-shadow:0 0 40px rgba(12,68,55,.10)}
+  .ph-top{background:var(--navy);color:#f5f1e4;padding:16px 18px}
+  .ph-top .t{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(95,199,157,.12)}
+  .ph-top h1{font-size:17px;margin:2px 0 0;font-family:inherit}
+  .wrap{padding:16px 18px 90px}
+  .step{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-3);font-weight:700;margin:0 0 6px}
+  .sumrow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.04);font-size:13px}
+  .sumrow span:first-child{color:var(--ink-3)}
+  .bignum{font-size:22px;font-weight:700;color:var(--navy)}
+  .otpbox{display:flex;gap:8px;justify-content:space-between;margin:12px 0}
+  .otpbox input{width:46px;height:52px;text-align:center;font-size:20px;border:1px solid rgba(255,255,255,.04);border-radius:10px}
+  .chk{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;margin:10px 0;line-height:1.5}
+  .chk input{margin-top:2px;width:18px;height:18px}
+  canvas{border:1px dashed rgba(255,255,255,.04);border-radius:10px;background:rgba(255,255,255,.04);width:100%;height:150px;touch-action:none}
+  .barfixed{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.04);border-top:1px solid var(--line);padding:12px 18px;display:flex;gap:10px;max-width:460px;margin:0 auto}
+  .barfixed .btn{flex:1;justify-content:center}
+  .okbig{width:64px;height:64px;border-radius:50%;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 10px}
+  .cert{border:1px solid rgba(255,255,255,.04);border-radius:10px;padding:14px;font-size:12px;background:rgba(255,255,255,.04)}
+  .cert .row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dotted rgba(255,255,255,.04)}
+  .hide{display:none}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="phone">
+  <div class="ph-top">
+    <div class="t">Zentra Property Group</div>
+    <h1>You have a document to sign</h1>
+  </div>
+  <div class="wrap">
+
+    <div id="s1">
+      <p class="step">Step 1 of 4 &middot; Review</p>
+      <div class="card">
+        <div style="font-size:15px;font-weight:700">Letter of Appointment &mdash; Rent</div>
+        <div class="small muted" style="margin-bottom:10px">Document No. <span class="mono">ZTH-LOAR-000101</span></div>
+        <div class="sumrow"><span>Property</span><span style="text-align:right">18-3, Jalan Seri Harmoni 2/5,<br>43200 Kajang, Selangor</span></div>
+        <div class="sumrow"><span>Your role</span><span>Landlord</span></div>
+        <div class="sumrow"><span>Monthly rent</span><span><b>RM 1,300.00</b></span></div>
+        <div class="sumrow"><span>Tenure</span><span>1 year + 1 year option</span></div>
+        <div class="sumrow"><span>Professional fee</span><span>RM 1,625.00 + RM 130.00 SST = <b>RM 1,755.00</b></span></div>
+        <div class="sumrow" style="border:0"><span>Prepared by</span><span>Nadia Rahman (PEA/REN [ ])</span></div>
+      </div>
+      <div class="actions"><button class="btn" onclick="go(2)" style="flex:1;justify-content:center">I have read it &mdash; continue</button></div>
+      <p class="small muted">By continuing you confirm you have read the whole document. You can also print or save a copy before signing.</p>
+    </div>
+
+    <div id="s2" class="hide">
+      <p class="step">Step 2 of 4 &middot; Verify it is you</p>
+      <div class="card">
+        <p class="small">For your protection we send a one-time code to the mobile number registered with the agency: <b>+60 12-***&nbsp;0119</b>.</p>
+        <div class="actions"><button class="btn ghost" id="otpResend" onclick="sendOtp()">Send my code</button><span class="small muted" id="otpNote"></span></div>
+        <div class="emsg on" id="otpErr" style="display:block;margin-top:-4px"></div>
+    <div class="otpbox" id="otpBox">
+          <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+        </div>
+        <p class="small muted">Demo code: <b>483216</b> (in production this is sent by SMS and expires in 5 minutes).</p>
+      </div>
+      <div class="actions"><button class="btn" id="otpNext" onclick="checkOtp()" disabled style="flex:1;justify-content:center">Verify</button></div>
+    </div>
+
+    <div id="s3" class="hide">
+      <p class="step">Step 3 of 4 &middot; Your consent</p>
+      <div class="card">
+        <label class="chk"><input type="checkbox" id="c1"><span>I agree to sign this document <b>electronically</b>. I understand the law gives electronic signatures the same effect as ink, and that documents registered under the National Land Code (transfer, charge, registered lease) are excluded from this service.</span></label>
+        <label class="chk"><input type="checkbox" id="c2"><span>I have been given the <b>Personal Data Protection notice</b> and I consent to my data being used to complete this transaction and shared with the other party, lawyers and authorities as required.</span></label>
+        <label class="chk"><input type="checkbox" id="c3"><span>I want my signed copy delivered by <b>WhatsApp and email</b>, and I understand I can download or print it later at any time.</span></label>
+        <p class="small muted">If you prefer ink on paper, choose &ldquo;Print and upload instead&rdquo; &mdash; the agency will accept a photo of the signed page.</p>
+      </div>
+      <div class="actions"><button class="btn" id="consNext" onclick="go(4)" disabled style="flex:1;justify-content:center">Continue to sign</button></div>
+      <div class="actions"><button class="btn ghost sm" onclick="alert('Print-and-upload path: the client prints, signs, photographs the page and uploads it. The system records it as a wet-ink copy.')">Print and upload instead</button></div>
+    </div>
+
+    <div id="s4" class="hide">
+      <p class="step">Step 4 of 4 &middot; Sign</p>
+      <div class="card">
+        <p class="small">Draw your signature with your finger, or type your name to sign.</p>
+        <canvas id="pad"></canvas>
+        <div class="actions"><button class="btn ghost sm" onclick="clearPad()">Clear</button><input class="i" id="typed" placeholder="or type your full name" style="flex:1"></div>
+      </div>
+      <div class="actions"><button class="btn" id="signBtn" onclick="finish()" style="flex:1;justify-content:center">Sign and submit</button></div>
+    </div>
+
+    <div id="s5" class="hide">
+      <div class="okbig">&#10003;</div>
+      <h2 style="text-align:center;margin:0 0 4px;font-size:18px">Signed and submitted</h2>
+      <p class="small muted" style="text-align:center">Nothing was printed, nothing was couriered. Both sides now hold the same document.</p>
+      <div class="cert" id="cert"></div>
+      <div class="actions"><button class="btn" onclick="window.print()" style="flex:1;justify-content:center">Download / print my copy</button></div>
+      <div class="actions"><button class="btn ghost sm" onclick="alert('In production the agency is notified instantly and the document is filed in the archive against the deal.')">What happens next?</button></div>
+    </div>
+
+  </div>
+  <div class="barfixed" id="bar"><button class="btn ghost" onclick="alert('This is the client view. The agency side creates the document.')">Need help?</button><button class="btn ghost" onclick="alert('Demo only \u2014 no real data is stored.')">Privacy</button></div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const OTP = '483216';
+function go(n){
+  [1,2,3,4,5].forEach(i => $('s'+i).classList.toggle('hide', i !== n));
+  $('bar').style.display = (n === 4) ? 'none' : 'flex';
+  window.scrollTo(0,0);
+}
+const DEMO = new URLSearchParams(location.search).has('demo');
+let tries = 0, locked = false, cdLeft = 0, cdTimer = null;
+function sendOtp(){
+  if (locked) return;
+  $('otpNote').innerHTML = 'A 6-digit code has been sent to <b>+60 12-345 6789</b>. It expires in 5 minutes.' + (DEMO ? ' <span class="pill lead">demo code 483216</span>' : '');
+  const rb = $('otpResend'); if (rb) { rb.disabled = true; }
+  cdLeft = 30; clearInterval(cdTimer);
+  cdTimer = setInterval(() => { cdLeft--; if (rb) rb.textContent = 'Resend in ' + cdLeft + 's';
+    if (cdLeft <= 0) { clearInterval(cdTimer); if (rb) { rb.disabled = false; rb.textContent = 'Resend code'; } } }, 1000);
+  $('otpErr').textContent = '';
+}
+function lockLink(){
+  locked = true; $('otpBox').style.opacity = .4; $('otpNext').disabled = true;
+  $('otpErr').innerHTML = 'Too many incorrect codes. For your security this link is locked for 30 minutes and the attempt has been logged. Contact your negotiator if you still need to sign.' + (DEMO ? ' <button class="btn ghost sm" onclick="unlockLink()">Unlock (demo)</button>' : '');
+}
+function unlockLink(){ locked = false; tries = 0; $('otpBox').style.opacity = 1; $('otpErr').textContent = 'Unlocked (demo) \u2014 attempts reset.'; check(); }
+const boxes = [].slice.call($('otpBox').querySelectorAll('input'));
+boxes.forEach((b,i) => { b.oninput = () => { if (b.value && boxes[i+1]) boxes[i+1].focus(); check(); }; b.onkeydown = e => { if (e.key === 'Backspace' && !b.value && boxes[i-1]) boxes[i-1].focus(); }; });
+function check(){ $('otpNext').disabled = locked || boxes.map(b => b.value).join('').length !== 6; }
+function checkOtp(){
+  if (locked) return;
+  const code = boxes.map(b => b.value).join('');
+  if (code === OTP) { go(3); return; }
+  tries++; boxes.forEach(b => b.value = '');
+  if (tries >= 3) { lockLink(); } else { $('otpErr').textContent = 'That code does not match. ' + (3 - tries) + ' attempt(s) left before the link locks.'; }
+  check();
+}
+['c1','c2','c3'].forEach(id => $(id).onchange = () => { $('consNext').disabled = !($('c1').checked && $('c2').checked && $('c3').checked); });
+const pad = $('pad'), ctx = pad.getContext('2d');
+function sizePad(){ pad.width = pad.offsetWidth; pad.height = 150; ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.strokeStyle = '#0b1b2e'; }
+sizePad(); window.addEventListener('resize', sizePad);
+let drawing = false, drew = false;
+function pos(e){ const r = pad.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return {x: t.clientX - r.left, y: t.clientY - r.top}; }
+pad.addEventListener('pointerdown', e => { drawing = true; drew = true; const p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); pad.setPointerCapture(e.pointerId); });
+pad.addEventListener('pointermove', e => { if (!drawing) return; const p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+pad.addEventListener('pointerup', () => drawing = false);
+function ini(b){ b.textContent = "Page " + b.dataset.p + " \u2713"; b.style.borderColor = "#0b1b2e"; b.style.color = "#0b1b2e"; }
+function clearPad(){ ctx.clearRect(0,0,pad.width,pad.height); drew = false; }
+async function sha(txt){
+  try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt)); return [].slice.call(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join(''); }
+  catch(e){ return 'unavailable-in-this-browser'; }
+}
+async function finish(){
+  if (!drew && !$('typed').value.trim()){ alert('Please draw your signature or type your name first.'); return; }
+  const when = new Date();
+  const stamp = when.toLocaleString('en-GB');
+  const certId = 'CERT-ZTH-LOAR-000101-' + when.getTime().toString().slice(-6);
+  const hash = await sha('ZTH-LOAR-000101|landlord|' + stamp + '|' + (drew ? 'drawn' : $('typed').value));
+  $('cert').innerHTML =
+    '<div class="row"><span>Document</span><b class="mono">ZTH-LOAR-000101</b></div>' +
+    '<div class="row"><span>Signed by</span><b>Noraini binti Hassan (Landlord)</b></div>' +
+    '<div class="row"><span>Method</span><b>' + (drew ? 'Drawn electronic signature' : 'Typed name') + '</b></div>' +
+    '<div class="row"><span>Identity verified</span><b>SMS one-time code</b></div>' +
+    '<div class="row"><span>Signed at</span><b>' + stamp + '</b></div>' +
+    '<div class="row"><span>Client IP &amp; device</span><b>recorded by the server</b></div>' +
+    '<div class="row"><span>Document fingerprint</span><b class="mono" style="font-size:10.5px">' + hash.slice(0,32) + '&hellip;</b></div>' +
+    '<div class="row"><span>Certificate No.</span><b class="mono">' + certId + '</b></div>' +
+    '<div class="row" style="border:0"><span>Next signature needed</span><b>Negotiator (Zentra)</b></div>';
+  go(5);
+}
+go(1);
+
+const mp = location.search.match(/step=(\d)/);
+if (mp){
+  const n = +mp[1];
+  if (n >= 3){ $('c1').checked = $('c2').checked = $('c3').checked = true; $('consNext').disabled = false; }
+  if (n === 5){ clearPad(); ctx.beginPath(); ctx.moveTo(40,92); ctx.bezierCurveTo(70,38,112,128,152,78); ctx.stroke(); drew = true; go(4); setTimeout(finish, 60); }
+  else go(n);
+}
+
+</script>
+  <script src="assets/ui.js?v=a79a02f7"></script>
+</body>
+</html><div class="card" style="margin-bottom:10px"><p class="small" style="margin:0"><b>Initial each page</b> &mdash; tap each page below. Initials carry the same timestamp and device record as your signature.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn ghost sm" onclick="ini(this)" data-p="2">Page 2</button><button class="btn ghost sm" onclick="ini(this)" data-p="3">Page 3</button><button class="btn ghost sm" onclick="ini(this)" data-p="4">Page 4</button><button class="btn ghost sm" onclick="ini(this)" data-p="5">Page 5</button></div></div>
+    
