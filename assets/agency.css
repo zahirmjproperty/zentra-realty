@@ -1,0 +1,732 @@
+/* agency.css — Agency System POC (English US) — shared styles */
+:root{
+  /* ZPG — Zentra Property Group theme (dark, navy + gold) */
+  --gold:#c9a227; --gold-soft:rgba(201,162,39,.12);
+  --navy:#0b1b2e; --navy-2:#122840; --navy-3:#1a3050;
+  --blue:#c9a227; --blue-soft:rgba(201,162,39,.14);
+  --ink:#f0ead6; --ink-2:#cbd5e1; --ink-3:#94a3b8; --line:rgba(201,162,39,.18);
+  --bg:#0a1628; --card:rgba(18,40,72,.72);
+  --green:#5fc79d; --green-soft:rgba(95,199,157,.12);
+  --amber:#f0b34a; --amber-soft:rgba(240,179,74,.12);
+  --red:#E8776A; --red-soft:rgba(232,119,106,.12);
+  --violet:#a78bfa; --violet-soft:rgba(167,139,250,.12);
+  --radius:14px;
+  --shadow:0 2px 12px rgba(0,0,0,.30), inset 0 1px 0 rgba(201,162,39,.06);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --line-2:rgba(201,162,39,.10);
+  --sh-2:0 1px 3px rgba(0,0,0,.25);
+  --sh-3:0 6px 20px rgba(0,0,0,.35);
+  --t:180ms cubic-bezier(.2,.7,.3,1);
+}
+/* Light variant — user-selectable */
+:root.theme-light{
+  --gold:#8a6418; --gold-soft:rgba(138,100,24,.10);
+  --navy:#0b1b2e; --navy-2:#122840; --navy-3:#1a3050;
+  --blue:#8a6418; --blue-soft:rgba(138,100,24,.10);
+  --ink:#1e293b; --ink-2:#475569; --ink-3:#94a3b8; --line:rgba(138,100,24,.16);
+  --bg:#f7f5f0; --card:rgba(255,255,255,.04);
+  --green:#166b41; --green-soft:rgba(22,107,65,.10);
+  --amber:#8a5a0b; --amber-soft:rgba(138,90,11,.10);
+  --red:#a33a2c; --red-soft:rgba(163,58,44,.10);
+  --violet:#5b3fa8; --violet-soft:rgba(91,63,168,.10);
+  --shadow:0 1px 3px rgba(0,0,0,.05), 0 2px 12px rgba(0,0,0,.05);
+  --line-2:rgba(138,100,24,.10);
+  --sh-2:0 1px 3px rgba(0,0,0,.06);
+  --sh-3:0 6px 20px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ---------- layout ---------- */
+.shell{display:flex;min-height:100vh}
+.side{
+  width:248px;flex:0 0 248px;background:var(--navy);color:#cbd5e1;
+  padding:18px 14px 28px;position:sticky;top:0;height:100vh;overflow:auto;
+}
+.brand{display:flex;gap:10px;align-items:center;padding:6px 8px 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px}
+.brand .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#c9a227,#a5851b);
+  display:grid;place-items:center;font-weight:700;color:#f5f1e4;font-size:14px;letter-spacing:.5px}
+.brand b{color:#f5f1e4;font-size:15px;display:block;letter-spacing:.2px}
+.brand small{color:#94a3b8;font-size:11.5px;letter-spacing:.4px;text-transform:uppercase}
+.nav a{display:flex;gap:10px;align-items:center;padding:9px 11px;border-radius:10px;color:#94a3b8;font-size:14px;margin-bottom:2px}
+.nav a:hover{background:var(--navy-2);text-decoration:none;color:#f5f1e4}
+.nav a.on{background:var(--navy-3);color:#f5f1e4;font-weight:600}
+.nav a .ic{width:18px;text-align:center;opacity:.9}
+.nav .sec{font-size:10.5px;letter-spacing:.9px;text-transform:uppercase;color:#64748b;margin:14px 11px 6px}
+.side .foot{margin-top:18px;padding:12px 11px;border-radius:12px;background:rgba(255,255,255,.04);
+  font-size:12px;color:#94a3b8;line-height:1.5}
+.main{flex:1;min-width:0;padding:22px 26px 60px}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px;flex-wrap:wrap}
+.top h1{font-size:22px;margin:0 0 4px}
+.top p{margin:0;color:var(--ink-3);font-size:13.5px}
+.badge-demo{background:var(--gold-soft);color:#1a1206;border:1px solid rgba(201,162,39,.35)}
+
+/* ---------- generic ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1080px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}.side{display:none}}
+h2.sec{font-size:16px;margin:26px 0 12px;display:flex;align-items:center;gap:9px}
+h2.sec:first-child{margin-top:0}
+h2.sec .num{width:22px;height:22px;border-radius:7px;background:var(--blue-soft);color:var(--blue);
+  display:grid;place-items:center;font-size:12px;font-weight:700}
+.muted{color:var(--ink-3)}
+.small{font-size:12.5px}
+.center{text-align:center}
+.right{text-align:right}
+.mono{font-family:var(--mono);font-size:12.5px}
+.hr{height:1px;background:var(--line);margin:16px 0}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+.pill.green{background:var(--green-soft);color:var(--green)}
+.pill.amber{background:var(--amber-soft);color:var(--amber)}
+.pill.red{background:var(--red-soft);color:var(--red)}
+.pill.blue{background:var(--blue-soft);color:var(--blue)}
+.pill.violet{background:var(--violet-soft);color:var(--violet)}
+.pill.gray{background:rgba(255,255,255,.04);color:var(--ink-2)}
+
+/* ---------- KPI ---------- */
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.kpi .lab{font-size:11.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.kpi .val{font-size:26px;font-weight:700;margin:6px 0 2px;letter-spacing:-.5px}
+.kpi .sub{font-size:12.5px;color:var(--ink-3)}
+.kpi.blue{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.04))}
+.kpi.warn{border-color:rgba(240,179,74,.12);background:rgba(255,255,255,.04)}
+
+/* ---------- tables ---------- */
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+table.tbl th{text-align:left;font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);
+  border-bottom:1px solid var(--line);padding:9px 10px;font-weight:600;white-space:nowrap}
+table.tbl td{padding:10px;border-bottom:1px solid rgba(201,162,39,.18);vertical-align:middle}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl tr.total td{font-weight:700;background:rgba(255,255,255,.04)}
+table.tbl td.num,table.tbl th.num{text-align:right;font-variant-numeric:tabular-nums}
+.wrap-tbl{overflow:auto}
+
+/* ---------- forms ---------- */
+label.f{display:block;font-size:12.5px;font-weight:600;color:var(--ink-2);margin:0 0 5px}
+input.i,select.i{width:100%;padding:9px 11px;border:1px solid #94a3b8;border-radius:10px;font-size:14px;background:rgba(255,255,255,.04);color:var(--ink)}
+input.i:focus,select.i:focus{outline:2px solid var(--blue-soft);border-color:var(--blue)}
+.field{margin-bottom:13px}
+.hint{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.btn{display:inline-block;padding:10px 15px;border-radius:10px;border:1px solid transparent;background:var(--blue);
+  color:#f5f1e4;font-weight:600;font-size:13.5px;cursor:pointer}
+.btn.ghost{background:rgba(255,255,255,.04);color:var(--ink-2);border-color:#94a3b8}
+.btn:hover{filter:brightness(1.03);text-decoration:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:6px 11px;border-radius:999px;border:1px solid #94a3b8;background:rgba(255,255,255,.04);font-size:12.5px;cursor:pointer}
+.chip.on{background:var(--navy);color:#f5f1e4;border-color:var(--navy)}
+
+/* ---------- waterfall ---------- */
+.wf{display:flex;height:42px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.wf div{display:grid;place-items:center;font-size:11.5px;font-weight:700;color:#f5f1e4;white-space:nowrap;overflow:hidden}
+.wf .a{background:#c9a227}      /* commission */
+.wf .b{background:#a78bfa}      /* marketing bonus - agent */
+.wf .c{background:#6bb5e0}      /* marketing bonus - leader */
+.wf .d{background:#64748b}      /* agency */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink-2)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px}
+
+/* ---------- vouchers ---------- */
+.voucher{border:1px dashed #64748b;border-radius:12px;padding:14px 16px;background:rgba(255,255,255,.04);font-size:12.5px}
+.voucher h4{margin:0 0 2px;font-size:13.5px;letter-spacing:.3px}
+.voucher .co{font-size:12px;color:var(--ink-3);margin-bottom:8px}
+.voucher table{width:100%;border-collapse:collapse;margin:8px 0}
+.voucher th{font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-3);text-align:left;border-bottom:1px solid var(--line);padding:5px 4px}
+.voucher td{padding:6px 4px;border-bottom:1px dotted rgba(201,162,39,.18)}
+.voucher td.num{text-align:right;font-variant-numeric:tabular-nums}
+.voucher .tot{display:flex;justify-content:space-between;font-weight:700;border-top:2px solid var(--ink);
+  padding-top:7px;margin-top:6px}
+
+/* ---------- org tree ---------- */
+.tree{display:flex;flex-direction:column;align-items:center;gap:0;padding:8px 0}
+.tnode{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:10px 14px;text-align:center;
+  box-shadow:var(--shadow);min-width:172px}
+.tnode b{display:block;font-size:13.5px}
+.tnode small{color:var(--ink-3);font-size:11.5px}
+.tnode.root{background:var(--navy);color:#f5f1e4;border-color:var(--navy)}
+.tnode.root small{color:#a5851b}
+.tnode.gl{border-color:#c9a227;background:rgba(255,255,255,.04)}
+.tnode.tl{border-color:#99f6e4;background:rgba(255,255,255,.04)}
+.tier{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;position:relative}
+.conn{width:2px;height:22px;background:#94a3b8}
+.hconn{height:2px;background:#94a3b8;width:70%;margin:0 auto}
+
+/* ---------- checklist ---------- */
+ul.check{list-style:none;padding:0;margin:0}
+ul.check li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid rgba(201,162,39,.18);font-size:13.5px}
+ul.check li:last-child{border-bottom:none}
+ul.check .ok{color:var(--green);font-weight:700}
+ul.check .no{color:var(--red);font-weight:700}
+.note{border-left:3px solid var(--blue);background:var(--blue-soft);padding:11px 14px;border-radius:0 10px 10px 0;font-size:13px}
+.note.warn{border-color:#f0b34a;background:var(--amber-soft)}
+.foot-note{margin-top:26px;font-size:11.5px;color:var(--ink-3);text-align:center;line-height:1.6}
+
+/* --- added 15/9: pills aliases + new components (team, claims, modules) --- */
+.pill.ok{background:var(--green-soft);color:var(--green)}
+.pill.warn{background:var(--amber-soft);color:var(--amber)}
+.pill.bad{background:var(--red-soft);color:var(--red)}
+.pill.info{background:var(--blue-soft);color:var(--blue)}
+.tag{display:inline-block;margin:3px 6px 0 0;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.04);color:var(--ink-2);font-size:11px;font-weight:600}
+.tag.ref{background:var(--blue-soft);color:var(--blue)}
+.node{width:100%;max-width:520px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.04);box-shadow:var(--shadow);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.node b{font-size:14px}
+.node.l1{margin-left:36px}
+.node.l2{margin-left:72px}
+.node.l3{margin-left:108px}
+.pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:1080px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:820px){.pipe{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.04)}
+.step b{display:block;font-size:13px;margin-bottom:4px}
+.step span{font-size:12px;color:var(--ink-2)}
+.step.done{border-color:rgba(95,199,157,.12);background:rgba(95,199,157,.12)}
+.step.active{border-color:rgba(201,162,39,.28);background:var(--blue-soft)}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.chip-doc{display:inline-flex;flex-direction:column;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.04);font-size:12.5px;font-weight:600}
+.chip-doc small{font-weight:500;color:var(--ink-2);font-family:var(--mono);font-size:11px}
+.chip-doc.ok{border-color:rgba(95,199,157,.12);background:rgba(95,199,157,.12)}
+.arrow{color:var(--ink-2);font-weight:700}
+
+a.card.link{display:block;text-decoration:none;color:inherit;transition:transform .12s ease, box-shadow .12s ease}
+a.card.link:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,42,.12)}
+
+/* polish 15/9: jaga teks jenama supaya tidak berbaris 3 */
+.brand{align-items:center}
+.brand b{font-size:13px;line-height:1.15;display:block}
+.brand small{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:#5fc79d;line-height:1.25}
+.brand .mark{width:34px;height:34px;flex:0 0 34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+
+/* --- F1 demo: butang, modal, kertas surat --- */
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--navy);background:var(--navy);color:#f5f1e4;font:inherit;font-size:13px;font-weight:600;padding:9px 15px;border-radius:9px;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--navy-2);border-color:var(--navy-2)}
+.btn.ghost{background:rgba(255,255,255,.04);color:var(--navy);border-color:#f5f1e4}
+.btn.ghost:hover{background:rgba(255,255,255,.04)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#1a1206}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.sm{font-size:12px;padding:6px 11px;border-radius:7px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.paper{background:rgba(255,255,255,.04);border:1px solid rgba(201,162,39,.18);border-radius:8px;padding:34px 38px;max-width:820px;margin:0 auto;font-family:Georgia,"Times New Roman",serif;font-size:12.5px;line-height:1.62;color:#0f2036;box-shadow:0 6px 24px rgba(12,68,55,.07)}
+.paper h3{font-family:inherit;font-size:16px;text-align:center;margin:0 0 4px;letter-spacing:.02em}
+.paper .sub{text-align:center;font-size:11.5px;color:#94a3b8;margin-bottom:14px}
+.paper .foot{font-size:10.5px;color:#64748b;border-top:1px dashed rgba(201,162,39,.18);margin-top:16px;padding-top:7px;display:flex;justify-content:space-between}
+.paper ol{margin:6px 0 6px 18px;padding:0}
+.paper li{margin-bottom:5px}
+.paper table{width:100%;border-collapse:collapse;font-size:11.5px;margin:8px 0;font-family:Segoe UI,Arial,sans-serif}
+.paper th,.paper td{border:1px solid rgba(201,162,39,.18);padding:5px 7px;text-align:left}
+.paper th{background:rgba(255,255,255,.04);font-weight:600}
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
+.sig .box{border-top:1px solid rgba(201,162,39,.18);padding-top:6px;font-size:11.5px}
+.sig .who{font-weight:700}
+.sig .es{color:var(--navy-3);font-style:italic}
+.modal{position:fixed;inset:0;background:rgba(9,32,26,.55);display:none;align-items:flex-start;justify-content:center;padding:26px;overflow:auto;z-index:60}
+.modal.on{display:flex}
+.modal .inner{background:rgba(255,255,255,.04);border-radius:12px;padding:18px;max-width:900px;width:100%}
+.modal .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.flag{background:var(--gold-soft);border:1px solid rgba(201,162,39,.35);color:#1a1206;border-radius:9px;padding:11px 14px;font-size:12.5px;margin-bottom:14px}
+
+/* ---------- 15/9: ikon SVG, menu mudah alih, badge demo ---------- */
+.nav a{display:flex;align-items:center;gap:9px}
+.nav a .ic{width:17px;height:17px;flex:0 0 17px;opacity:.85}
+.nav a.on{background:rgba(255,255,255,.14);color:#f5f1e4;border-radius:9px}
+.nav a.on .ic{opacity:1}
+.nav a .pill-live{margin-left:auto;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;background:var(--gold);color:#1a1206;padding:2px 6px;border-radius:10px;font-weight:700}
+.burger{display:none;position:fixed;top:12px;left:12px;z-index:60;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);box-shadow:var(--shadow);align-items:center;justify-content:center;cursor:pointer}
+.burger svg{width:22px;height:22px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(10,20,16,.45);z-index:50}
+.overlay.on{display:block}
+@media (max-width:1080px){
+  .burger{display:flex}
+  .side{position:fixed;left:0;top:0;bottom:0;width:264px;transform:translateX(-102%);transition:transform .22s ease;z-index:55;overflow:auto}
+  .side.open{transform:none}
+  .main{padding-top:64px}
+}
+@media (min-width:1081px){ .side{transform:none!important} }
+
+/* ---------- 15/9: kad KPI klik, donut, hover ---------- */
+.kpi.link{display:block;text-decoration:none;color:inherit}
+.kpi.link:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(12,68,55,.12)}
+.kpi{transition:transform .15s ease,box-shadow .15s ease}
+.up{color:#5fc79d;font-weight:700}
+.card.link:hover{border-color:#bfe0cf;box-shadow:0 6px 20px rgba(12,68,55,.10);transform:translateY(-1px)}
+.card{transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.split{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.split-right{flex:1;min-width:240px}
+.donut{width:118px;height:118px;border-radius:50%;flex:0 0 118px;position:relative;
+  background:conic-gradient(#c9a227 0 40%,#a78bfa 40% 85%,#6bb5e0 85% 100%);box-shadow:0 2px 10px rgba(12,68,55,.12)}
+.donut::after{content:"";position:absolute;inset:22px;background:rgba(255,255,255,.04);border-radius:50%}
+.donut span{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:19px;color:var(--navy);z-index:2}
+.donut span small{font-weight:400;font-size:9.5px;color:var(--ink-3);letter-spacing:.02em}
+.pill.gray{background:rgba(255,255,255,.04);color:#94a3b8}
+
+.ctxbar{position:sticky;top:0;z-index:20;margin:-6px -26px 14px;padding:8px 26px;background:var(--navy);color:#94a3b8;font-size:11.5px;letter-spacing:.01em}
+.ctxbar b{color:#f5f1e4}
+@media (max-width:1080px){ .ctxbar{margin:-6px -14px 12px;padding:8px 14px} }
+
+/* ============================================================
+   DESIGN SYSTEM v2 — Pakej A (15/9/2026)
+   Font: Plus Jakarta Sans · token jarak/warna · bayang berlapis · animasi halus
+   ============================================================ */
+:root{
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:22px; --s6:30px; --s7:40px;
+  --r-sm:9px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --sh-1:0 1px 2px rgba(12,68,55,.06);
+  --sh-2:0 2px 6px rgba(12,68,55,.05),0 10px 24px rgba(12,68,55,.06);
+  --sh-3:0 12px 34px rgba(12,68,55,.13);
+  --sh-in:inset 0 1px 0 rgba(255,255,255,.6);
+  --fs-xs:11.5px; --fs-sm:12.5px; --fs-md:14px; --fs-lg:16px; --fs-xl:21px; --fs-2xl:28px; --fs-3xl:34px;
+  --t:180ms cubic-bezier(.2,.7,.3,1);
+  --line-2:#eef2f0;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;background:radial-gradient(1200px 500px at 100% -10%,rgba(255,255,255,.04) 0%,transparent 60%),var(--bg)}
+h1{font-size:var(--fs-2xl);letter-spacing:-.025em;font-weight:800;line-height:1.15}
+.top p{font-size:var(--fs-md);line-height:1.55}
+h2.sec{font-size:var(--fs-xl);letter-spacing:-.015em;font-weight:750;margin:var(--s6) 0 var(--s3)}
+h3{letter-spacing:-.01em}
+.small{font-size:var(--fs-sm)}
+.muted{color:var(--ink-3)}
+
+/* ---------- sidebar ---------- */
+.side{background:linear-gradient(178deg,#0b1b2e 0%,#122840 62%,#122840 100%);
+  box-shadow:1px 0 0 rgba(255,255,255,.06) inset,-1px 0 24px rgba(9,52,42,.18)}
+.brand{padding:var(--s5) var(--s4) var(--s4);border-bottom:1px solid rgba(255,255,255,.09)}
+.brand .mark{background:linear-gradient(150deg,var(--gold),#e8ce86);color:#1a1206;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.22)}
+.brand b{font-size:15px;letter-spacing:-.01em}
+.brand small{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;opacity:.72}
+.nav{padding:var(--s3) var(--s2)}
+.nav .sec{font-size:9.5px;letter-spacing:.12em;color:rgba(255,255,255,.5);margin:var(--s4) var(--s3) var(--s2)}
+.nav a{font-size:var(--fs-sm);border-radius:var(--r-sm);padding:8px var(--s3);transition:background var(--t),transform var(--t)}
+.nav a:hover{background:rgba(255,255,255,.09);transform:translateX(1px)}
+.nav a.on{background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.09));color:#f5f1e4;box-shadow:inset 0 0 0 1px rgba(255,255,255,.10)}
+.nav a.on::before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:3px;border-radius:0 3px 3px 0;background:var(--gold)}
+.nav a{position:relative}
+.nav a .pill-live{background:linear-gradient(160deg,var(--gold),#e8ce86);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+
+/* ---------- kad & permukaan ---------- */
+.card{box-shadow:var(--sh-2);border-color:var(--line-2);border-radius:var(--r-lg);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
+.card:hover{box-shadow:var(--sh-2);border-color:#dfe8e3}
+.card.link:hover{transform:translateY(-2px);box-shadow:var(--sh-3);border-color:#bfe0cf}
+.card h3{font-size:15px;font-weight:700}
+.tbl{font-size:var(--fs-sm)}
+.tbl th{font-size:var(--fs-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:650}
+.tbl tbody tr{transition:background var(--t)}
+.tbl tbody tr:hover{background:rgba(255,255,255,.04)}
+.dotnum{font-variant-numeric:tabular-nums}
+
+/* ---------- KPI ---------- */
+.kpi{border-radius:var(--r-lg);box-shadow:var(--sh-2);border:1px solid var(--line-2);position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(180deg,var(--navy-3),var(--navy))}
+.kpi.blue::after{background:linear-gradient(180deg,#c9a227,var(--blue))}
+.kpi.warn::after{background:linear-gradient(180deg,#e0a33c,var(--amber))}
+.kpi .lab{font-size:var(--fs-xs);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:650}
+.kpi .val{font-size:var(--fs-3xl);font-weight:800;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi .sub{font-size:var(--fs-xs);color:var(--ink-3)}
+.kpi .ki{position:absolute;right:var(--s4);top:var(--s4);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--green-soft);color:var(--navy)}
+.kpi.blue .ki{background:var(--blue-soft);color:var(--blue)}
+.kpi.warn .ki{background:var(--amber-soft);color:var(--amber)}
+.kpi .ki svg{width:17px;height:17px}
+.up::before{content:"\2197 ";font-size:10px}
+
+/* ---------- butang ---------- */
+.btn{border-radius:10px;font-weight:650;font-size:var(--fs-sm);padding:9px 15px;transition:transform var(--t),box-shadow var(--t),background var(--t)}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--sh-2)}
+.btn:active{transform:none;box-shadow:var(--sh-1)}
+.btn.ghost:hover{background:rgba(255,255,255,.04)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:8px}
+.pill{font-weight:700;letter-spacing:.03em;font-size:10px;text-transform:uppercase;padding:3px 8px;border-radius:20px}
+
+/* ---------- badge demo ---------- */
+.badge-demo{background:linear-gradient(150deg,var(--gold),#e8ce86);color:#1a1206;font-weight:780;letter-spacing:.06em;
+  box-shadow:0 2px 10px rgba(201,162,39,.35);border-radius:20px;padding:6px 13px;font-size:10.5px}
+
+/* ---------- visual pecahan ---------- */
+.wf{border-radius:10px;overflow:hidden;box-shadow:var(--sh-in)}
+.wf>div{font-weight:650;font-size:11.5px;transition:filter var(--t)}
+.wf>div:hover{filter:saturate(1.15) brightness(1.04)}
+.donut{animation:donutIn 700ms cubic-bezier(.2,.7,.3,1) both}
+@keyframes donutIn{from{transform:rotate(-28deg) scale(.86);opacity:0}to{transform:none;opacity:1}}
+.bars .b{transition:height 700ms cubic-bezier(.2,.7,.3,1)}
+.prog>i{transition:width 700ms cubic-bezier(.2,.7,.3,1)}
+
+/* ---------- masuk kad (reveal) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{animation:rev 420ms cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rev{to{opacity:1;transform:none}}
+}
+
+/* ---------- jadual & modal ---------- */
+.modal .inner{box-shadow:0 30px 80px rgba(6,32,25,.35);border-radius:var(--r-xl)}
+.paper{border-radius:var(--r-md)}
+.ctxbar{backdrop-filter:saturate(140%) blur(6px);box-shadow:0 2px 12px rgba(9,52,42,.18)}
+
+/* ---------- pusat notifikasi (Pakej B) ---------- */
+.bellwrap{position:fixed;top:12px;right:16px;z-index:60}
+.bell{width:40px;height:40px;border-radius:12px;border:1px solid var(--line-2);background:rgba(255,255,255,.04);box-shadow:var(--sh-2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--navy);transition:transform var(--t),box-shadow var(--t)}
+.bell:hover{transform:translateY(-1px);box-shadow:var(--sh-3)}
+.bell svg{width:19px;height:19px}
+.bell .dot{position:absolute;top:7px;right:8px;width:9px;height:9px;border-radius:50%;background:#E8776A;box-shadow:0 0 0 2px rgba(255,255,255,.04)}
+.drawer{position:fixed;top:0;right:0;height:100%;width:400px;max-width:94vw;background:rgba(255,255,255,.04);z-index:80;display:flex;flex-direction:column;transform:translateX(103%);transition:transform 240ms cubic-bezier(.2,.7,.3,1);box-shadow:-24px 0 60px rgba(6,32,25,.22)}
+.drawer.open{transform:none}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line-2)}
+#ndList{flex:1;overflow:auto}
+.nitem{display:flex;gap:11px;padding:12px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(201,162,39,.18);transition:background var(--t)}
+.nitem:hover{background:rgba(255,255,255,.04)}
+.nitem.read{opacity:.6}
+.nbar{flex:0 0 4px;border-radius:3px;background:var(--line)}
+.nbar.signature{background:#c9a227}.nbar.stamping{background:#f0b34a}.nbar.money{background:#5fc79d}
+.nbar.team{background:#a78bfa}.nbar.compliance{background:#6bb5e0}.nbar.lead{background:var(--gold)}
+.ntop b{display:block;font-size:13px;line-height:1.35;letter-spacing:-.01em}
+.nmeta{display:block;font-size:11.5px;color:var(--ink-3);margin-top:3px;line-height:1.45}
+.nrow{display:flex;align-items:center;gap:8px;margin-top:6px}
+.nw{font-size:11px;color:var(--ink-3)}
+.dfoot{display:block;padding:14px 18px;border-top:1px solid var(--line-2);text-decoration:none;font-weight:650;font-size:12.5px;color:var(--navy);background:rgba(255,255,255,.04)}
+.pill.signature{background:rgba(201,162,39,.12);color:#c9a227}.pill.stamping{background:rgba(240,179,74,.12);color:#f0b34a}
+.pill.money{background:rgba(95,199,157,.12);color:#5fc79d}.pill.team{background:rgba(167,139,250,.12);color:#a78bfa}
+.pill.compliance{background:rgba(255,255,255,.04);color:#6bb5e0}.pill.lead{background:#fdf6e3;color:#a5851b}
+@media (max-width:820px){.drawer{width:100%}.bellwrap{top:10px;right:12px}}
+
+/* ---------- kawalan dokumen & penafian (Pakej C) ---------- */
+.dc{margin-top:14px;border-top:1px solid var(--line-2);padding-top:10px;font-size:10.5px;line-height:1.55;color:var(--ink-3)}
+.dc b{color:var(--ink-2);font-weight:700}
+.dc div{margin-bottom:4px}
+.dc div:last-child{margin-bottom:0}
+
+/* ---------- letter layout (Tier 1 F1) ---------- */
+.lg{font-size:12.5px;line-height:1.62;color:#0b1b2e}
+.lh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:12px}
+.lh b{font-size:14.5px;letter-spacing:.02em}
+.ct{text-align:center;font-size:13.5px;text-transform:uppercase;letter-spacing:.05em;margin:14px 0 10px;color:var(--navy)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+@media (max-width:820px){.duo{grid-template-columns:1fr}.prow{grid-template-columns:1fr 1fr}}
+
+/* ---------- progress bar (Tier B) ---------- */
+.pbar{background:rgba(255,255,255,.04);border-radius:999px;height:12px;overflow:hidden;margin:10px 0}
+.pbar>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#0b1b2e,#5fc79d)}
+
+
+/* ============================================================
+   ZENTRA REALTY — ZPG theme layer (navy + gold)
+   Appended after the legacy rules so it wins.
+   Dark is default; :root.theme-light gives the user a light option.
+   ============================================================ */
+
+/* ---- Sidebar (navy in BOTH themes, like the rest of Zentra) ---- */
+.side{background:#0b1b2e !important;color:#94a3b8;border-right:1px solid rgba(201,162,39,.14)}
+.brand b{color:#f0ead6}
+.brand small{color:#94a3b8;letter-spacing:.6px}
+.brand .mark{background:linear-gradient(135deg,#e8ce86,#c9a227 45%,#9a7a2e)!important;color:#1a1206!important}
+.nav a{color:#94a3b8}
+.nav a:hover{background:rgba(201,162,39,.08);color:#f0ead6;text-decoration:none}
+.nav a.on{background:linear-gradient(90deg,rgba(201,162,39,.20),rgba(201,162,39,.04))!important;
+  color:#e8ce86!important;font-weight:700;box-shadow:inset 2px 0 0 var(--gold)}
+.nav .sec{color:#64748b}
+.side .foot{background:rgba(201,162,39,.06)!important;color:#94a3b8}
+
+/* ---- Surfaces ---- */
+.card,.kpi{background:var(--card)!important;border:1px solid rgba(201,162,39,.16)!important;
+  backdrop-filter:blur(6px);box-shadow:var(--shadow)!important}
+.kpi.blue{background:linear-gradient(180deg,rgba(201,162,39,.07),rgba(18,40,72,.72))!important}
+.kpi.warn{border-color:rgba(240,179,74,.35)!important;background:rgba(240,179,74,.06)!important}
+.card.link:hover,.node:hover{border-color:rgba(201,162,39,.40)!important;box-shadow:0 6px 20px rgba(0,0,0,.35)!important}
+h2.sec .num{background:rgba(201,162,39,.14)!important;color:#e8ce86!important}
+.hr{background:rgba(201,162,39,.14)!important}
+
+/* ---- Tables ---- */
+table.tbl th{color:#94a3b8;border-bottom:1px solid rgba(201,162,39,.18)}
+table.tbl td{border-bottom:1px solid rgba(255,255,255,.05)}
+table.tbl tr.total td{background:rgba(201,162,39,.08)!important;color:#e8ce86}
+
+/* ---- Forms ---- */
+label.f{color:#cbd5e1}
+input.i,select.i{background:rgba(255,255,255,.04)!important;
+  border:1px solid rgba(201,162,39,.22)!important;color:#f0ead6!important}
+input.i:focus,select.i:focus{outline:2px solid rgba(201,162,39,.22)!important;border-color:var(--gold)!important}
+input.i::placeholder{color:#64748b}
+.hint{color:#64748b}
+
+/* ---- Buttons ---- */
+.btn{background:linear-gradient(135deg,#e8ce86,#c9a227 45%,#9a7a2e)!important;
+  color:#1a1206!important;border-color:transparent!important;font-weight:700}
+.btn.ghost{background:transparent!important;color:#cbd5e1!important;border-color:rgba(201,162,39,.30)!important}
+.btn.gold{color:#1a1206!important}
+
+/* ---- Chips ---- */
+.chip{background:rgba(255,255,255,.04)!important;border:1px solid rgba(201,162,39,.22)!important;color:#cbd5e1!important}
+.chip.on{background:var(--gold)!important;color:#1a1206!important;border-color:var(--gold)!important;font-weight:700}
+
+/* ---- Pills / badges ---- */
+.pill.gray{background:rgba(255,255,255,.06)!important;color:#cbd5e1!important}
+.badge-demo{background:linear-gradient(150deg,#e8ce86,#c9a227)!important;color:#1a1206!important;
+  border-color:rgba(201,162,39,.35)!important}
+
+/* ---- Vouchers / legends ---- */
+.voucher{background:rgba(255,255,255,.03)!important;border:1px dashed rgba(201,162,39,.30)!important}
+.voucher .co{color:#94a3b8}
+.legend{color:#cbd5e1}
+.wf .a{background:#c9a227}.wf .b{background:#a78bfa}
+.wf .c{background:#6bb5e0}.wf .d{background:#64748b}
+
+/* ---- Progress / misc surfaces ---- */
+.prog2,.prog{background:rgba(255,255,255,.06)!important}
+canvas{border-color:rgba(201,162,39,.28)!important;background:rgba(255,255,255,.03)!important}
+
+/* ============================================================
+   LIGHT VARIANT — user-selectable (.theme-light on <html>)
+   Sidebar stays navy for the luxury contrast.
+   ============================================================ */
+:root.theme-light body{background:var(--bg);color:var(--ink)}
+:root.theme-light a{color:#8a6418}
+:root.theme-light .top h1{color:#0b1b2e}
+:root.theme-light .card,:root.theme-light .kpi{background:#fff!important;
+  border-color:rgba(138,100,24,.14)!important;
+  box-shadow:0 1px 3px rgba(0,0,0,.05),0 2px 12px rgba(0,0,0,.05)!important}
+:root.theme-light .kpi.blue{background:linear-gradient(180deg,#fff,#fdfbf5)!important}
+:root.theme-light .kpi.warn{background:#fffdf5!important;border-color:#e8cf94!important}
+:root.theme-light h2.sec .num{background:rgba(138,100,24,.10)!important;color:#8a6418!important}
+:root.theme-light .hr{background:rgba(138,100,24,.14)!important}
+:root.theme-light table.tbl th{color:#94a3b8;border-bottom-color:rgba(138,100,24,.14)}
+:root.theme-light table.tbl td{border-bottom-color:rgba(0,0,0,.06)}
+:root.theme-light table.tbl tr.total td{background:rgba(138,100,24,.06)!important;color:#8a6418}
+:root.theme-light label.f{color:#475569}
+:root.theme-light input.i,:root.theme-light select.i{background:#fff!important;
+  border-color:rgba(138,100,24,.22)!important;color:#1e293b!important}
+:root.theme-light input.i:focus,:root.theme-light select.i:focus{outline-color:rgba(138,100,24,.18)!important}
+:root.theme-light input.i::placeholder{color:#94a3b8}
+:root.theme-light .hint,:root.theme-light .muted,:root.theme-light .small.muted{color:#64748b}
+:root.theme-light .btn{background:linear-gradient(135deg,#a67e2e,#8a6418 60%,#5c4210)!important;color:#fff!important}
+:root.theme-light .btn.ghost{background:#fff!important;color:#475569!important;border-color:rgba(138,100,24,.22)!important}
+:root.theme-light .chip{background:#fff!important;border-color:rgba(138,100,24,.22)!important;color:#475569!important}
+:root.theme-light .chip.on{background:#8a6418!important;color:#fff!important;border-color:#8a6418!important}
+:root.theme-light .pill.gray{background:rgba(0,0,0,.05)!important;color:#475569!important}
+:root.theme-light .voucher{background:#fff!important;border-color:rgba(138,100,24,.25)!important}
+:root.theme-light .prog2,:root.theme-light .prog{background:rgba(0,0,0,.06)!important}
+:root.theme-light canvas{background:#fff!important;border-color:rgba(138,100,24,.25)!important}
+:root.theme-light .card.link:hover,:root.theme-light .node:hover{border-color:rgba(138,100,24,.35)!important}
+
+
+/* ---- Document/letter preview = a real "paper sheet" (readable in both themes) ---- */
+.paper{background:#fbf9f4!important;border:1px solid rgba(201,162,39,.35)!important;
+  color:#1e293b!important;box-shadow:0 10px 30px rgba(0,0,0,.35)!important}
+.paper *{color:inherit}
+.paper h1,.paper h2,.paper h3,.paper b,.paper strong{color:#0b1b2e!important}
+.paper table th{border-bottom:1px solid rgba(11,27,46,.25)!important;color:#0b1b2e!important}
+.paper table td{border-bottom:1px solid rgba(11,27,46,.10)!important}
+.lg{color:#1e293b!important}
+.lg b,.lg strong,.lg h1,.lg h2,.lg h3{color:#0b1b2e!important}
+
+/* ---- Brand mark now uses the ZR logo (19 Sep 2026) ---- */
+.brand .mark{background:none!important;box-shadow:none!important;border:1px solid rgba(201,162,39,.30)!important;
+  border-radius:10px!important;padding:2px!important;overflow:hidden}
+.brand .mark img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* ============================================================
+   PAPARAN TELEFON — Zentra Realty (20/9/2026)
+   Punca dilaporkan Zahir: jadual lebih lebar daripada skrin → lajur kanan terpotong
+   (PAY…, ACTOR/AC1…, NEGOTIAT…, MARK…, PERSON…, ACTION…, REC…, EXPECTED RELE…).
+   Jadual dilabel oleh assets/ui.js (shim .zr-kad) — kad muncul hanya selepas label wujud.
+   ============================================================ */
+@media (max-width: 820px) {
+  /* 1. Jadual berlabel → kad */
+  table.zr-kad { display: block; width: 100%; font-size: 13px; }
+  table.zr-kad thead, table.zr-kad tr.zr-hdr { display: none; }
+  table.zr-kad tbody, table.zr-kad tr, table.zr-kad td { display: block; width: 100%; }
+  table.zr-kad tr {
+    border: 1px solid var(--line, rgba(255,255,255,.10)); border-radius: 12px;
+    padding: 11px 13px; margin: 0 0 11px; background: rgba(255,255,255,.02);
+  }
+  table.zr-kad td {
+    border: 0; padding: 5px 0; display: flex; align-items: baseline;
+    justify-content: space-between; gap: 12px; text-align: right; vertical-align: baseline;
+  }
+  table.zr-kad td::before {
+    content: attr(data-label); flex: 0 0 auto; text-align: left;
+    color: var(--gold, #C9A227); font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em; max-width: 45%;
+  }
+  table.zr-kad td:first-child {
+    border-bottom: 1px solid var(--line, rgba(255,255,255,.10));
+    padding-bottom: 8px; margin-bottom: 6px; font-size: 13.5px;
+  }
+  table.zr-kad td:first-child::before { content: none; }
+  table.zr-kad td.num { text-align: right; }
+  table.zr-kad tbody tr:hover { background: none; }
+  /* Jadual TANPA tajuk (tiada label) — kekal boleh skrol dalam kadnya */
+  .card, .card-bd, .panel { overflow-x: auto; }
+
+  /* 2. Cip/teks panjang (URL, kod dokumen) tidak boleh mengecil → putuskan */
+  .chip, .pill, .tag, .badge { max-width: 100%; white-space: normal !important; overflow-wrap: anywhere; line-height: 1.35; }
+  .chip *, .pill *, .tag *, .badge * { white-space: normal !important; overflow-wrap: anywhere; min-width: 0; }
+
+  /* 3. Kod dokumen panjang (ZTH-LOAR-000101) jangan paksa lajur melebar */
+  .mono, code, .doc-id, td b { overflow-wrap: anywhere; }
+
+  /* 4. Grid kandungan → satu lajur */
+  .g2, .g3, .g4, .grid, [class*="grid"] { grid-template-columns: minmax(0, 1fr) !important; }
+  .content * { min-width: 0; }
+
+  /* 5. Sepanduk atas tidak bertindih dengan ikon (laporan: teks bertindan dgn loceng) */
+  .top { position: static !important; height: auto !important; flex-wrap: wrap; row-gap: 8px; }
+  .banner { margin-top: 0 !important; }
+
+  /* 6. Jaring keselamatan */
+  body { overflow-x: hidden; }
+}
+@media (max-width: 560px) {
+  .filters, .filter, .form-row, .row2 { grid-template-columns: minmax(0, 1fr) !important; }
+  input, select, textarea { min-width: 0; max-width: 100%; }
+}
+
+/* Token panjang dalam senarai/perenggan (kod, URL) — jangan paksa lebar melebihi skrin */
+@media (max-width: 820px) {
+  li, p, ul, ol, .muted, .small { overflow-wrap: anywhere; }
+  ul, ol { padding-left: 1.15em; }
+}
+
+/* ============================================================
+   PANEL NOTIFIKASI (.drawer) — 20/9/2026
+   Kecacatan asal: .drawer{background:rgba(255,255,255,.04)} — 4% legap TANPA blur,
+   jadi kandungan halaman menembusi panel dan semua teks kelihatan bertindan
+   (laporan Zahir). Butang burger/bell (z-index 60) juga kelihatan menembusinya.
+   Pembetulan: latar legap bertema + lapisan gelap (scrim) di belakang panel.
+   ============================================================ */
+.drawer {
+  background: linear-gradient(180deg, #12283F 0%, #0B1B2E 100%);
+  border-left: 1px solid rgba(201, 162, 39, .22);
+  box-shadow: -26px 0 70px rgba(0, 0, 0, .55);
+  z-index: 90;
+}
+.drawer .dhead {
+  background: inherit;
+  border-bottom: 1px solid rgba(201, 162, 39, .18);
+}
+/* Lapisan gelap di belakang panel: hanya kelihatan apabila panel terbuka
+   (transform pada .drawer menjadikan ::before ini bergerak bersama panel). */
+.drawer::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 10, 20, .55);
+  z-index: -1;
+}
+:root.theme-light .drawer {
+  background: #FFFFFF;
+  border-left: 1px solid rgba(138, 100, 24, .18);
+  box-shadow: -26px 0 70px rgba(16, 34, 47, .22);
+}
+:root.theme-light .drawer::before { background: rgba(16, 34, 47, .28); }
+:root.theme-light .drawer .dhead { border-bottom-color: rgba(138, 100, 24, .16); }
+
+/* Butang tutup panel notifikasi + kunci skrol halaman belakang (20/9/2026) */
+.dacts { display: flex; align-items: center; gap: 8px; }
+.dclose {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 10px; cursor: pointer;
+  background: rgba(255, 255, 255, .06); color: #e8ce86;
+  border: 1px solid rgba(201, 162, 39, .28); padding: 0;
+}
+.dclose:hover { background: rgba(201, 162, 39, .18); }
+.dclose:focus-visible { outline: 2px solid #C9A227; outline-offset: 2px; }
+:root.theme-light .dclose { background: rgba(138, 100, 24, .06); color: #8a6418; border-color: rgba(138, 100, 24, .22); }
+body.drawer-open { overflow: hidden; }
+
+/* Kawalan tutup yang jelas + ruang ketuk luar yang lebih luas (20/9/2026)
+   Zahir: "click luar notifikasi sangat kecil/sikit" — panel 94-100vw hanya tinggalkan
+   jalur ~25px. Kini panel ≤88vw (jalur luar ~50px) dan ada butang Close yang jelas. */
+.dclosebar {
+  position: sticky; bottom: 0; width: 100%; padding: 15px 16px; border: 0;
+  border-top: 1px solid rgba(201, 162, 39, .18); cursor: pointer; font: inherit;
+  font-size: 13px; font-weight: 700; letter-spacing: .02em; color: #e8ce86;
+  background: linear-gradient(180deg, rgba(11, 27, 46, .0), #0B1B2E 32%);
+}
+.dclosebar:hover { color: #fff; background: linear-gradient(180deg, rgba(201,162,39,.10), rgba(201,162,39,.16)); }
+:root.theme-light .dclosebar { color: #8a6418; background: #fff; border-top-color: rgba(138,100,24,.16); }
+:root.theme-light .dclosebar:hover { background: rgba(138,100,24,.06); }
+@media (max-width: 820px) {
+  .drawer { width: min(88vw, 360px); }
+}
+
+/* Skrim sebenar (20/9/2026) — menutupi SELURUH halaman, jadi ketukan di mana-mana
+   di luar panel menutupnya (Zahir: jalur luar hanya ~25px dan tidak berfungsi). */
+.nscrim { position: fixed; inset: 0; background: rgba(4, 10, 20, .55); z-index: 85; display: none; }
+.nscrim.on { display: block; }
+:root.theme-light .nscrim { background: rgba(16, 34, 47, .30); }
+.drawer::before { content: none !important; }
+
+/* ============================================================
+   MEDAN TEXTAREA — dibetulkan 20/9/2026 (ui/ux)
+   Punca: peraturan medan menyasar `input.i, select.i` SAHAJA. Textarea (cth: Inventory
+   dalam Letter of Confirmation) tidak sepadan, jadi ia jatuh ke gaya lalai pelayar:
+   latar putih, saiz kecil, menjorok ke dalam — tidak sepadan dengan medan lain.
+   Label juga bertindih kerana <label> kekal inline dan textarea membalut di sisinya.
+   ============================================================ */
+textarea.i {
+  display: block;
+  width: 100%;
+  padding: 10px 11px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.55;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .04) !important;
+  border: 1px solid rgba(201, 162, 39, .22) !important;
+  color: #f0ead6 !important;
+  min-height: 104px;
+  resize: vertical;
+}
+textarea.i:focus { outline: 2px solid rgba(201, 162, 39, .22) !important; border-color: var(--gold, #C9A227) !important; }
+textarea.i::placeholder { color: #64748b; }
+:root.theme-light textarea.i { background: #fff !important; border-color: rgba(138, 100, 24, .22) !important; color: #1e293b !important; }
+:root.theme-light textarea.i:focus { outline-color: rgba(138, 100, 24, .18) !important; }
+/* label di barisnya sendiri supaya tiada teks membalut di sisi medan */
+.field label { display: block; margin-bottom: 6px; }
+
+/* ============================================================
+   KOTAK .flag — kontras dibetulkan 20/9/2026 (Zahir: "Tak nampak text")
+   Punca: .flag{background:var(--gold-soft);color:#1a1206}. Dalam tema gelap
+   --gold-soft = rgba(201,162,39,.12) (tint gelap) tetapi teks kekal #1a1206
+   (hampir hitam) → teks gelap atas panel gelap, tidak boleh dibaca.
+   ============================================================ */
+.flag {
+  color: var(--ink, #f0ead6);
+  background: rgba(201, 162, 39, .10);
+  border: 1px solid rgba(201, 162, 39, .32);
+}
+.flag b, .flag strong { color: #e8ce86; }
+/* Tema cerah: kekalkan reka bentuk asal (panel emas muda + teks gelap) */
+:root.theme-light .flag {
+  color: #1a1206;
+  background: rgba(138, 100, 24, .10);
+  border-color: rgba(138, 100, 24, .30);
+}
+:root.theme-light .flag b, :root.theme-light .flag strong { color: #6b4f10; }
+
+/* TOAST tindakan demo + notis tidak lagi di bawah ikon loceng (20/9/2026) */
+.dtoast {
+  position: fixed; left: 50%; bottom: 18px; z-index: 120; width: min(92vw, 470px);
+  transform: translateX(-50%) translateY(130%); opacity: 0; pointer-events: none;
+  padding: 13px 15px; border-radius: 14px; color: #f0ead6; font-size: 12.5px; line-height: 1.5;
+  background: linear-gradient(180deg, #16304A 0%, #0F2438 100%);
+  border: 1px solid rgba(201, 162, 39, .35); box-shadow: 0 18px 50px rgba(0, 0, 0, .55);
+  transition: transform .28s ease, opacity .28s ease;
+}
+.dtoast.on { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.dtoast b { display: block; margin-bottom: 4px; color: #e8ce86; font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; }
+.dtoast i { display: block; margin-top: 6px; color: #94a3b8; font-size: 11px; font-style: normal; }
+.dtoast a { display: inline-block; margin-top: 8px; color: #e8ce86; font-weight: 700; text-decoration: none; }
+:root.theme-light .dtoast { background: #fff; color: #1e293b; border-color: rgba(138, 100, 24, .30); }
+:root.theme-light .dtoast b, :root.theme-light .dtoast a { color: #8a6418; }
+:root.theme-light .dtoast i { color: #64748b; }
+@media (max-width: 820px) {
+  .ctxbar { padding-right: 68px; }
+}
