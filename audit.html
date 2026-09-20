@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Audit trail | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=47074d00">
+<style>
+ .tl{position:relative;margin:0;padding:0 0 0 22px;list-style:none}
+ .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.04))}
+ .tl li{position:relative;padding:10px 0 12px}
+ .tl li::before{content:"";position:absolute;left:-20px;top:15px;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.04);border:2px solid var(--navy-3)}
+ .tl li.key::before{background:var(--gold);border-color:var(--gold)}
+ .tl .t{font-size:12.5px;font-weight:700}
+ .tl .m{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+ .hsh{font-family:var(--mono);font-size:11px;color:var(--ink-3);word-break:break-all}
+ .ok2{color:#5fc79d;font-weight:700}.bad2{color:#E8776A;font-weight:700}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Audit trail</h1>
+        <p>Every action on every document, in order, with who did it, from where, and a fingerprint that would change if anyone edited the record afterwards.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP · SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Events recorded</div><div class="val" id="kEv">—</div><div class="sub">documents, signatures, money</div></div>
+      <div class="kpi blue"><div class="lab">Documents covered</div><div class="val">3</div><div class="sub">one deal chain, start to finish</div></div>
+      <div class="kpi"><div class="lab">Retention</div><div class="val">7 yr</div><div class="sub">then destroyed</div></div>
+      <div class="kpi warn"><div class="lab">Chain integrity</div><div class="val ok2" id="kChain">OK</div><div class="sub">recomputed on demand</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> One document, start to finish</h2>
+    <div class="card">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <label class="small muted">Document</label>
+        <select class="i" id="fdoc" style="min-width:260px"></select>
+        <button class="btn gold" id="verify" style="margin-left:auto">Verify integrity</button>
+        <button class="btn ghost" id="csv">Export CSV</button>
+      </div>
+      <div id="verifyOut" class="small muted"></div>
+      <ul class="tl" id="tl"></ul>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Everything, filterable</h2>
+    <div class="card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+        <button class="btn ghost fa on" data-a="all">All actions</button>
+        <button class="btn ghost fa" data-a="signature">Signatures</button>
+        <button class="btn ghost fa" data-a="document">Documents</button>
+        <button class="btn ghost fa" data-a="money">Money</button>
+        <button class="btn ghost fa" data-a="admin">Admin &amp; edits</button>
+      </div>
+      <div style="overflow:auto"><table class="tbl" id="tbl">
+        <thead><tr><th class="num">#</th><th>When</th><th>Document</th><th>Actor</th><th>Action</th><th>From</th><th>Fingerprint</th></tr></thead>
+        <tbody></tbody></table></div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Why this exists</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">It is evidence</h3><p class="small muted" style="margin-bottom:0">Under the Electronic Commerce Act 2006 an electronic record is admissible, and the Evidence Act 1950 gives computer-produced documents their weight. This log is what makes that argument in practice.</p></div>
+      <div class="card"><h3 style="margin-top:0">It protects the agent</h3><p class="small muted" style="margin-bottom:0">If a client later says &ldquo;I never agreed to that fee&rdquo;, the log shows exactly what was shown to them, when they opened it, and what they signed.</p></div>
+      <div class="card"><h3 style="margin-top:0">It survives disputes</h3><p class="small muted" style="margin-bottom:0">Each row carries a fingerprint computed from the row before it. Change one character in an old entry and the chain breaks visibly &mdash; that is the point.</p></div>
+    </div>
+  </main>
+</div>
+<script src="assets/notif.js?v=47074d00"></script>
+<script src="assets/nav.js?v=47074d00"></script>
+<script src="assets/ui.js?v=47074d00"></script>
+<script>
+/* FNV-1a 32-bit — cap jari deterministik (demo) */
+function fp(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return ('00000000'+h.toString(16)).slice(-8);}
+const RAW=[
+ ['ZTH-LOAR-000101','Nadia Rahman','Negotiator','created','Letter of Appointment (Rent) generated from deal ZTH-D-000101','17:41','175.139.22.10','iPhone 15 · WhatsApp in-app','document'],
+ ['ZTH-LOAR-000101','System','Zentra Realty','sent','Signing link sent to Noraini binti Hassan via WhatsApp','17:42','43.156.105.56','server','signature'],
+ ['ZTH-LOAR-000101','Noraini binti Hassan','Landlord','opened','Document opened and read (1 min 47 s)','18:05','118.101.44.77','Android · Chrome','signature'],
+ ['ZTH-LOAR-000101','Noraini binti Hassan','Landlord','otp_verified','One-time code verified','18:06','118.101.44.77','Android · Chrome','signature'],
+ ['ZTH-LOAR-000101','Noraini binti Hassan','Landlord','signed','Signed electronically · consent to Annex A recorded','18:07','118.101.44.77','Android · Chrome','signature'],
+ ['ZTH-LOAR-000101','Nadia Rahman','Negotiator','signed','Counter-signed by the negotiator','18:19','175.139.22.10','iPhone 15','signature'],
+ ['ZTH-LOAR-000101','System','Zentra Realty','completed','Completion certificate CERT-ZTH-LOAR-000101 issued','18:20','43.156.105.56','server','signature'],
+ ['ZTH-LOAR-000101','Noraini binti Hassan','Landlord','downloaded','Soft copy downloaded (PDF, 6 pages)','18:24','118.101.44.77','Android · Chrome','document'],
+ ['ZTH-LOCR-000101','Nadia Rahman','Negotiator','created','Letter of Confirmation (Rent) generated','2026-09-08 09:12','175.139.22.10','iPhone 15','document'],
+ ['ZTH-LOCR-000101','System','Zentra Realty','sent','Sent to tenant and landlord (WhatsApp + email)','09:13','43.156.105.56','server','signature'],
+ ['ZTH-LOCR-000101','Ahmad Faizal bin Osman','Tenant','otp_verified','One-time code verified','09:41','60.48.190.3','Android · Chrome','signature'],
+ ['ZTH-LOCR-000101','Ahmad Faizal bin Osman','Tenant','signed','Signed electronically','09:42','60.48.190.3','Android · Chrome','signature'],
+ ['ZTH-LOCR-000101','Noraini binti Hassan','Landlord','signed','Signed electronically — execution date set (30-day stamping clock starts)','14:05','118.101.44.77','Android · Chrome','signature'],
+ ['ZTH-LOCR-000101','System','Zentra Realty','task_created','Stamping task created · duty RM63.00 · due 16 Oct 2026','14:06','43.156.105.56','server','admin'],
+ ['ZTH-LOCR-000101','Shahira (Operations)','Operations','amended','Disbursement line corrected from RM300.00 to RM300.00 incl. SST before issue','15:10','43.156.105.56','Desktop · Chrome','admin'],
+ ['ZTH-LOCR-000101','Revenue','LHDN e-Duti Setem','stamped','Stamp certificate received and filed with the agreement','2026-09-12 11:20','—','government portal','money'],
+ ['ZTH-CLM-000101','Nadia Rahman','Negotiator','claim_submitted','Commission claim submitted with 6 attachments','2026-09-13 10:02','175.139.22.10','iPhone 15','money'],
+ ['ZTH-CLM-000101','Shahira (Operations)','Operations','claim_checked','Documents reconciled — 1 exception noted (inventory photo missing)','11:15','43.156.105.56','Desktop · Chrome','money'],
+ ['ZTH-CLM-000101','Zahiruddin bin Mat Jailaini','Agency Head','claim_approved','Claim approved for payout run 15 Sep','16:40','175.139.22.10','iPhone 15','money'],
+ ['ZTH-PVS-000101','System','Zentra Realty','run_created','Payout run created · RM16,320.00 to Nadia Rahman, RM2,880.00 override','2026-09-14 09:00','43.156.105.56','server','money'],
+ ['ZTH-PVS-000101','Bank','Maybank','paid','Transfer executed · bulk reference BULK10004558','2026-09-15 10:31','—','bank file','money'],
+ ['ZTH-PVS-000101','System','Zentra Realty','notified','Negotiator and leader notified with voucher copy','10:32','43.156.105.56','server','admin'],
+ ['ZTH-INV-2026-000101','System','Zentra Realty','invoice_issued','Tax invoice ZTH-INV-2026-000101 issued (SST 8%, code SV)','2026-09-10 08:55','43.156.105.56','server','money'],
+ ['ZTH-INV-2026-000101','System','Zentra Realty','receipt_issued','Official receipt ZTH-OR-2026-000101 issued after funds cleared','2026-09-12 16:04','43.156.105.56','server','money']
+];
+const EV=[];let prev='GENESIS';
+RAW.forEach((r,i)=>{
+  const [doc,actor,role,action,detail,w,ip,dev,cat]=r;
+  const stamp=(w.length>5? w : '2026-09-02 '+w)+' +08';
+  const hash=fp(prev+'|'+doc+'|'+actor+'|'+action+'|'+stamp);
+  EV.push({n:i+1,doc,actor,role,action,detail,when:stamp,ip,dev,cat,hash,prev});
+  prev=hash;
+});
+const el=id=>document.getElementById(id);
+const docs=[...new Set(EV.map(e=>e.doc))];
+el('fdoc').innerHTML='<option value="'+docs[0]+'">'+docs[0]+'</option>'+docs.slice(1).map(d=>`<option>${d}</option>`).join('');
+el('kEv').textContent=EV.length;
+function chainOK(){
+  let p='GENESIS',ok=true;
+  EV.forEach(e=>{ if(e.prev!==p || e.hash!==fp(p+'|'+e.doc+'|'+e.actor+'|'+e.action+'|'+e.when)) ok=false; p=e.hash; });
+  return ok;
+}
+function timeline(){
+  const d=el('fdoc').value;
+  const rows=EV.filter(e=>e.doc===d);
+  el('tl').innerHTML=rows.map(e=>`<li class="${/signed|completed|paid|stamped|approved/.test(e.action)?'key':''}">
+    <div class="t">${e.action.replace(/_/g,' ')} — ${e.actor} <span class="pill ${e.cat==='money'?'money':(e.cat==='admin'?'team':'signature')}">${e.role}</span></div>
+    <div class="m">${e.detail}</div>
+    <div class="m">${e.when} &nbsp;·&nbsp; ${e.dev} &nbsp;·&nbsp; ${e.ip}</div>
+    <div class="hsh">fingerprint ${e.hash} &nbsp;&larr;&nbsp; ${e.prev}</div>
+  </li>`).join('');
+}
+let filt='all';
+function table(){
+  const rows=EV.filter(e=>filt==='all'||e.cat===filt);
+  el('tbl').querySelector('tbody').innerHTML=rows.map(e=>`<tr>
+    <td class="num">${e.n}</td><td>${e.when}</td><td><b>${e.doc}</b></td><td>${e.actor}<span class="sub2" style="display:block;font-size:11px;color:var(--ink-3)">${e.role}</span></td>
+    <td>${e.action.replace(/_/g,' ')}<span style="display:block;font-size:11px;color:var(--ink-3)">${e.detail}</span></td>
+    <td class="hsh">${e.ip}<br>${e.dev}</td><td class="hsh">${e.hash}</td></tr>`).join('');
+}
+el('fdoc').onchange=timeline;
+document.querySelectorAll('.fa').forEach(b=>b.onclick=()=>{filt=b.dataset.a;document.querySelectorAll('.fa').forEach(x=>x.classList.toggle('on',x===b));table();});
+el('verify').onclick=()=>{
+  const ok=chainOK();
+  el('verifyOut').innerHTML = ok
+    ? '<span class="ok2">&#10003; Chain intact — all '+EV.length+' entries recompute exactly. No record has been altered.</span>'
+    : '<span class="bad2">&#10007; Chain broken — an entry was changed after the fact.</span>';
+  el('kChain').textContent = ok? 'OK':'BROKEN';
+};
+el('csv').onclick=()=>{
+  const out=EV.filter(e=>e.doc===el('fdoc').value);
+  const head=['#','When','Document','Actor','Role','Action','Detail','IP','Device','Fingerprint'];
+  const csv=[head.join(',')].concat(out.map(e=>[e.n,e.when,e.doc,e.actor,e.role,e.action,e.detail,e.ip,e.dev,e.hash].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','))).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='zentra-audit-'+el('fdoc').value+'.csv';a.click();
+};
+timeline();table();
+el('verify').click();
+</script>
+</body>
+</html>
