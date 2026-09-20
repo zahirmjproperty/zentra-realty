@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Documents &amp; e-Sign | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=e4a08bea">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Documents &amp; e-sign</h1>
+        <p>Agents create the letter, clients sign it — <b>no printing, no meeting, no courier</b> — built on the same document family the industry already accepts (appointment letter &rarr; letter of confirmation &rarr; agreement &rarr; invoice &rarr; receipt &rarr; claim &rarr; payment voucher). The system generates the PDF, collects signatures with an OTP, and keeps a soft copy both sides can download or print later.</p>
+      </div>
+      <span class="badge-demo">FLAGSHIP MODULE · SAMPLE DATA</span>
+    </div>
+<p class="small muted" style="margin-top:10px"><b>Phase 1 scope:</b> Letter of Appointment · <b>Engine:</b> SigningCloud (Malaysia) · <b>Mode:</b> the client chooses — digital signature (default) or PKI digital certificate for tenancy / high-value documents.</p>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Letters this month</div><div class="val">42</div><div class="sub">31 appointment · 11 confirmation · 9 receipt/invoice</div></div>
+      <div class="kpi warn"><div class="lab">Awaiting signature</div><div class="val">7</div><div class="sub">2 landlord · 3 tenant · 2 buyer</div></div>
+      <div class="kpi"><div class="lab">Signed digitally</div><div class="val">87%</div><div class="sub">13% chose print &amp; upload</div></div>
+      <div class="kpi blue"><div class="lab">Stamping due ≤ 7 days</div><div class="val">2</div><div class="sub">tenancy · LHDN 30-day rule</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> How a letter travels</h2>
+      <div class="flag"><b>Try the client side:</b> the signing screen a landlord, tenant or buyer sees on their phone &mdash; review, one-time code, consent, signature, certificate, soft copy. <a class="mono" href="sign.html?step=1" target="_blank"><b>Open the signing demo &rarr;</b></a> <span class="small muted">(also: <a class="mono" href="sign.html?step=5">jump to the finished certificate</a>)</span></div>
+    <div class="card">
+      <div class="pipe">
+        <div class="step done"><b>1 · Agent creates</b><span>Pick template, fill the property and parties. Fields auto-fill from the deal record. &lt; 2 minutes.</span></div>
+        <div class="step done"><b>2 · System generates</b><span>Numbered PDF (ZTH-LOAR-000123), timestamp, SHA-256 hash, QR verification block.</span></div>
+        <div class="step active"><b>3 · Parties sign</b><span>WhatsApp / email link in signing order. OTP confirms identity. Each signature is stamped with time, IP and device.</span></div>
+        <div class="step"><b>4 · Completed &amp; filed</b><span>Completion certificate issued, bundle saved for 7 years, soft copy sent to every party.</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Document family — one transaction, one chain</h2>
+      <p class="small muted">Every deal produces a numbered chain. All documents share a single transaction ID, which is how the agency, the client, the lawyer and the auditor trace money back to a real property (the anti-pyramid guardrail).</p>
+      <div class="chain">
+        <span class="chip-doc">ZTH-LOAR-000123<br><small>Appointment letter (rent)</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-LOCR-000125<br><small>Letter of confirmation</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-TA-000127<br><small>Tenancy agreement</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-IVS-2026-00045<br><small>Invoice (8% SST)</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-OR-2026-00088<br><small>Official receipt</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-CLAIM-000201<br><small>Commission claim</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-PVS-000512<br><small>Payment voucher</small></span>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Type</th><th>Prefix</th><th>Who creates it</th><th>Trigger</th><th>Needs e-sign?</th></tr></thead>
+        <tbody>
+          <tr><td>Appointment letter — rent</td><td class="mono">ZTH-LOAR-######</td><td>Agent</td><td>Owner appoints the agency</td><td><span class="pill ok">Yes — owner + agent</span></td></tr>
+          <tr><td>Appointment letter — sale</td><td class="mono">ZTH-LOAS-######</td><td>Agent</td><td>Vendor appoints the agency</td><td><span class="pill ok">Yes — vendor + agent</span></td></tr>
+          <tr><td>Letter of confirmation — rent</td><td class="mono">ZTH-LOCR-######</td><td>Tenant (agent prepares)</td><td>Tenant offers to rent</td><td><span class="pill ok">Yes — tenant + landlord</span></td></tr>
+          <tr><td>Letter of confirmation — sale</td><td class="mono">ZTH-LOCS-######</td><td>Buyer (agent prepares)</td><td>Buyer offers to buy</td><td><span class="pill ok">Yes — buyer + vendor</span></td></tr>
+          <tr><td>Tenancy / sale agreement</td><td class="mono">ZTH-TA-######</td><td>Agent (template) / lawyer</td><td>After confirmation is signed</td><td><span class="pill warn">PKI recommended</span></td></tr>
+          <tr><td>Invoice</td><td class="mono">ZTH-IVS-YYYY-#####</td><td>System</td><td>Agreement signed</td><td><span class="pill info">No — computer generated</span></td></tr>
+          <tr><td>Temporary / official receipt</td><td class="mono">ZTH-RCPT-DDMMYYYY-N · ZTH-OR-YYYY-#####</td><td>System</td><td>Deposit received · funds cleared</td><td><span class="pill info">No</span></td></tr>
+          <tr><td>Commission claim</td><td class="mono">ZTH-CLAIM-######</td><td>Agent</td><td>Deal completed + fee due</td><td><span class="pill bad">Internal approval</span></td></tr>
+          <tr><td>Payment voucher</td><td class="mono">ZTH-PVS-######</td><td>System (after approval)</td><td>Claim approved</td><td><span class="pill bad">Two documents: commission + marketing bonus</span></td></tr>
+        </tbody>
+      </table>
+      <h2 class="sec"><span class="num">3</span> Document board</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="tbl">
+        <tr><th>Document ID</th><th>Type</th><th>Property</th><th>Parties</th><th>Signatures</th><th>Execution date</th><th>Soft copy</th></tr>
+        <tr>
+          <td class="mono">ZTH-LOAR-000123</td><td>Letter of Appointment (rent)</td><td>18-3, Jalan Seri Harmoni 2/5, Kajang</td>
+          <td>Landlord · Agent</td><td>2 / 2</td><td>12 Sep 2026</td><td><span class="pill ok">AVAILABLE</span></td>
+        </tr>
+        <tr>
+          <td class="mono">ZTH-LOCR-000124</td><td>Letter of Confirmation (rent)</td><td>18-3, Jalan Seri Harmoni 2/5, Kajang</td>
+          <td>Landlord · Tenant · Agent</td><td>2 / 3</td><td class="muted">pending</td><td><span class="pill warn">PARTIAL</span></td>
+        </tr>
+        <tr>
+          <td class="mono">ZTH-LOOF-000125</td><td>Letter of Offer (sale)</td><td>56A, Jalan Aman Heightss S/1, Kajang</td>
+          <td>Buyer · Agent</td><td>1 / 2</td><td class="muted">pending</td><td><span class="pill warn">PARTIAL</span></td>
+        </tr>
+        <tr>
+          <td class="mono">ZTH-LOTA-000126</td><td>Tenancy agreement (2 years)</td><td>B-12-3, Residensi Aman, Cheras</td>
+          <td>Landlord · Tenant</td><td>0 / 2</td><td class="muted">pending</td><td><span class="pill info">AWAITING</span></td>
+        </tr>
+        <tr>
+          <td class="mono">ZTH-LOAR-000127</td><td>Letter of Appointment (sale)</td><td>22, Jalan Mawar 4, Seri Kembangan</td>
+          <td>Owner · Agency Head</td><td>2 / 2</td><td>08 Sep 2026</td><td><span class="pill ok">AVAILABLE</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Inside a letter</h2>
+    <div class="grid g2">
+      <div class="voucher">
+        <h4>Letter of Appointment — ZTH-LOAR-000123</h4>
+        <div class="co">Zentra Property Group · appointment to act as estate agent</div>
+        <div class="small">Date: 12 Sep 2026 · Ref: ZTH-0001</div>
+        <table>
+          <tr><th>Field</th><th>Value</th></tr>
+          <tr><td>Owner</td><td>Noraini binti Hassan</td></tr>
+          <tr><td>Property</td><td>18-3, Jalan Seri Harmoni 2/5, 43000 Kajang</td></tr>
+          <tr><td>Monthly rent</td><td>RM1,000</td></tr>
+          <tr><td>Professional fee</td><td>RM1,100 + RM88 SST = RM1,188</td></tr>
+          <tr><td>Fee scale reference</td><td class="small muted">Schedule 7(C)(2), Rule 48(a) VAEA Rules 1986 — max 1.25 months gross rental up to 3 years</td></tr>
+          <tr><td>Signed</td><td>Owner ✅ · Agent ✅</td></tr>
+        </table>
+        <div class="tot"><span>Status</span><span>COMPLETED</span></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Signing order &amp; verification</h3>
+        <table class="tbl">
+          <tr><th>#</th><th>Party</th><th>Channel</th><th>Verified</th><th>Status</th></tr>
+          <tr><td>1</td><td>Noraini binti Hassan (landlord)</td><td>WhatsApp link</td><td>OTP · MyKad</td><td><span class="pill ok">SIGNED</span></td></tr>
+          <tr><td>2</td><td>Zahiruddin (Agency Head) (Agency Head)</td><td>Email link</td><td>OTP</td><td><span class="pill ok">SIGNED</span></td></tr>
+          <tr><td>3</td><td>Tenant</td><td>WhatsApp link</td><td>OTP (pending)</td><td><span class="pill warn">AWAITING</span></td></tr>
+        </table>
+        <p class="small muted" style="margin:14px 0 0"><b>Fallback:</b> a client who prefers paper taps <i>Print &amp; upload</i> — the system produces a print set, then accepts a photo/scan and keeps the same audit trail.</p>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">5</span> Evidence pack (what protects the agency)</h2>
+    <div class="grid g2">
+      <div class="card">
+        <table class="tbl">
+          <tr><th>Evidence</th><th>Captured</th></tr>
+          <tr><td>Timestamp (every action)</td><td class="mono">2026-09-12 14:07:31 (+08)</td></tr>
+          <tr><td>IP address</td><td class="mono">175.x.x.x (Kuala Lumpur)</td></tr>
+          <tr><td>Device / browser</td><td class="muted">iPhone · Safari 18</td></tr>
+          <tr><td>OTP verified</td><td class="muted">SMS to 6012-xxx 0119</td></tr>
+          <tr><td>Document hash (SHA-256)</td><td class="mono">3f9a…c21b</td></tr>
+          <tr><td>Consent to sign electronically</td><td><span class="pill ok">RECORDED</span></td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Completion certificate</h3>
+        <p class="small muted" style="margin-top:0">One page attached to the bundle: parties, method used, execution date and document hash. This is the page a lawyer or bank looks for.</p>
+        <div class="chain">
+          <span class="chip-doc">Letter<small>ZTH-LOAR-000123</small></span>
+          <span class="arrow">+</span>
+          <span class="chip-doc">Completion certificate<small>1 page</small></span>
+          <span class="arrow">=</span>
+          <span class="chip-doc ok">Bundle for all parties<small>PDF · 7-year archive</small></span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">6</span> Stamping tracker (tenancy)</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="tbl">
+        <tr><th>Agreement</th><th>Executed</th><th>Deadline (30 days)</th><th>Days left</th><th>Duty (est.)</th><th>Status</th></tr>
+        <tr><td class="mono">ZTH-LOTA-000126</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="pill info">NOT DUE YET</span></td></tr>
+        <tr><td class="mono">ZTH-LOTA-000118</td><td>02 Sep 2026</td><td>02 Oct 2026</td><td class="num">17</td><td class="num">RM10 min</td><td><span class="pill warn">PENDING</span></td></tr>
+        <tr><td class="mono">ZTH-LOTA-000101</td><td>30 Aug 2026</td><td>29 Sep 2026</td><td class="num">14</td><td class="num">RM24</td><td><span class="pill warn">PENDING</span></td></tr>
+        <tr><td class="mono">ZTH-LOTA-000092</td><td>12 Aug 2026</td><td>11 Sep 2026</td><td class="num">0</td><td class="num">RM10</td><td><span class="pill ok">STAMPED</span></td></tr>
+      </table>
+    </div>
+    <p class="small muted">The 30-day clock starts on the date the <b>last party signs</b> — the system reads that timestamp from the signing log, so nobody has to remember it. Late stamping costs RM50/10% then RM100/20%.</p>
+
+    <h2 class="sec"><span class="num">7</span> What the system refuses to e-sign</h2>
+    <div class="card" style="border-color:rgba(232,119,106,.30);background:rgba(232,119,106,.08)">
+      <ul class="check">
+        <li><b>Blocked by law:</b> power of attorney · wills and codicils · trusts · negotiable instruments</li>
+        <li><b>Blocked by land registration:</b> Memorandum of Transfer (Form 14A) · charges · registered leases — these must be signed in wet ink and registered; the system hands them to the panel lawyer</li>
+        <li><b>Allowed:</b> letter of appointment · letter of offer · letter of confirmation · tenancy agreement (unregistered) · booking forms</li>
+      </ul>
+    </div>
+
+    <p class="foot-note">Zentra Realty prototype · Documents &amp; e-sign<br>Legal validity: Electronic Commerce Act 2006 (s.6, s.9, s.13) · Digital Signature Act 1997 · e-Duti Setem via MyTax (30-day rule)</p>
+  </main>
+</div>
+<script src="assets/agency.js?v=e4a08bea"></script>
+<script src="assets/notif.js?v=e4a08bea"></script>
+<script src="assets/nav.js?v=e4a08bea"></script>
+  <script src="assets/ui.js?v=e4a08bea"></script>
+</body>
+</html>
