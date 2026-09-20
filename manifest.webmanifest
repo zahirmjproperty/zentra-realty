@@ -1,0 +1,27 @@
+{
+  "name": "Zentra Realty",
+  "short_name": "Zentra Realty",
+  "description": "Zentra Realty \u2014 agency workspace (prototype)",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1b2e",
+  "theme_color": "#0b1b2e",
+  "icons": [
+    {
+      "src": "icons/zr-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/zr-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/zr-icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
