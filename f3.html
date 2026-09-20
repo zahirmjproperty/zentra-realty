@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>F3 · Reward engine | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css?v=47074d00">
+<style>
+ .pipe{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px}
+ .pipe .st{padding:5px 11px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+ .pipe .st.done{border-color:rgba(95,199,157,.12);background:var(--green-soft);color:#5fc79d;font-weight:600}
+ .pipe .arw{color:var(--navy-3)}
+ .docprev{display:none}
+ @media print{.side,.top,.no-print{display:none}.docprev{display:block}}
+ .led{width:100%;border-collapse:collapse;font-size:12.5px}
+ .led td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.04)}
+ .led td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+ .led tr.tot td{font-weight:700;border-top:2px solid var(--navy);background:rgba(255,255,255,.04)}
+ .warnbox{border-left:3px solid var(--amber);background:var(--amber-soft);padding:10px 12px;border-radius:8px;font-size:12.5px}
+ .okbox{border-left:3px solid var(--green);background:var(--green-soft);padding:10px 12px;border-radius:8px;font-size:12.5px}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>F3 &middot; Reward engine</h1>
+        <p>One completed transaction turns into four documents and one payout, without anyone rebuilding a spreadsheet: <b>claim &rarr; invoice &rarr; receipt &rarr; payment voucher</b>.</p>
+      </div>
+      <span class="badge-demo">PHASE 3 DEMO &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="card no-print">
+      <div class="pipe">
+        <span class="st done">1 &middot; Deal completed</span><span class="arw">&rarr;</span>
+        <span class="st done">2 &middot; Claim prepared</span><span class="arw">&rarr;</span>
+        <span class="st" id="stInv">3 &middot; Invoice</span><span class="arw">&rarr;</span>
+        <span class="st" id="stRcp">4 &middot; Receipt</span><span class="arw">&rarr;</span>
+        <span class="st" id="stPay">5 &middot; Payout</span>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> The deal</h2>
+    <div class="grid g4 no-print">
+      <div class="field"><label>Type</label><select id="dtype" class="i"><option value="sale">Sale</option><option value="rent">Rental</option></select></div>
+      <div class="field"><label>Price / monthly rent (RM)</label><input id="amt" class="i" type="number" value="640000"></div>
+      <div class="field"><label>Agency commission, net of SST (RM)</label><input id="base" class="i" type="number" value="19200" step="0.01"></div>
+      <div class="field"><label>Negotiator</label><select id="neg" class="i"><option>Nadia Rahman</option><option>Faizal Omar</option><option>Aisy Karim</option></select></div>
+      <div class="field"><label>Agent level (total %)</label><input id="lvl" class="i" type="number" value="85" step="1"></div>
+      <div class="field"><label>Declared commission cap (%)</label><input id="cap" class="i" type="number" value="40" step="1"></div>
+      <div class="field"><label>Leader</label><select id="lead" class="i"><option>Zahiruddin (Agency Head)</option><option>Team Leader A</option></select></div>
+      <div class="field"><label>Represent both sides?</label><select id="both" class="i"><option>No</option><option>Yes</option></select></div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Where the money goes</h2>
+    <div class="grid g2">
+      <div class="card"><h3 style="margin-top:0;font-size:14.5px">Split of the agency commission</h3>
+        <table class="led" id="ledger"></table></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14.5px">Compliance check</h3><div id="compliance"></div>
+        <p class="small muted" style="margin-top:8px">The only line <b>named</b> commission is the negotiator&rsquo;s declared share. Everything above it is paid out of the agency&rsquo;s own share as a marketing reward, on a real transaction, with a full money trail.</p></div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> The four documents</h2>
+    <div class="card no-print">
+      <p class="small muted">Generated from the figures above &mdash; nobody types an amount twice.</p>
+      <div class="actions">
+        <button class="btn" onclick="prev('claim')">Claim form (ZTH-CLM)</button>
+        <button class="btn" onclick="prev('inv')">Invoice (ZTH-INV)</button>
+        <button class="btn" onclick="prev('rcp')">Official receipt (ZTH-OR)</button>
+        <button class="btn" onclick="prev('pvs')">Payment voucher (ZTH-PVS)</button>
+      </div>
+    </div>
+
+    <div class="docprev" id="prevHost"></div>
+  </main>
+</div>
+
+<div class="modal" id="modal"><div class="inner"><div class="bar">
+  <div><b id="mTitle">Document</b></div>
+  <div class="actions" style="margin:0"><button class="btn ghost sm" onclick="window.print()">Print / Save PDF</button><button class="btn ghost sm" onclick="document.getElementById('modal').classList.remove('on')">Close</button></div>
+</div><div id="modalHost" class="paper"></div></div></div>
+<script>
+const $ = id => document.getElementById(id);
+const rm = n => 'RM ' + (Math.round(n*100)/100).toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+const num = id => parseFloat($(id).value) || 0;
+
+/* ---------- number to words (Ringgit Malaysia ... Only) ---------- */
+const ONES=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const TENS=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+function u3(n){ let s=''; if (n>99){ s+=ONES[Math.floor(n/100)]+' hundred'; n%=100; if(n) s+=' and '; }
+  if (n>19){ s+=TENS[Math.floor(n/10)]; if(n%10) s+='-'+ONES[n%10]; } else if(n) s+=ONES[n]; return s; }
+function words(n){ n=Math.floor(Math.abs(n)); if(n===0) return 'zero';
+  const g=[[1e9,'billion'],[1e6,'million'],[1e3,'thousand']]; let s='';
+  for (const [v,name] of g){ if (n>=v){ s+=(s?' ':'')+u3(Math.floor(n/v))+' '+name; n%=v; } }
+  if (n) s+=(s?' ':'')+u3(n); return s; }
+function moneyWords(v){ v=Math.round(v*100)/100; const r=Math.floor(v); const c=Math.round((v-r)*100);
+  let s='RINGGIT MALAYSIA '+words(r).toUpperCase(); if (c) s+=' AND '+words(c).toUpperCase()+' SEN'; return s+' ONLY'; }
+
+/* ---------- figures ---------- */
+function figures(){
+  const base=num('base'), lvl=num('lvl'), cap=num('cap');
+  const decl=base*cap/100, bonus=base*(lvl-cap)/100, lead=base*(1-lvl/100), sst=base*0.08;
+  return {base, lvl, cap, decl, bonus, lead, sst, total:base+sst,
+          both:$('both').value==='Yes', neg:$('neg').value, lead_name:$('lead').value,
+          type:$('dtype').value, amt:num('amt')};
+}
+function render(){
+  const f=figures();
+  const rows=[
+    ['Agency commission (net of SST)', f.base],
+    ['&nbsp;&nbsp;&bull; Declared negotiator\'s commission ('+f.cap+'%)', f.decl],
+    ['&nbsp;&nbsp;&bull; Marketing reward &mdash; agent level ('+(f.lvl-f.cap)+'%)', f.bonus],
+    ['&nbsp;&nbsp;&bull; Leader share ('+(100-f.lvl).toFixed(0)+'%)', f.lead],
+    ['Total paid out', f.decl+f.bonus+f.lead],
+    ['Agency residual', f.base-(f.decl+f.bonus+f.lead)]
+  ];
+  $('ledger').innerHTML = rows.map((r,i)=>'<tr'+(i>=4?' class="tot"':'')+'><td>'+r[0]+'</td><td>'+rm(r[1])+'</td></tr>').join('');
+  const pctPaid=((f.decl+f.bonus+f.lead)/f.base*100);
+  $('compliance').innerHTML =
+    '<div class="okbox"><b>Declared commission:</b> '+rm(f.decl)+' ('+f.cap+'% of the commission base) &mdash; within the ceiling.<br>'+
+    '<b>Total to the negotiator:</b> '+rm(f.decl+f.bonus)+' ('+((f.decl+f.bonus)/f.base*100).toFixed(2)+'% of base) &mdash; paid '+f.cap+'% as commission, the rest as a marketing reward from the agency&rsquo;s share.</div>'+
+    '<p class="small" style="margin-top:8px">Monthly report line: <b>named commission '+f.cap+'%</b> vs <b>total payout '+pctPaid.toFixed(0)+'%</b> &mdash; the gap of '+((pctPaid-f.cap)).toFixed(0)+'% is the part a regulator could argue about, so it must always be documented as an agency reward on a real transaction.</p>';
+  $('stInv').className='st done'; $('stRcp').className='st done'; $('stPay').className='st done';
+}
+
+/* ---------- documents ---------- */
+function head2(title, no, extra){
+  return '<h3>ZENTRA PROPERTY GROUP</h3><div class="sub">Registered estate agency [E(##)####] &middot; SST No. [ ] &middot; [office] &middot; [tel] &middot; [email]</div>'+
+         '<h3>'+title+'</h3><div class="sub">'+no+(extra?(' &middot; '+extra):'')+' &middot; Date: '+new Date().toLocaleDateString('en-GB')+'</div>';
+}
+function docClaim(f){
+  const id='ZTH-CLM-000101';
+  return head2('COMMISSION CLAIM FORM', id)+
+  '<table><tr><th>Appointment letter no.</th><td>ZTH-LOAR-000101</td><th>Confirmation form no.</th><td>ZTH-LOCR-000101 '+(f.both?'<b>(Represent Both)</b>':'')+'</td></tr>'+
+  '<tr><th>Property</th><td colspan="3">18-3, Jalan Seri Harmoni 2/5, 43200 Kajang, Selangor</td></tr>'+
+  '<tr><th>Type</th><td>'+f.type+'</td><th>'+(f.type==='rent'?'Signed tenancy':'SPA / VP')+' date</th><td>'+new Date().toLocaleDateString('en-GB')+'</td></tr>'+
+  '<tr><th>'+(f.type==='rent'?'Monthly rent':'Selling price')+'</th><td>'+rm(f.amt)+'</td><th>Earnest deposit received</th><td>'+rm(f.type==='rent'?f.amt:640000*0.0324)+'</td></tr>'+
+  '<tr><th>Agency commission (net of SST)</th><td>'+rm(f.base)+'</td><th>SST collected 8%</th><td>'+rm(f.sst)+'</td></tr>'+
+  '<tr><th>Negotiator</th><td>'+f.neg+'</td><th>Declared commission claimed</th><td>'+rm(f.decl)+' ('+f.cap+'%)</td></tr>'+
+  '<tr><th>Marketing reward claimed</th><td>'+rm(f.bonus)+'</td><th>Leader share</th><td>'+rm(f.lead)+' &rarr; '+f.lead_name+'</td></tr></table>'+
+  '<p class="small"><b>Attachments:</b> signed appointment letter &middot; signed confirmation form &middot; earnest deposit slip &middot; invoice to client &middot; stamp certificate (tenancy).</p>'+
+  '<div class="sig"><div class="box">Prepared by &mdash; '+f.neg+'<br><span class="es">e-signed</span></div><div class="box">Verified by &mdash; Operations<br>Approved by &mdash; Agency Head<br><span class="es">pending</span></div></div>'+
+  '<div class="foot"><span>'+id+' &middot; Commission claim</span><span>Computer generated</span></div>'+'<div class="dc"><div><b>Internal document.</b> Prepared from the system records of the deal referenced above &mdash; it is not issued to the client.</div>'+'<div>Every attachment listed above must be present before approval. Nothing on this claim is payable until the Agency Head approves it.</div>'+'<div>Compiled by Zentra Realty on '+new Date().toLocaleString('en-MY')+'. Amounts are computed from the professional fee on the confirmation form; no figure here is keyed in by hand.</div></div>';
+}
+function docInv(f){
+  const id='ZTH-INV-2026-000101'; const total=f.base+f.sst;
+  return head2('TAX INVOICE', id)+
+  '<table><tr><th>Bill to</th><td>Noraini binti Hassan &mdash; [address]</td></tr>'+
+  '<tr><th>Description</th><td>Being agency fee for the '+(f.type==='rent'?'letting':'sale')+' of 18-3, Jalan Seri Harmoni 2/5, 43200 Kajang, Selangor</td></tr>'+
+  '<tr><th>Amount excluding SST</th><td>'+rm(f.base)+'</td></tr>'+
+  '<tr><th>SST @ 8% (tax code SV)</th><td>'+rm(f.sst)+'</td></tr>'+
+  '<tr class="tot"><td>Total payable</td><td>'+rm(total)+'</td></tr></table>'+
+  '<p class="small">Amount in words: <b>'+moneyWords(total)+'</b></p>'+
+  '<p class="small"><b>Payment terms:</b> C.O.D. &middot; Payable to: ZENTRA PROPERTY GROUP &middot; [bank] [account no.] &middot; Reference: '+id+'</p>'+
+  '<div class="foot"><span>This is a computer generated invoice, no signature is required.</span><span>'+id+'</span></div>'+'<div class="dc"><div><b>Tax invoice.</b> Service tax at 8% is charged under code SV. Issued by Zentra Property Group, registered estate agency (E(1)1584).</div>'+'<div>Submitted to LHDN MyInvois as an e-invoice. A validated e-invoice and this PDF are the same tax document.</div>'+'<div>Payment terms C.O.D. Queries within 7 days of the invoice date, quoting the invoice number.</div></div>';
+}
+function docRcp(f){
+  const id='ZTH-OR-2026-000101'; const total=f.base+f.sst;
+  return head2('OFFICIAL RECEIPT', id, 'Revenue account: agency fee')+
+  '<table><tr><th>Received from</th><td>Noraini binti Hassan</td><th>Date</th><td>'+new Date().toLocaleDateString('en-GB')+'</td></tr>'+
+  '<tr><th>Amount received</th><td>'+rm(total)+'</td><th>Mode</th><td>Bank transfer / [ref]</td></tr>'+
+  '<tr><th>Being payment of</th><td>'+moneyWords(total)+'</td><th>Knock off</th><td>Invoice ZTH-INV-2026-000101</td></tr></table>'+
+  '<p class="small">Validity is subject to clearance of funds. Cheque / transfer amounts are credited to the company account upon clearance.</p>'+
+  '<div class="sig"><div class="box">For and on behalf of<br><b>ZENTRA PROPERTY GROUP</b><br><span class="es">e-signed by Operations</span></div><div class="box">Client copy<br>Available any time in the client portal</div></div>'+
+  '<div class="foot"><span>Computer generated official receipt</span><span>'+id+'</span></div>'+'<div class="dc"><div><b>Validity subject to clearance of funds.</b> This receipt is issued against the invoice shown above and does not discharge any other outstanding amount.</div>'+'<div>Keep this receipt &mdash; it is your proof of payment for the tenancy agreement, stamping and any deposit held by the landlord.</div></div>';
+}
+function docPvs(f){
+  const id='ZTH-PVS-000101';
+  const L=[['602-100','Declared negotiator\'s commission ('+f.cap+'%)',f.decl],
+           ['602-150','Marketing reward &mdash; agent level ('+(f.lvl-f.cap)+'%)',f.bonus],
+           ['602-300','Payment in lieu of stamp duty (reimbursement)',63.00]];
+  const tot=L.reduce((a,b)=>a+b[2],0);
+  const lead=[['602-200','Leader share ('+(100-f.lvl).toFixed(0)+'%) &mdash; '+f.lead_name,f.lead]];
+  return head2('PAYMENT VOUCHER', id, 'Pay to: '+f.neg)+
+  '<table><thead><tr><th>A/C</th><th>Description</th><th style="text-align:right">RM</th></tr></thead><tbody>'+
+  L.map(r=>'<tr><td class="mono">'+r[0]+'</td><td>'+r[1]+'</td><td style="text-align:right">'+rm(r[2])+'</td></tr>').join('')+
+  '<tr class="tot"><td></td><td>Total to negotiator</td><td style="text-align:right">'+rm(tot)+'</td></tr>'+
+  lead.map(r=>'<tr><td class="mono">'+r[0]+'</td><td>'+r[1]+'</td><td style="text-align:right">'+rm(r[2])+'</td></tr>').join('')+ '<tr><td class=\"mono\">602-900</td><td>Rounding adjustment &mdash; absorbed by the agency share, never folded silently into a payee line</td><td style=\"text-align:right\">'+rm(0.00)+'</td></tr>'+ '<tr class=\"tot\"><td></td><td>Total out (negotiator + leader) &mdash; capped at 100% of the fee</td><td style=\"text-align:right\">'+rm(tot+lead[0][2])+'</td></tr>'+ '</tbody></table>'+
+  '<p class="small"><b>Bank:</b> [bank] &middot; [account no.] &middot; [holder] &middot; Payment mode: bank transfer (bulk)</p>'+
+  '<p class="small"><b>Every ringgit is tied to:</b> ZTH-LOAR-000101 &rarr; ZTH-LOCR-000101 &rarr; deal DEAL-2026-0915-01. Nothing is paid on recruitment or on fees paid by agents.</p>'+
+  '<div class="sig"><div class="box">Prepared by &mdash; Operations<br><span class="es">e-signed</span></div><div class="box">Approved by &mdash; Agency Head<br><span class="es">pending</span></div></div>'+
+  '<div class="foot"><span>'+id+' &middot; Payout voucher</span><span>Page 1 of 1</span></div>'+'<div class="dc"><div><b>Internal payout voucher.</b> Posted to the account codes shown above. The commission line stays at or below the ceiling applied to a negotiator&rsquo;s commission.</div>'+'<div>The balance is a <b>marketing reward</b> paid by the agency out of its own share of the professional fee on the completed transaction referenced above. It is not a fee, a joining payment or a reward for recruitment, and no part of it is funded by another negotiator&rsquo;s commission.</div>'+'<div>Payout prepared from system records on '+new Date().toLocaleString('en-MY')+'. Any correction to this voucher is logged in the audit trail.</div></div>';
+}
+function prev(k){
+  const f=figures();
+  const d={claim:docClaim(f), inv:docInv(f), rcp:docRcp(f), pvs:docPvs(f)}[k];
+  const t={claim:'Commission claim form', inv:'Tax invoice', rcp:'Official receipt', pvs:'Payment voucher'}[k];
+  $('mTitle').textContent=t; $('modalHost').innerHTML=d; $('modal').classList.add('on');
+}
+['amt','base','lvl','cap','both','neg','lead','dtype'].forEach(id=>{ $(id).oninput=render; $(id).onchange=render; });
+render();
+const dq=new URLSearchParams(location.search).get('doc'); if (dq) setTimeout(()=>prev(dq), 120);
+$('modal').addEventListener('click', e => { if (e.target.id==='modal') $('modal').classList.remove('on'); });
+</script>
+<script src="assets/notif.js?v=47074d00"></script>
+<script src="assets/nav.js?v=47074d00"></script>
+  <script src="assets/ui.js?v=47074d00"></script>
+</body>
+</html>
