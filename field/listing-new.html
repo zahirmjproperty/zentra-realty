@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1b2e">
+<meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="field.css?v=d408621d">
+<title>Register listing | Zentra Field (prototype)</title>
+</head>
+<body>
+<header class="appbar">
+  <div class="mark"><img src="icons/zr-mark.png" alt="Zentra Realty"></div>
+  <div style="flex:1">
+    <h1>Register a listing</h1>
+    <p class="sub">Works offline · saves on the phone first</p>
+  </div>
+</header>
+
+<div class="netbar"><span></span></div>
+
+<main class="wrap">
+  <form class="card" id="listing-form" onsubmit="event.preventDefault();submitListing();">
+    <label for="ref">Listing reference</label>
+    <input id="ref" value="ZR-2026-0091" readonly>
+
+    <label for="title">Property title</label>
+    <input id="title" placeholder="e.g. Teres 2 tingkat, Bandar Baru Bangi" required>
+
+    <label for="kind">Type</label>
+    <select id="kind">
+      <option>Terrace house</option><option>Semi-D</option><option>Bungalow</option>
+      <option>Condominium / Apartment</option><option>Shop office</option>
+      <option>Land (agriculture)</option><option>Land (building)</option>
+    </select>
+
+    <label for="price">Asking price (RM)</label>
+    <input id="price" inputmode="numeric" placeholder="480000" required>
+
+    <label for="built">Built-up (sq ft)</label>
+    <input id="built" inputmode="numeric" placeholder="1150">
+
+    <label for="tenure">Tenure</label>
+    <select id="tenure"><option>Freehold</option><option>Leasehold</option><option>Malay reserved</option></select>
+
+    <label>Site coordinates <span class="small muted">(captured by the phone)</span></label>
+    <div class="row">
+      <input id="gps-out" placeholder="Not captured yet" readonly>
+      <button type="button" class="btn ghost" style="width:auto;white-space:nowrap" onclick="fieldGPS('gps-out')">Get GPS</button>
+    </div>
+
+    <label for="notes">Notes for the office</label>
+    <textarea id="notes" rows="3" placeholder="Access, tenant status, defects noticed…"></textarea>
+
+    <div class="row" style="margin-top:14px">
+      <button class="btn" type="submit">Save listing</button>
+      <button class="btn ghost" type="button" onclick="location.href='photos.html'">Add photos</button>
+    </div>
+    <p class="small muted" id="save-msg" style="margin:10px 0 0"></p>
+  </form>
+
+  <section class="card notice">
+    <b>Prototype rules enforced on this screen</b>
+    <p class="small" style="margin:6px 0 0">Photos are required before a listing can be published (this screen will warn, not block, in the prototype). Land listings will later require plan and title documents that are never shown publicly.</p>
+  </section>
+</main>
+
+<nav class="tabbar">
+  <a href="index.html"><span class="ic">☰</span>Tasks</a>
+  <a class="on" href="listing-new.html"><span class="ic">＋</span>Listing</a>
+  <a href="photos.html"><span class="ic">☁</span>Photos</a>
+  <a href="../index.html"><span class="ic">⌂</span>Hub</a>
+</nav>
+<script src="field.js?v=d408621d"></script>
+<script>
+function submitListing() {
+  const data = {
+    ref: document.getElementById('ref').value,
+    title: document.getElementById('title').value,
+    kind: document.getElementById('kind').value,
+    price: document.getElementById('price').value,
+    built: document.getElementById('built').value,
+    tenure: document.getElementById('tenure').value,
+    gps: document.getElementById('gps-out').value,
+    notes: document.getElementById('notes').value,
+    at: new Date().toISOString()
+  };
+  const saved = JSON.parse(localStorage.getItem('zh_field_listings') || '[]');
+  saved.push(data);
+  localStorage.setItem('zh_field_listings', JSON.stringify(saved));
+  document.getElementById('save-msg').textContent =
+    'Saved on this phone (' + saved.length + ' listing(s) waiting). Prototype: it would now sync to Zentra Realty.';
+}
+</script>
+</body>
+</html>
