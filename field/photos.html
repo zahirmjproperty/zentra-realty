@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1b2e">
+<meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="field.css?v=d408621d">
+<title>Photos | Zentra Field (prototype)</title>
+</head>
+<body>
+<header class="appbar">
+  <div class="mark"><img src="icons/zr-mark.png" alt="Zentra Realty"></div>
+  <div style="flex:1">
+    <h1>Listing photos</h1>
+    <p class="sub">Capture with GPS stamp · queue sends when online</p>
+  </div>
+</header>
+
+<div class="netbar"><span></span></div>
+
+<main class="wrap">
+  <section class="card">
+    <div class="row between">
+      <b style="font-size:13.5px">Kondo Zentra Residence — Bandar Baru Bangi</b>
+      <span data-queue-count class="pill green">All photos sent</span>
+    </div>
+    <label>Reference point (GPS stamped on every photo)</label>
+    <div class="row">
+      <input id="gps-out" placeholder="Tap “Get GPS” before shooting" readonly>
+      <button type="button" class="btn ghost" style="width:auto;white-space:nowrap" onclick="fieldGPS('gps-out')">Get GPS</button>
+    </div>
+
+    <input type="file" id="cam" accept="image/*" capture="environment" hidden>
+    <input type="file" id="lib" accept="image/*" hidden>
+    <div class="row" style="margin-top:14px">
+      <button class="btn" onclick="fieldPickPhoto('cam','grid')">Take photo</button>
+      <button class="btn ghost" onclick="fieldPickPhoto('lib','grid')">From gallery</button>
+    </div>
+    <p class="small muted" id="photo-msg" style="margin:8px 0 0">No photo captured yet.</p>
+    <div class="strip" id="grid" style="margin-top:12px"></div>
+  </section>
+
+  <section class="card">
+    <b>Upload queue</b>
+    <p class="small muted" style="margin:6px 0 0">Photos taken without signal stay on the phone. When the connection returns, the queue sends automatically and the listing is marked complete.</p>
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost" onclick="fieldFlushQueue()">Send queue now</button>
+    </div>
+  </section>
+
+  <section class="card notice">
+    <b>Why this matters for the field</b>
+    <p class="small" style="margin:6px 0 0">Estate agents shoot photos in basements, lifts and rural land with no signal. Saving on the device first is the difference between “listing published today” and “photos lost”.</p>
+  </section>
+</main>
+
+<nav class="tabbar">
+  <a href="index.html"><span class="ic">☰</span>Tasks</a>
+  <a href="listing-new.html"><span class="ic">＋</span>Listing</a>
+  <a class="on" href="photos.html"><span class="ic">☁</span>Photos</a>
+  <a href="../index.html"><span class="ic">⌂</span>Hub</a>
+</nav>
+<script src="field.js?v=d408621d"></script>
+</body>
+</html>
