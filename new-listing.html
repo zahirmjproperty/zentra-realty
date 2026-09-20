@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Listing Intake | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=d206f7d3">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<style>
+/* hanya kelas yang halaman ini perlukan — agency.css tidak disentuh */
+.frm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:900px){.frm{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld.w2{grid-column:span 2}
+.fld.w3{grid-column:span 3}
+.fld label{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+.fld input,.fld select,.fld textarea{padding:9px 11px;border-radius:8px;background:var(--card);color:var(--ink);border:1px solid var(--line);font:inherit;font-size:13.5px}
+.fld input[readonly]{opacity:.7}
+.fld textarea{min-height:74px;resize:vertical}
+.fld .hint{font-size:11px;color:var(--ink-3)}
+.sys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:900px){.sys{grid-template-columns:1fr}}
+.sysc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.sysc.off{opacity:.72;border-style:dashed}
+.sysc h3{margin:9px 0 6px;font-size:14px}
+.sw{position:relative;display:inline-block;width:44px;height:24px;flex:0 0 44px}
+.sw input{opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.sw span{position:absolute;inset:0;border-radius:999px;background:rgba(148,163,184,.30);border:1px solid var(--line);transition:.2s;pointer-events:none}
+.sw span::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked + span{background:var(--gold)}
+.sw input:checked + span::after{transform:translateX(20px)}
+.resrow{display:grid;grid-template-columns:1.1fr .7fr 1.6fr;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.resrow:last-child{border-bottom:0}
+.resrow .ok{color:var(--green);font-weight:600;font-size:13px}
+.resrow .human{color:var(--amber);font-weight:600;font-size:13px}
+.track{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.step5{display:flex;align-items:center;gap:7px;font-size:12px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-3)}
+.step5.now{border-color:var(--gold);color:var(--ink);background:var(--gold-soft);font-weight:600}
+/* ==================== IMAGES + HERO (19 Sep 2026) ==================== */
+.imgwrap{display:grid;grid-template-columns:1.35fr .95fr;gap:16px;margin-bottom:16px}
+@media (max-width:900px){.imgwrap{grid-template-columns:1fr}}
+
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  border:1.5px dashed var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center;
+  background:var(--card);transition:border-color var(--t),background var(--t);cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--gold);background:var(--gold-soft)}
+.drop .dico{width:34px;height:34px;color:var(--gold);opacity:.9}
+.drop b{font-size:14px}
+.drop .fine{font-size:11.5px;color:var(--ink-3);line-height:1.5;max-width:330px}
+
+.herobox{border:1px solid var(--line);border-radius:var(--radius);padding:13px;background:var(--card);
+  display:flex;flex-direction:column;gap:7px}
+.herobox .hlab{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.herobox img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:9px;background:var(--navy-3);
+  border:1px solid var(--line)}
+.herobox .hnm{font-size:12.5px;font-weight:650;word-break:break-all}
+
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:11px}
+.tile{position:relative;border:1px solid var(--line);border-radius:11px;overflow:hidden;
+  background:var(--navy-3);aspect-ratio:4/3}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.tile.hero{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft)}
+.tile .tno{position:absolute;top:6px;left:6px;font-size:10.5px;font-weight:700;padding:2px 6px;
+  border-radius:999px;background:rgba(10,22,40,.78);color:#f0ead6;border:1px solid var(--line)}
+.tile .hbadge{position:absolute;top:6px;right:6px;font-size:10px;font-weight:800;letter-spacing:.06em;
+  padding:3px 7px;border-radius:999px;background:var(--gold);color:#241a03}
+.tile .tact{position:absolute;inset:auto 0 0 0;display:flex;gap:6px;padding:7px;
+  background:linear-gradient(180deg,rgba(10,22,40,0),rgba(10,22,40,.90))}
+.tile .tact .btn{flex:1;justify-content:center;padding:5px 7px;font-size:11px}
+.tile.bad img{opacity:.5}
+.tile .warn{position:absolute;bottom:42px;left:6px;right:6px;font-size:10px;color:#241a03;
+  background:var(--amber);border-radius:6px;padding:2px 6px;font-weight:700}
+
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+@media (max-width:820px){.checks{grid-template-columns:1fr}}
+.checks div{display:flex;gap:8px;font-size:11.5px;color:var(--ink-3);line-height:1.5;align-items:flex-start}
+.checks svg{margin-top:1px;flex:0 0 auto;color:var(--green)}
+
+:root.theme-light .drop,:root.theme-light .herobox{background:#fff}
+:root.theme-light .tile .tno{background:rgba(255,255,255,.86);color:#1e293b}
+:root.theme-light .tile .tact{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.94))}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Listing intake</h1>
+        <p>Enter a listing once, here in Zentra Realty. If the agent holds a Zentra Push account, the same record is published there too and the two stay linked &mdash; the mirror works in both directions.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <b>Acting as</b>
+        <select id="actor" style="padding:7px 10px;border-radius:8px;background:var(--card);color:var(--ink);border:1px solid var(--line)"></select>
+        <span id="actorChip"></span>
+        <span class="small" style="color:var(--ink-3)">Switch the seat to see how the form changes.</span>
+      </div>
+    </div>
+
+    <div class="track">
+      <span class="step5 now" id="ws1">1 &middot; Listing details</span>
+      <span class="step5" id="ws2">2 &middot; Systems</span>
+      <span class="step5" id="ws3">3 &middot; Save &amp; publish</span>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Listing details</h2>
+    <div class="card">
+      <div class="frm">
+        <div class="fld"><label for="f_ref">Reference</label><input id="f_ref" readonly value="ZR-L-0921"><span class="hint">Assigned on save</span></div>
+        <div class="fld w2"><label for="f_title">Title</label><input id="f_title" value="Terra Residences, Cyberjaya"></div>
+        <div class="fld"><label for="f_purpose">Listing purpose</label><select id="f_purpose"><option>Sale</option><option>Rent</option></select></div>
+        <div class="fld"><label for="f_type">Property type</label><select id="f_type"><option>Condominium</option><option>Terrace</option><option>Semi-D</option><option>Bungalow</option><option>Land</option><option>Shop office</option></select></div>
+        <div class="fld"><label for="f_price">Price (RM)</label><input id="f_price" value="585,000"></div>
+        <div class="fld"><label for="f_loc">Area</label><input id="f_loc" value="Cyberjaya"></div>
+        <div class="fld"><label for="f_state">State</label><select id="f_state"><option>Selangor</option><option>W.P. Kuala Lumpur</option><option>Putrajaya</option><option>Johor</option><option>Penang</option><option>Pahang</option><option>Negeri Sembilan</option><option>Perak</option><option>Melaka</option><option>Kedah</option><option>Sabah</option><option>Sarawak</option></select></div>
+        <div class="fld"><label for="f_tenure">Tenure</label><select id="f_tenure"><option>Freehold</option><option>Leasehold</option></select></div>
+        <div class="fld"><label for="f_built">Built-up (sqft)</label><input id="f_built" value="1,130"></div>
+        <div class="fld"><label for="f_land">Land area</label><input id="f_land" value="&mdash;"></div>
+        <div class="fld"><label for="f_rooms">Bedrooms / bathrooms</label><input id="f_rooms" value="3 / 2"></div>
+        <div class="fld"><label for="f_images">Images / hero</label><input id="f_images" readonly value=""></div>
+        <div class="fld"><label for="f_agent">Listing agent</label><input id="f_agent" readonly></div>
+        <div class="fld w3"><label for="f_desc">Description</label><textarea id="f_desc">Well-kept 3-bedroom unit at Terra Residences, Cyberjaya. Walking distance to shops, quick access to Putrajaya and the MEX highway. Good for own stay or rental yield.</textarea></div>
+        <div class="fld w3"><label for="f_high">Highlights</label><input id="f_high" value="Tenanted &middot; High floor &middot; Covered parking &middot; 5 min to shops"></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Images and hero</h2>
+    <div class="card">
+      <div class="imgwrap">
+        <label class="drop" id="drop">
+          <svg class="dico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/></svg>
+          <b>Drop images here or choose files</b>
+          <span class="btn gold small" style="pointer-events:none">Choose images</span>
+          <input type="file" id="f_files" accept="image/*" multiple hidden>
+          <span class="fine">JPG or PNG &middot; at least 1024 &times; 768 &middot; originals only &mdash; no brightness, contrast or filter edits.</span>
+        </label>
+        <div class="herobox">
+          <span class="hlab">Hero image</span>
+          <img id="heroImg" alt="Hero image preview">
+          <span class="hnm" id="heroName"></span>
+          <span class="fine" style="font-size:11.5px;color:var(--ink-3);line-height:1.5">The hero becomes the main photo wherever this listing is published.</span>
+        </div>
+      </div>
+      <div class="gal" id="gal"></div>
+      <p class="small muted" id="galNote" style="margin:12px 0 0"></p>
+      <div class="checks">
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Checked on upload: anything under 1024 &times; 768 is flagged before it can become the hero.</span></div>
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Plan and title-deed images stay private &mdash; never published.</span></div>
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Originals only &mdash; the house rule is no brightness or contrast edits.</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Where this record should live</h2>
+    <div class="sys">
+      <div class="sysc" id="sysRealty">
+        <span class="chip" style="background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Always on</span>
+        <h3>Zentra Realty</h3>
+        <p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">The agency record. Commission, documents and the agent's book all read from here, so a listing entered in this system exists here by definition.</p>
+      </div>
+      <div class="sysc" id="sysPush"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Save &amp; publish</h2>
+    <div class="card">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <button class="btn gold" id="go">Save listing</button>
+        <button class="btn ghost" id="reset">Reset</button>
+        <a class="btn ghost" href="../zentra-push/new.html">Open Zentra Push intake &rarr;</a>
+      </div>
+      <div id="out" style="margin-top:14px"></div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3 style="margin-top:0;font-size:14px">How the two systems link</h3>
+      <p class="small" style="color:var(--ink-3);line-height:1.7;margin-bottom:0">
+        Zentra Realty owns the agent, the commission and the paperwork; Zentra Push owns the channels a listing reaches.
+        Either intake form can be the point of entry. When the agent has an account on both, the record is written to both
+        and the link is stored &mdash; an edit on one side updates the other. When the agent has no Zentra Push account,
+        the listing simply stays inside Zentra Realty: nothing is blocked, and a later link backfills the push record
+        instead of asking for the same details twice. The same is true in reverse on the
+        <a href="../zentra-push/new.html">Zentra Push side</a>.
+      </p>
+    </div>
+
+  </main>
+</div>
+<script src="assets/realty-listings.js?v=d206f7d3"></script>
+<script src="assets/nav.js?v=d206f7d3"></script>
+<script>
+/* --- data contoh: kerusi agen + status akaun Zentra Push --- */
+const AGENTS = [
+  {name:'Zahiruddin M.J.', role:'Principal',  level:'Principal 68%',  push:{linked:true,  id:'ZP-AG-0142'}},
+  {name:'Fadilah Yusof',   role:'Negotiator', level:'Negotiator 55%', push:{linked:true,  id:'ZP-AG-0231'}},
+  {name:'Hafiz Rahman',    role:'Negotiator', level:'Rookie 40%',     push:{linked:false, id:''}}
+];
+let ACTOR = AGENTS[0].name, publish = true;
+
+/* ---------- MOD EDIT (new-listing.html?edit=ZMP-0142) ---------- */
+const EDIT = (new URLSearchParams(location.search)).get('edit') || '';
+const ZRL = window.ZR || {ZR_LISTINGS: []};
+const ELA = EDIT ? (ZRL.ZR_LISTINGS || []).find(x => x.id === EDIT) || null : null;
+if (ELA && AGENTS.some(a => a.name === ELA.agent)) ACTOR = ELA.agent;
+
+function prefillEdit(){
+  if (!ELA) return;
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
+  set('f_title', ELA.title);
+  set('f_price', ELA.price.toLocaleString('en-US'));
+  const h1 = document.querySelector('.top h1'); if (h1) h1.textContent = 'Edit listing ' + ELA.id;
+  const btn = document.getElementById('go'); if (btn) btn.textContent = 'Save and re-push';
+  const note = document.createElement('div');
+  note.className = 'note';
+  note.innerHTML = '<b>Editing ' + ELA.id + ' (v' + ELA.v + ').</b> '
+    + Object.keys(ELA.channels).length + ' channel placement(s) were pushed at older versions &mdash; '
+    + (ELA.stale || []).length + ' already out of date. A re-push updates the existing adverts, never creates a second one.';
+  const top = document.querySelector('.top');
+  top.parentNode.insertBefore(note, top.nextSibling);
+}
+prefillEdit();
+const SEED_IDS = ["126BKiOOOmvUCoQy8t4VsTOv7l_RWBU4M", "1zp1PvWqO8Zk0EG0p_Z7JhDEBjA4WDOqP", "1_vvusjTcGrbjeAk3aHLEy2bM08I83OPS", "1r64Zuz8ufxZPsR4jb1D2djHR4Fl52_KF", "1y2jEIUG_IkSX6lKOhn6ucNssgjXQu0ix", "1dNIrxwl8_jPI1Y8N8FCIP1NN4WYnEjAf"];
+const P0 = JSON.parse(JSON.stringify(AGENTS.map(a => a.push)));
+const el = id => document.getElementById(id);
+const seat = n => AGENTS.find(a => a.name === (n || ACTOR)) || AGENTS[0];
+const linked = n => !!seat(n).push.linked;
+
+function chip(){
+  const s = seat();
+  el('actorChip').innerHTML = s.push.linked
+    ? '<span class="chip" style="background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Zentra Push account linked &middot; ' + s.push.id + '</span>'
+    : '<span class="chip" style="background:var(--card);border:1px solid var(--line);color:var(--ink-3);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">No Zentra Push account</span>';
+}
+
+function drawSystems(){
+  const s = seat(), on = linked();
+  if (on) {
+    el('sysPush').className = 'sysc';
+    el('sysPush').innerHTML =
+      '<div style="display:flex;align-items:center;gap:10px;justify-content:space-between">'
+      + '<span class="chip" style="background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Available &middot; linked</span>'
+      + '<label class="sw"><input type="checkbox" id="pub"' + (publish ? ' checked' : '') + '><span></span></label></div>'
+      + '<h3>Zentra Push</h3>'
+      + '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">' + s.name + ' holds Zentra Push account <b>' + s.push.id + '</b>. Publish the same record to the push platform and keep the two in sync.</p>';
+    el('pub').onchange = e => { publish = e.target.checked; drawSystems(); };
+  } else {
+    el('sysPush').className = 'sysc off';
+    el('sysPush').innerHTML =
+      '<span class="chip" style="background:var(--card);border:1px solid var(--line);color:var(--ink-3);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Unavailable &middot; no account</span>'
+      + '<h3>Zentra Push</h3>'
+      + '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0 0 12px">' + s.name + ' has no Zentra Push account linked, so the publish option is hidden and the listing stays inside Zentra Realty.</p>'
+      + '<button class="btn ghost small" id="linkAcct">Link a Zentra Push account</button>';
+    el('linkAcct').onclick = () => {
+      seat().push = {linked:true, id:'ZP-AG-0307'};
+      publish = true; render();
+    };
+  }
+}
+
+function render(){
+  el('f_agent').value = seat().name + ' \u00b7 ' + seat().role + ' \u00b7 ' + seat().level;
+  el('actor').innerHTML = AGENTS.map(a => '<option' + (a.name === ACTOR ? ' selected' : '') + '>' + a.name + '</option>').join('');
+  chip(); drawSystems();
+  el('ws2').className = 'step5' + (linked() ? ' now' : '');
+}
+el('actor').onchange = e => { ACTOR = e.target.value; publish = true; render(); };
+
+el('go').onclick = () => {
+  const on = linked(), s = seat();
+  const rows = [
+    ...(ELA ? [['<b>Record saved</b><br><span class="small" style="color:var(--ink-3)">Version ' + ELA.v + ' &rarr; ' + (ELA.v + 1) + '</span>',
+      '<span class="ok">Saved</span>',
+      'The agency record is updated. No portal advert has changed yet - each placement updates when it is re-pushed.']] : []),
+    ['<b>Zentra Realty</b><br><span class="small" style="color:var(--ink-3)">Agency record</span>',
+     '<span class="human">Saved</span>',
+     'ZR-L-0921 under agent ' + s.name + '. Commission, documents and the listing book all read from this record.']
+  ];
+  if (on && publish) {
+    rows.push(['<b>Zentra Push</b><br><span class="small" style="color:var(--ink-3)">Channel record</span>',
+      '<span class="ok">Published &middot; linked</span>',
+      'ZP-2026-0088 under account ' + s.push.id + '. Two-way link stored, so an edit on either side updates both.']);
+  } else if (on) {
+    rows.push(['<b>Zentra Push</b><br><span class="small" style="color:var(--ink-3)">Channel record</span>',
+      '<span class="human">Skipped</span>',
+      'Account ' + s.push.id + ' is linked; you chose <b>not</b> to publish this listing.']);
+  } else {
+    rows.push(['<b>Zentra Push</b><br><span class="small" style="color:var(--ink-3)">Channel record</span>',
+      '<span class="human">Not created</span>',
+      'No Zentra Push account for ' + s.name + '. The listing stays in Zentra Realty; a later link backfills it without re-typing.']);
+  }
+  el('ws3').className = 'step5 now';
+  el('ws1').className = 'step5'; el('ws2').className = 'step5';
+  const fv = id => (document.getElementById(id) || {}).value || '';
+  const q = 'listing.html?id=ZR-L-0921&new=1'
+    + '&t=' + encodeURIComponent(fv('f_title'))
+    + '&p=' + encodeURIComponent(fv('f_price'))
+    + '&a=' + encodeURIComponent(s.name) + '&i=' + IMGS.length
+    + '&r=' + ((on && publish) ? 1 : 0) + '&ch=';
+  el('out').innerHTML = rows.map(r =>
+      '<div class="resrow"><div>' + r[0] + '</div><div>' + r[1] + '</div>'
+      + '<div class="small" style="color:var(--ink-3)">' + r[2] + '</div></div>').join('')
+    + '<div style="margin:14px 0 0"><a class="btn gold small" href="' + q
+    + '">View this listing&rsquo;s history and status &rarr;</a></div>'
+    + '<p class="small" style="color:var(--ink-3);margin:12px 0 0">Saved by ' + s.name + '. Hero image: ' + (heroImg() ? heroImg().name : 'none') + ' (' + IMGS.length + ' images). Every channel placement still needs its read-back confirmation before it counts as live.</p>';
+};
+
+el('reset').onclick = () => {
+  ACTOR = AGENTS[0].name; publish = true;
+  AGENTS.forEach((a, i) => { a.push = JSON.parse(JSON.stringify(P0[i])); });
+  if (typeof IMGS !== 'undefined') { resetImgs(); drawImgs(); }
+  el('out').innerHTML = '';
+  el('ws1').className = 'step5 now'; el('ws2').className = 'step5'; el('ws3').className = 'step5';
+  render();
+};
+
+/* ---------- imej + hero ---------- */
+const SEED = SEED_IDS.map(u => 'https://lh3.googleusercontent.com/d/' + u + '=w1000');
+let IMGS = [];
+resetImgs();
+const MINW = 1024, MINH = 768;
+function resetImgs(){
+  IMGS = SEED.map((u, i) => ({name: 'ZMP-0142-foto-' + (i + 1) + '.jpg', url: u, hero: i === 0, bad: false}));
+}
+function heroIdx(){ return IMGS.findIndex(x => x.hero); }
+function heroImg(){ const i = heroIdx(); return i < 0 ? null : IMGS[i]; }
+
+function drawImgs(){
+  const h = heroImg();
+  el('heroImg').src = h ? h.url : '';
+  el('heroName').textContent = h ? h.name : 'No image selected';
+  el('f_images').value = IMGS.length + ' image' + (IMGS.length === 1 ? '' : 's') + ' \u00b7 hero ' + (h ? h.name : '\u2014');
+  el('gal').innerHTML = IMGS.map((im, i) =>
+    '<div class="tile' + (im.hero ? ' hero' : '') + (im.bad ? ' bad' : '') + '" data-i="' + i + '">'
+    + '<img src="' + im.url + '" alt="" loading="lazy">'
+    + '<span class="tno">' + (i + 1) + '</span>'
+    + (im.hero ? '<span class="hbadge">HERO</span>' : '')
+    + (im.bad ? '<span class="warn">Under ' + MINW + ' \u00d7 ' + MINH + '</span>' : '')
+    + '<div class="tact">'
+    + '<button class="btn ' + (im.hero ? 'ghost' : 'gold') + ' small" data-act="hero"' + (im.hero ? ' disabled' : '') + '>' + (im.hero ? 'Hero' : 'Set hero') + '</button>'
+    + '<button class="btn ghost small" data-act="del">Remove</button>'
+    + '</div></div>').join('');
+  el('galNote').textContent = IMGS.length + ' image' + (IMGS.length === 1 ? '' : 's') + ' attached \u00b7 the hero is the main photo everywhere this listing appears.';
+  el('gal').querySelectorAll('.tile').forEach(t => {
+    const i = +t.dataset.i;
+    t.querySelectorAll('[data-act]').forEach(btn => {
+      btn.onclick = e => {
+        e.preventDefault(); e.stopPropagation();
+        if (btn.dataset.act === 'hero') IMGS.forEach((x, k) => { x.hero = (k === i); });
+        else { IMGS.splice(i, 1); if (heroIdx() < 0 && IMGS.length) IMGS[0].hero = true; }
+        drawImgs();
+      };
+    });
+  });
+}
+
+function addFiles(files){
+  [...files].forEach(f => {
+    if (!/^image\//.test(f.type)) return;
+    const url = URL.createObjectURL(f);
+    const rec = {name: f.name, url: url, hero: false, bad: false};
+    IMGS.push(rec);
+    const probe = new Image();
+    probe.onload = () => { rec.bad = probe.naturalWidth < MINW || probe.naturalHeight < MINH; drawImgs(); };
+    probe.src = url;
+  });
+  if (heroIdx() < 0 && IMGS.length) IMGS[0].hero = true;
+  drawImgs();
+}
+
+const dropEl = el('drop');
+['dragenter', 'dragover'].forEach(ev => dropEl.addEventListener(ev, e => { e.preventDefault(); dropEl.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => dropEl.addEventListener(ev, e => { e.preventDefault(); dropEl.classList.remove('over'); }));
+dropEl.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+el('f_files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+
+drawImgs();
+
+render();
+</script>
+</body>
+</html>
