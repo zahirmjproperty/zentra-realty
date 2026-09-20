@@ -1,0 +1,97 @@
+/* field.css — Zentra Realty Field App prototype (mobile-first).
+   Same design tokens as the Zentra Realty prototype (agency.css) so the shell is consistent. */
+:root{
+  /* ZPG — Zentra Property Group theme (dark, navy + gold) */
+  --gold:#c9a227; --gold-soft:rgba(201,162,39,.12);
+  --navy:#0b1b2e; --navy-2:#122840; --navy-3:#1a3050;
+  --blue:#c9a227; --blue-soft:rgba(201,162,39,.14);
+  --ink:#f0ead6; --ink-2:#cbd5e1; --ink-3:#94a3b8; --line:rgba(201,162,39,.18);
+  --bg:#0a1628; --card:rgba(18,40,72,.72);
+  --green:#5fc79d; --green-soft:rgba(95,199,157,.12);
+  --amber:#f0b34a; --amber-soft:rgba(240,179,74,.12);
+  --red:#E8776A; --red-soft:rgba(232,119,106,.12);
+  --violet:#a78bfa; --violet-soft:rgba(167,139,250,.12);
+  --radius:14px;
+  --shadow:0 2px 12px rgba(0,0,0,.30), inset 0 1px 0 rgba(201,162,39,.06);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --line-2:rgba(201,162,39,.10);
+  --sh-2:0 1px 3px rgba(0,0,0,.25);
+  --sh-3:0 6px 20px rgba(0,0,0,.35);
+  --t:180ms cubic-bezier(.2,.7,.3,1);
+}
+/* Light variant — user-selectable */
+:root.theme-light{
+  --gold:#8a6418; --gold-soft:rgba(138,100,24,.10);
+  --navy:#0b1b2e; --navy-2:#122840; --navy-3:#1a3050;
+  --blue:#8a6418; --blue-soft:rgba(138,100,24,.10);
+  --ink:#1e293b; --ink-2:#475569; --ink-3:#94a3b8; --line:rgba(138,100,24,.16);
+  --bg:#f7f5f0; --card:rgba(255,255,255,.04);
+  --green:#166b41; --green-soft:rgba(22,107,65,.10);
+  --amber:#8a5a0b; --amber-soft:rgba(138,90,11,.10);
+  --red:#a33a2c; --red-soft:rgba(163,58,44,.10);
+  --violet:#5b3fa8; --violet-soft:rgba(91,63,168,.10);
+  --shadow:0 1px 3px rgba(0,0,0,.05), 0 2px 12px rgba(0,0,0,.05);
+  --line-2:rgba(138,100,24,.10);
+  --sh-2:0 1px 3px rgba(0,0,0,.06);
+  --sh-3:0 6px 20px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; padding-bottom:calc(var(--tab-h) + 12px);
+}
+a{color:var(--blue);text-decoration:none}
+.appbar{
+  position:sticky;top:0;z-index:20;background:var(--navy);color:#f5f1e4;
+  padding:14px 16px 12px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 2px 10px rgba(12,68,55,.25);
+}
+.appbar .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#C9A227,#a5851b);
+  display:grid;place-items:center;font-weight:800;font-size:13px;color:#0b1b2e}
+.appbar h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.2px}
+.appbar .sub{font-size:11px;color:#5fc79d;margin:0;letter-spacing:.3px}
+.wrap{padding:14px 14px 8px;max-width:720px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin-bottom:12px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.muted{color:var(--ink-3)}
+.small{font-size:12.5px}
+.pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.3px}
+.pill.gold{background:var(--gold-soft);color:#1a1206;border:1px solid rgba(201,162,39,.35)}
+.pill.blue{background:var(--blue-soft);color:#a5851b}
+.pill.green{background:var(--green-soft);color:#5fc79d}
+.pill.amber{background:var(--amber-soft);color:var(--amber)}
+.pill.red{background:var(--red-soft);color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 14px;border-radius:12px;border:1px solid var(--navy);background:var(--navy);color:#f5f1e4;
+  font-weight:700;font-size:14px;cursor:pointer;width:100%}
+.btn.ghost{background:rgba(255,255,255,.04);color:var(--navy);border-color:var(--line)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#1a1206}
+.btn:active{transform:translateY(1px)}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--ink-2);margin:10px 0 4px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;font:inherit;background:rgba(255,255,255,.04)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blue-soft);border-color:var(--blue)}
+.kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.thumb{width:74px;height:74px;border-radius:12px;background:rgba(255,255,255,.04);border:1px dashed #94a3b8;
+  display:grid;place-items:center;color:var(--ink-3);font-size:11px;text-align:center;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.tabbar{position:fixed;bottom:0;left:0;right:0;height:var(--tab-h);background:rgba(255,255,255,.04);border-top:1px solid var(--line);
+  display:flex;z-index:30;box-shadow:0 -2px 12px rgba(15,23,42,.06)}
+.tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-size:11px;color:var(--ink-3);font-weight:600;text-decoration:none}
+.tabbar a.on{color:var(--navy)}
+.tabbar a .ic{font-size:19px;line-height:1}
+.netbar{background:var(--amber-soft);color:var(--amber);font-size:12px;font-weight:700;
+  padding:6px 14px;display:none;align-items:center;gap:8px}
+body.offline .netbar{display:flex}
+body.offline .netbar.good{background:var(--green-soft);color:#5fc79d}
+.strip{display:flex;gap:6px;overflow:auto;padding-bottom:2px}
+.strip .chip{white-space:nowrap;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600}
+.notice{background:var(--navy);color:#94a3b8;border-radius:12px;padding:12px;font-size:12.5px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;background:rgba(255,255,255,.04);padding:1px 5px;border-radius:6px}
+
+/* ---- ZR logo in the field app bar (19 Sep 2026) ---- */
+.appbar .mark{overflow:hidden;padding:2px}
+.appbar .mark img{width:100%;height:100%;object-fit:contain;display:block}
