@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Listing Detail | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=d206f7d3">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<style>
+.hdr{display:grid;grid-template-columns:280px 1fr;gap:18px}
+@media(max-width:900px){.hdr{grid-template-columns:1fr}}
+.hdr img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius);border:1px solid var(--line)}
+.hdr h2{margin:6px 0 4px;font-size:20px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+.meta span{font-size:12px;color:var(--ink-3);background:var(--card);border:1px solid var(--line);
+  padding:4px 9px;border-radius:999px}
+.acts{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.back{font-size:12.5px;color:var(--ink-3);display:inline-block;margin-bottom:10px}
+select#pick{padding:7px 10px;border-radius:8px;background:var(--card);color:var(--ink);border:1px solid var(--line);font:inherit;font-size:13px}
+
+.tl{position:relative;margin:0;padding:0 0 0 26px;list-style:none}
+.tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.tl li{position:relative;padding:0 0 18px}
+.tl li:last-child{padding-bottom:0}
+.tl .dot{position:absolute;left:-24px;top:4px;width:15px;height:15px;border-radius:50%;
+  background:var(--navy-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.tl .dot svg{width:9px;height:9px;color:var(--ink-3)}
+.tl .dot.created{background:var(--gold-soft);border-color:var(--gold)}
+.tl .dot.created svg{color:var(--gold)}
+.tl .dot.channel{background:var(--green-soft);border-color:var(--green)}
+.tl .dot.channel svg{color:var(--green)}
+.tl .dot.status{background:var(--violet-soft,#2a2140);border-color:var(--violet,#a78bfa)}
+.tl .dot.status svg{color:var(--violet,#a78bfa)}
+.tl .dot.note{background:var(--red-soft);border-color:var(--red)}
+.tl .dot.note svg{color:var(--red)}
+.tl .ts{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tl .what{font-size:13.5px;font-weight:650;margin:2px 0 3px}
+.tl .who{font-size:11.5px;color:var(--ink-3)}
+.tl .det{font-size:12.5px;color:var(--ink-3);line-height:1.55}
+.tl .cost{font-size:11px;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:1px 7px;margin-left:6px}
+
+.pl{display:flex;flex-direction:column;gap:0}
+.pl .r{display:grid;grid-template-columns:1.5fr .8fr 1.7fr;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--line-2);align-items:center;font-size:13px}
+.pl .r:last-child{border-bottom:0}
+.pl .r .ok{color:var(--green);font-weight:600}
+.pl .r .human{color:var(--amber);font-weight:600}
+.pl .r .no{color:var(--ink-3)}
+.ul{margin:9px 0 0;padding-left:18px;font-size:12.5px;line-height:1.9;color:var(--ink-3)}
+.ul b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <a class="back" href="listings.html">&larr; Back to the listing monitor</a>
+    <div class="top">
+      <div>
+        <h1 id="pageTitle">Listing detail</h1>
+        <p>One record, its business status, and every event that got it here &mdash; the same history Zentra Push works from.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <b>Listing</b>
+        <select id="pick"></select>
+        <span class="chip" id="stChip"></span>
+        <span class="small" style="color:var(--ink-3)">Switch the record to see another history.</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="hdr">
+        <img id="hero" alt="Listing hero image">
+        <div>
+          <div id="ids" class="small" style="color:var(--ink-3)"></div>
+          <h2 id="title"></h2>
+          <div id="sub" class="small" style="color:var(--ink-3)"></div>
+          <div class="meta" id="meta"></div>
+          <div class="acts" id="acts"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <h2 class="sec"><span class="num">1</span> History</h2>
+    <div class="card"><ul class="tl" id="tl"></ul></div>
+
+    <h2 class="sec"><span class="num">2</span> Where this listing is published</h2>
+    <div class="card"><div class="pl" id="pl"></div></div>
+
+    <h2 class="sec"><span class="num">3</span> The two systems</h2>
+    <div class="grid g2">
+      <div class="card" id="sysRealty"></div>
+      <div class="card" id="sysPush"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Edit and re-push</h2>
+    <div class="card">
+      <p class="small" style="color:var(--ink-3);margin-top:0;line-height:1.6">
+        Editing the record does not touch the adverts already out there. Every placement remembers the
+        version it was sent at, so anything behind the current version is flagged <b>out of date</b> until
+        it is re-pushed &mdash; and a re-push <b>updates the existing advert</b> instead of creating a second one.
+      </p>
+      <div class="grid g2" id="editCols"></div>
+      <div style="margin-top:16px;display:flex;gap:9px;flex-wrap:wrap">
+        <a class="btn gold" id="editBtn" href="#">Edit this listing</a>
+        <button class="btn ghost" id="priceBtn">Change price &minus;RM50,000</button>
+        <button class="btn ghost" id="pushBtn">Re-push now</button>
+      </div>
+      <div class="note" id="flash" style="margin-top:14px" hidden></div>
+    </div>
+
+  </main>
+</div>
+<script src="assets/realty-listings.js?v=d206f7d3"></script>
+<script src="assets/nav.js?v=d206f7d3"></script>
+<script>
+const R = window.ZR, el = id => document.getElementById(id);
+const money = n => 'RM' + n.toLocaleString('en-US');
+const ICON = {
+  created:'<path d="M12 5v14M5 12h14"/>',
+  hero:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m6 16 4-4 3 3 2-2 3 3"/>',
+  channel:'<path d="M21 3 3 10.5l7 2.5 2.5 7z"/>',
+  status:'<circle cx="12" cy="12" r="8"/><path d="m9 12.5 2 2 4-4.5"/>',
+  price:'<path d="M4 8h13l-3-3M20 16H7l3 3"/>',
+  doc:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
+  note:'<path d="M12 3 5 6v5.5c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"/><path d="M12 8v4M12 15.5v.01"/>'
+};
+const svg = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+const TODAY = '2026-09-19';
+const days = ts => Math.max(0, Math.round((Date.parse(TODAY) - Date.parse(ts.slice(0, 10))) / 864e5));
+
+const QS = new URLSearchParams(location.search);
+let cur = QS.get('id') || R.ZR_LISTINGS[0].id;
+
+/* rekod yang baru disimpan daripada borang masuk Zentra Realty */
+if (QS.get('new') === '1'){
+  const num = x => parseInt(String(x || '0').replace(/[^0-9]/g, ''), 10) || 0;
+  const mirrored = QS.get('r') === '1';
+  const who = QS.get('a') || 'Agent';
+  const rec = {id: cur, title: QS.get('t') || '(untitled)', price: num(QS.get('p')),
+    location: 'Entered just now', type: 'New submission', agent: who, status: 'draft',
+    images: num(QS.get('i')), entry: 'Zentra Realty intake', hero: '',
+    realty: {mirrored: mirrored, id: mirrored ? 'ZR-L-0921' : ''}, channels: {}};
+  (QS.get('ch') || '').split(',').filter(Boolean).forEach(k => { rec.channels[k] = ['queued', '']; });
+  R.ZR_LISTINGS.unshift(rec);
+  const TS = '2026-09-19 09:41';
+  R.ZR_HISTORY[cur] = [
+    ...(mirrored ? [{ts: TS, kind: 'channel', what: 'Published to Zentra Push',
+     detail: 'Channel record created in the same step and linked two-way, so the placements below follow from here.', who: 'Auto', cost: 'RM0'}] : []),
+    {ts: TS, kind: 'doc', what: 'Agency record opened',
+     detail: 'Commission file, documents and the listing book now read from this record.', who: who, cost: '-'},
+    {ts: TS, kind: 'hero', what: rec.images + ' images attached',
+     detail: 'Hero chosen in the intake form; every portal will use it as the main photo.', who: who, cost: '-'},
+    {ts: TS, kind: 'created', what: 'Listing created',
+     detail: 'Entered through the Zentra Realty intake form moments ago.', who: who, cost: '-'}
+  ];
+}
+if (!R.ZR_LISTINGS.some(l => l.id === cur)) cur = R.ZR_LISTINGS[0].id;
+
+const CH_NAME = {};
+R.ZR_CHANNELS.forEach(c => { CH_NAME[c.id] = c.name; });
+
+function draw(){
+  const l = R.byId(cur), h = R.historyOf(cur);
+  const created = h.filter(e => e.kind === 'created').slice(-1)[0];
+  const live = l.live, pending = l.placed - l.live;
+
+  el('pageTitle').textContent = l.id + ' - ' + l.title;
+  document.title = l.id + ' | Zentra Realty';
+  el('pick').innerHTML = R.ZR_LISTINGS.map(x => '<option' + (x.id === cur ? ' selected' : '') + '>' + x.id + ' - ' + x.title + '</option>').join('');
+  el('stChip').className = 'chip ' + R.stCls(l.status);
+  el('stChip').textContent = R.stLabel(l.status);
+  el('hero').style.display = l.hero ? 'block' : 'none';
+  el('hero').src = l.hero;
+  el('ids').textContent = 'Agency ref ' + (l.realty && l.realty.mirrored ? l.realty.id : 'not mirrored')
+    + ' \u00b7 Push ref ' + l.id + ' \u00b7 ' + (l.entry || l.src);
+  el('title').textContent = l.title;
+  el('sub').textContent = l.location + ' \u00b7 ' + l.type;
+  el('meta').innerHTML = ['<span><b>' + money(l.price) + '</b></span>',
+    '<span>Agent: ' + l.agent + '</span>',
+    '<span>' + l.images + ' images</span>',
+    '<span>' + (created ? days(created.ts) : 0) + ' days on book</span>',
+    '<span>' + live + '/' + l.placed + ' channels live</span>',
+    '<span>Version <b>' + l.v + '</b></span>'].join('');
+  el('acts').innerHTML = '<a class="btn gold" href="../zentra-push/listing.html?id=' + l.id + '">Open the Zentra Push record</a>'
+    + '<a class="btn ghost" href="listings.html">Back to monitor</a>';
+
+  el('kpis').innerHTML = [
+    ['Listed price', money(l.price), l.type],
+    ['Channels live', live + ' / ' + l.placed, pending ? pending + ' still pending' : 'fully placed'],
+    ['Record version', 'v' + l.v, (l.stale || []).length
+      ? (l.stale || []).length + ' placement(s) out of date'
+      : 'every placement is current'],
+    ['Days on book', created ? days(created.ts) : 0, 'since ' + (created ? created.ts.slice(0, 10) : '-')]
+  ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
+
+  el('tl').innerHTML = h.map(e =>
+    '<li><span class="dot ' + e.kind + '">' + svg(ICON[e.kind] || ICON.note) + '</span>'
+    + '<div class="ts">' + e.ts + '</div>'
+    + '<div class="what">' + e.what + (e.cost && e.cost !== '-' ? '<span class="cost">' + e.cost + '</span>' : '') + '</div>'
+    + '<div class="det">' + e.detail + '</div>'
+    + '<div class="who">' + e.who + '</div></li>').join('');
+
+  const esc = {live:'Confirmed live', native:'Live via a portal switch', assist:'Awaiting the agent',
+               queued:'Queued', submitted:'Awaiting ingest', renewal:'Renewal due', dead:'Withdrawn'};
+  const keys = Object.keys(l.channels);
+  el('pl').innerHTML = keys.length ? keys.map(k => {
+    const st = l.channels[k][0], url = l.channels[k][1];
+    const cls = (st === 'live' || st === 'native') ? 'ok' : (st === 'renewal' || st === 'dead') ? 'no' : 'human';
+    const stale = R.isStale(l, k);
+    return '<div class="r"><div><b>' + (CH_NAME[k] || k) + '</b><br><span class="small" style="color:var(--ink-3)">' + k + '</span></div>'
+      + '<div class="' + cls + '">' + (esc[st] || st)
+      + (stale ? '<div style="font-size:10.5px;color:var(--amber);font-weight:600;margin-top:3px">Out of date &middot; v' + (l.channels[k][2] || 1) + '</div>' : '') + '</div>'
+      + '<div class="small" style="color:var(--ink-3)">' + (url ? '<a href="https://' + url + '" target="_blank" rel="noopener">' + url + '</a>' : 'No public URL yet &mdash; nothing to link until it goes live.') + '</div></div>';
+  }).join('') : '<div class="r"><div class="small" style="color:var(--ink-3)">Not published to any channel yet.</div></div>';
+
+  drawEdit();
+
+  el('sysRealty').innerHTML = '<h3 style="margin-top:0;font-size:14px">Zentra Realty</h3>'
+    + '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">This record. Owns ' + l.agent
+    + ', the commission file and the paperwork.'
+    + (l.realty && l.realty.mirrored ? ' Agency reference <b>' + l.realty.id + '</b>.' : ' Not mirrored &mdash; the agent holds no account on the other side.') + '</p>';
+
+  el('sysPush').innerHTML = '<h3 style="margin-top:0;font-size:14px">Zentra Push</h3>'
+    + (l.realty && l.realty.mirrored
+        ? '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0 0 12px">Owns the channels. The two records are linked, so this history is the same one Zentra Push shows for <b>' + l.id + '</b>.</p>'
+          + '<a class="btn gold small" href="../zentra-push/listing.html?id=' + l.id + '">Open in Zentra Push</a>'
+        : '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">The agent holds no Zentra Realty account, so no mirror was created. The Zentra Push record stands alone and a later link backfills this side without re-typing.</p>');
+}
+
+/* ---------- edit + push semula ---------- */
+function drawEdit(){
+  const l = R.byId(cur);
+  const keys = Object.keys(l.channels);
+  const auto = keys.filter(k => R.updMode(k) === 'auto');
+  const rest = keys.filter(k => R.updMode(k) !== 'auto');
+  const li = k => {
+    const stale = R.isStale(l, k);
+    return '<li><b>' + (CH_NAME[k] || k) + '</b>'
+      + (stale ? ' <span class="chip st-renewal">v' + (l.channels[k][2] || 1) + ' of ' + l.v + '</span>'
+               : ' <span class="chip st-live">current</span>') + '</li>';
+  };
+  el('editCols').innerHTML =
+    '<div><div class="chip t-auto">Updates itself &middot; ' + auto.length + '</div>'
+    + '<p class="small" style="color:var(--ink-3);margin:8px 0 0;line-height:1.6">' + R.ZR_UPD_NOTE.auto + '</p>'
+    + '<ul class="ul">' + (auto.length ? auto.map(li).join('') : '<li class="small" style="color:var(--ink-3)">None on this listing.</li>') + '</ul></div>'
+    + '<div><div class="chip t-assist">Needs the agent &middot; ' + rest.length + '</div>'
+    + '<p class="small" style="color:var(--ink-3);margin:8px 0 0;line-height:1.6">' + R.ZR_UPD_NOTE.assist + '</p>'
+    + '<ul class="ul">' + (rest.length ? rest.map(li).join('') : '<li class="small" style="color:var(--ink-3)">None on this listing.</li>') + '</ul></div>';
+  el('editBtn').setAttribute('href', 'new-listing.html?edit=' + l.id);
+  el('flash').hidden = true;
+}
+function flash(msg){ const f = el('flash'); f.innerHTML = msg; f.hidden = false; }
+
+el('priceBtn').onclick = () => {
+  const l = R.byId(cur);
+  const was = l.price;
+  l.price = Math.max(10000, was - 50000);
+  l.v += 1;
+  R.ZR_HISTORY[cur].unshift({ts:'2026-09-19 10:52', kind:'price', what:'Asking price revised',
+    detail: money(was) + ' -> ' + money(l.price) + '. Version raised to v' + l.v + ', so every placement behind it is now out of date.',
+    who:'You (mock-up)', cost:'-'});
+  draw();
+  flash('Price changed to <b>' + money(l.price) + '</b>. Version is now <b>v' + l.v + '</b>. '
+    + (l.stale || []).length + ' placement(s) are out of date.');
+};
+
+el('pushBtn').onclick = () => {
+  const l = R.byId(cur);
+  const st = l.stale || [];
+  if (!st.length){ flash('Nothing to re-push: every placement is already on v' + l.v + '.'); return; }
+  const auto = st.filter(k => R.updMode(k) === 'auto');
+  const rest = st.filter(k => R.updMode(k) !== 'auto');
+  auto.forEach(k => { l.channels[k][2] = l.v; });
+  l.stale = rest.slice();
+  const TS = '2026-09-19 10:53';
+  if (auto.length) R.ZR_HISTORY[cur].unshift({ts: TS, kind:'channel', what:'Re-pushed to ' + auto.length + ' channel(s) automatically',
+    detail: auto.map(k => CH_NAME[k] || k).join(', ') + '. Existing records updated by remote id - no duplicate adverts.',
+    who:'Auto', cost:'RM0'});
+  if (rest.length) R.ZR_HISTORY[cur].unshift({ts: TS, kind:'note', what:rest.length + ' placement(s) still need the agent',
+    detail: rest.map(k => CH_NAME[k] || k).join(', ') + '. Updates to adverts that already exist, so nothing is re-charged beyond Mudah republish rules.',
+    who:'Assist queue', cost:'-'});
+  draw();
+  flash('<b>' + auto.length + '</b> placement(s) updated automatically. '
+    + (rest.length ? '<b>' + rest.length + '</b> still waiting for the agent.' : 'Everything is current now.'));
+};
+
+el('pick').onchange = e => {
+  cur = e.target.value.split(' ')[0];
+  history.replaceState(null, '', 'listing.html?id=' + cur);
+  draw();
+};
+draw();
+</script>
+</body>
+</html>
