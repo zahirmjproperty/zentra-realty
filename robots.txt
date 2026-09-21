@@ -1,0 +1,3 @@
+# Sistem dalaman — jangan indeks apa-apa
+User-agent: *
+Disallow: /
