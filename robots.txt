@@ -1,4 +1,6 @@
+# ZENTRA Realty — modul LP pilot. Halaman dalaman kekal tersembunyi; hanya /lp/ awam.
 User-agent: *
-Allow: /
+Disallow: /
+Allow: /lp/
 
 Sitemap: https://realty.zentrapropertygroup.com/sitemap.xml
