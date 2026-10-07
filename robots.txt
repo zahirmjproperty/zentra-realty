@@ -1,3 +1,4 @@
-# Sistem dalaman — jangan indeks apa-apa
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://realty.zentrapropertygroup.com/sitemap.xml
