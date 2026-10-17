@@ -1,4 +1,4 @@
-# ZENTRA Realty — modul LP pilot. Halaman dalaman kekal tersembunyi; hanya /lp/ awam.
+# ZENTRA Realty — modul LP ejen. Halaman dalaman kekal tersembunyi; hanya /lp/ awam.
 User-agent: *
 Disallow: /
 Allow: /lp/
