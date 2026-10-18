@@ -52,6 +52,39 @@ footer a{color:#C8A96A}
 .shot figcaption{font-size:.8rem;padding:8px 11px;color:#4a5a68;background:#fff}
 .kredit{font-size:.76rem;color:#7b8794;font-style:italic;margin:.6rem 0 0}
 @media(max-width:640px){.hero-img img{aspect-ratio:4/3}}
+/* ── Panel tour 360° (gaya vr3D: frame besar + bar bawah) ─────────────── */
+.tour-nota{color:#4a5a68;font-size:.92rem;margin:.2rem 0 1rem}
+.tv{border-radius:16px;overflow:hidden;background:#071525;box-shadow:0 20px 50px -24px rgba(0,0,0,.55)}
+.tv-frame{position:relative;width:100%;aspect-ratio:16/9;background:#071525}
+.tv-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.tv-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:12px;
+  color:#c7d1dc;font-size:.9rem;background:#071525;z-index:2;transition:opacity .5s}
+.tv-loading.sorok{opacity:0;pointer-events:none}
+.tv-spin{width:18px;height:18px;border:2px solid rgba(200,169,106,.3);border-top-color:#c8a96a;
+  border-radius:50%;animation:tvspin .8s linear infinite}
+@keyframes tvspin{to{transform:rotate(360deg)}}
+.tv-bar{display:grid;grid-template-columns:1fr auto;gap:10px 16px;padding:12px 16px;
+  background:rgba(7,21,37,.97);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.08)}
+.tv-info{display:flex;flex-direction:column;min-width:0}
+.tv-info strong{color:#fff;font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tv-info span{color:#c8a96a;font-size:.78rem}
+.tv-nav{grid-column:1/-1;display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;
+  scrollbar-width:thin;padding-bottom:3px}
+.tv-nav::-webkit-scrollbar{height:4px}
+.tv-nav::-webkit-scrollbar-thumb{background:rgba(200,169,106,.4);border-radius:4px}
+.tv-btn{background:rgba(255,255,255,.07);color:#d5dde5;border:1px solid rgba(255,255,255,.12);
+  border-radius:100px;padding:6px 12px;font-size:.74rem;cursor:pointer;transition:.2s;font-family:inherit;
+  white-space:nowrap;flex:0 0 auto}
+.tv-btn:hover{background:rgba(200,169,106,.2);border-color:#c8a96a;color:#fff}
+.tv-btn.aktif{background:#c8a96a;color:#0a1510;border-color:#c8a96a;font-weight:700}
+.tv-fs{color:#c8a96a;font-size:.78rem;text-decoration:none;white-space:nowrap;padding:6px 12px;
+  border:1px solid rgba(200,169,106,.4);border-radius:100px}
+.tv-fs:hover{background:rgba(200,169,106,.15)}
+@media(max-width:640px){
+  .tv-frame{aspect-ratio:4/3}
+  .tv-bar{padding:10px 12px;gap:10px}
+  .tv-info strong{font-size:.8rem}
+}
 </style></head><body>
 <header><div class="wrap"><div class="brand">Mr Tanah<small>JENAMA ZENTRA</small></div><div class="identiti"><strong>Mr Tanah</strong> &middot; PEA 2684 &amp; 2313 &middot; IQI Realty Sdn Bhd E(1)1584</div></div></header>
 <main>
@@ -71,6 +104,25 @@ footer a{color:#C8A96A}
 </div></section>
 <section><div class="wrap"><h2>Kemudahan</h2><ul><li>Kolam renang 25m x 13m (3,850 kps)</li><li>Gimnasium 2,562 kps</li><li>Dewan serbaguna 3,809 kps</li><li>Surau</li><li>Taska 1,199 kps</li><li>Ruang komersial di aras bawah</li><li>3 lapis kawalan keselamatan kad akses</li><li>Lif: 3 (Blok A) · 4 (Blok B)</li></ul></div></section>
 <section id="galeri"><div class="wrap"><h2>Galeri projek</h2><div class="galeri"><figure class="shot"><img src="/assets/img/armani/masterplan.webp" alt="Pandangan menyeluruh dua menara dan jalan masuk" loading="lazy" width="1200" height="800"><figcaption>Pandangan menyeluruh</figcaption></figure><figure class="shot"><img src="/assets/img/armani/pool-sunset.webp" alt="Kolam renang infiniti di bumbung waktu matahari terbenam" loading="lazy" width="1200" height="800"><figcaption>Kolam infiniti bumbung</figcaption></figure><figure class="shot"><img src="/assets/img/armani/pool-deck.webp" alt="Dek kayu di sekeliling kolam dengan kerusi santai" loading="lazy" width="1200" height="800"><figcaption>Dek kolam &amp; ruang santai</figcaption></figure><figure class="shot"><img src="/assets/img/armani/gym.webp" alt="Gimnasium dengan mesin kardio dan beban" loading="lazy" width="1200" height="800"><figcaption>Gimnasium</figcaption></figure><figure class="shot"><img src="/assets/img/armani/yoga.webp" alt="Studio yoga dengan cermin penuh dan bar" loading="lazy" width="1200" height="800"><figcaption>Studio yoga</figcaption></figure><figure class="shot"><img src="/assets/img/armani/surau.webp" alt="Dewan serbaguna dengan lantai kayu berkilat" loading="lazy" width="1200" height="800"><figcaption>Dewan serbaguna</figcaption></figure><figure class="shot"><img src="/assets/img/armani/entrance.webp" alt="Pintu masuk utama dengan kanopi dan lampu" loading="lazy" width="1200" height="800"><figcaption>Pintu masuk utama</figcaption></figure><figure class="shot"><img src="/assets/img/armani/dropoff-soho.webp" alt="Laluan masuk menara SOHO" loading="lazy" width="1200" height="800"><figcaption>Laluan masuk SOHO</figcaption></figure><figure class="shot"><img src="/assets/img/armani/dropoff-serviced.webp" alt="Laluan masuk menara servis apartmen" loading="lazy" width="1200" height="800"><figcaption>Laluan masuk servis apartmen</figcaption></figure><figure class="shot"><img src="/assets/img/armani/living.webp" alt="Ruang tamu dan ruang makan unit contoh" loading="lazy" width="1200" height="800"><figcaption>Ruang tamu unit contoh</figcaption></figure><figure class="shot"><img src="/assets/img/armani/bedroom.webp" alt="Bilik tidur utama dengan tingkap penuh" loading="lazy" width="1200" height="800"><figcaption>Bilik tidur utama</figcaption></figure></div><p class="kredit">Imej artis / artist&#x27;s impression daripada bahan pemasaran Armani Group. Bukan foto sebenar pembangunan siap.</p></div></section>
+
+<section id="tour360"><div class="wrap">
+  <h2>Lawatan maya 360° rasmi pemaju</h2>
+  <p class="tour-nota">Tour 360° oleh Armani Group — 15 lokasi termasuk pandangan setiap aras (Level 5 hingga 32) dan bumbung.</p>
+  <div class="tv" id="tv">
+    <div class="tv-frame">
+      <iframe id="tvFrame" src="https://armanigroup.com.my/Site/ArmaniPutraDengkil/" title="Lawatan maya 360° rasmi pemaju" loading="lazy"
+              allowfullscreen allow="fullscreen; accelerometer; gyroscope; xr-spatial-tracking"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="tv-loading" id="tvLoad"><span class="tv-spin"></span> Memuatkan tour 360°…</div>
+    </div>
+    <div class="tv-bar">
+      <div class="tv-info"><strong>Lawatan maya 360° rasmi pemaju</strong><span id="tvNow">Pintu masuk / Main</span></div>
+      <div class="tv-nav"><button class="tv-btn" data-node="node18">Pintu masuk / Main</button><button class="tv-btn" data-node="node1">Level 5</button><button class="tv-btn" data-node="node2">Level 10</button><button class="tv-btn" data-node="node3">Level 15</button><button class="tv-btn" data-node="node4">Level 20</button><button class="tv-btn" data-node="node5">Level 25</button><button class="tv-btn" data-node="node6">Level 30</button><button class="tv-btn" data-node="node7">Level 32</button><button class="tv-btn" data-node="node8">Bumbung / Roof Top</button><button class="tv-btn" data-node="node9">Pandangan 01</button><button class="tv-btn" data-node="node10">Pandangan 02</button><button class="tv-btn" data-node="node11">Pandangan 03</button><button class="tv-btn" data-node="node12">Pandangan 04</button><button class="tv-btn" data-node="node13">Pandangan 05</button><button class="tv-btn" data-node="node14">Pandangan 06</button></div>
+      <a class="tv-fs" href="#" id="tvFs">Skrin penuh</a>
+    </div>
+  </div>
+  <p class="kredit">Tour 360°: Armani Group</p>
+</div></section>
 <section><div class="wrap"><h2>Lawatan maya 360&deg;</h2><p><a href="https://vr3d.zentrapropertygroup.com/tour.html?id=armani-a1" target="_blank" rel="noopener">Buka lawatan 360&deg; ZENTRA &nearr;</a></p></div></section>
 <section><div class="wrap"><h2>Permit &amp; lesen pemaju</h2><table><tr><td>Pemaju</td><td>Golden Chain Development Sdn. Bhd.</td></tr><tr><td>No. SSM pemaju</td><td>969873-V</td></tr><tr><td>Lesen pemaju (APDL)</td><td>30799/06-2029/0141(A) (sah 24 Jun 2024 – 23 Jun 2029)</td></tr><tr><td>Permit iklan &amp; jualan</td><td>30799-1/06-2029/0421(A)-(S) (sah 10 Jun 2026 – 9 Jun 2029)</td></tr><tr><td>Pihak berkuasa tempatan</td><td>Majlis Perbandaran Sepang (MP Sepang)</td></tr><tr><td>Perjanjian jual beli</td><td>Jadual H (Akta Pemajuan Perumahan 1966)</td></tr><tr><td>Status projek</td><td>Lancar</td></tr></table></div></section>
 <section><div class="wrap"><h2>Ejen anda</h2><div class="agent">
@@ -142,5 +194,31 @@ footer a{color:#C8A96A}
   }
  ]
 }
+</script>
+<script>
+(function(){
+  var tv=document.getElementById('tv'); if(!tv) return;
+  var f=document.getElementById('tvFrame'), load=document.getElementById('tvLoad');
+  var now=document.getElementById('tvNow'), btns=tv.querySelectorAll('.tv-btn');
+  var base='https://armanigroup.com.my/Site/ArmaniPutraDengkil/';
+  function setNode(id,label){
+    f.src = base + (base.indexOf('#')>=0 ? id : '#'+id);
+    if(now) now.textContent = label;
+    btns.forEach(function(b){ b.classList.toggle('aktif', b.dataset.node===id); });
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ setNode(b.dataset.node, b.textContent); });
+  });
+  f.addEventListener('load', function(){ if(load) load.classList.add('sorok'); });
+  setTimeout(function(){ if(load) load.classList.add('sorok'); }, 12000);
+  var fs=document.getElementById('tvFs');
+  if(fs) fs.addEventListener('click', function(e){
+    e.preventDefault();
+    var box=tv.querySelector('.tv-frame');
+    if(box.requestFullscreen) box.requestFullscreen();
+    else if(box.webkitRequestFullscreen) box.webkitRequestFullscreen();
+  });
+  if(btns.length) btns[0].classList.add('aktif');
+})();
 </script>
 </body></html>
