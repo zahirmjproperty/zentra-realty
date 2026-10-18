@@ -77,6 +77,21 @@ footer a{color:#C8A96A}
 @media(max-width:640px){.tv-bar{padding:10px 12px;gap:8px}.tv-info{flex:1}.tv-petunjuk{display:none}.tv-tabs{padding:8px 10px;gap:5px}.tv-tab{padding:5px 10px;font-size:.68rem}}
 .tv-nav{grid-column:1/-1;display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;
   scrollbar-width:thin;padding-bottom:3px}
+.fp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.fp-grid figure{margin:0;background:#fff;border:1px solid #e3e8ee;border-radius:12px;overflow:hidden}
+.fp-zoom{display:block;width:100%;padding:0;border:0;background:#f7f9fb;cursor:zoom-in}
+.fp-zoom img{display:block;width:100%;height:auto}
+.fp-grid figcaption{padding:8px 10px;font-size:.82rem;line-height:1.35}
+.fp-grid figcaption strong{display:block;color:#16222F}
+.fp-grid figcaption span{color:#64748b;font-size:.76rem}
+#fpLb{position:fixed;inset:0;z-index:9999;background:rgba(4,12,20,.94);display:none;
+  align-items:center;justify-content:center;padding:20px}
+#fpLb.on{display:flex}
+#fpLb img{max-width:96vw;max-height:86vh;border-radius:10px;background:#fff}
+#fpLbCap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#e8eef4;font-size:.9rem}
+#fpLbX{position:absolute;top:14px;right:18px;background:none;border:0;color:#fff;font-size:2rem;
+  cursor:pointer;line-height:1}
+@media(max-width:640px){.fp-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
 .tv-tabs{display:flex;gap:6px;padding:10px 14px;background:rgba(7,21,37,.97);
   border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;overflow-y:hidden;
   flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;
@@ -117,9 +132,10 @@ footer a{color:#C8A96A}
 </div></section>
 <section><div class="wrap"><h2>Fakta projek</h2><table><tr><td>loc</td><td>Presint 8, Putrajaya</td></tr><tr><td>type</td><td>Kondominium</td></tr><tr><td>range</td><td>700–1,184 kps</td></tr><tr><td>tenure</td><td>Freehold</td></tr><tr><td>setting</td><td>Pembangunan bersepadu tepi tasik</td></tr></table></div></section>
 <section><div class="wrap"><h2>Jenis unit</h2><table>
-  <tr><th>Jenis</th><th>Segmen</th><th>Keluasan</th><th>Bilik</th><th>Harga</th></tr><tr><td>Type A2</td><td>Kondominium</td><td>—</td><td>—</td><td>Harga atas permintaan</td></tr><tr><td>Type B1</td><td>Kondominium</td><td>—</td><td>—</td><td>Harga atas permintaan</td></tr><tr><td>Type C</td><td>Kondominium</td><td>—</td><td>—</td><td>Harga atas permintaan</td></tr></table>
+  <tr><th>Jenis</th><th>Segmen</th><th>Keluasan</th><th>Bilik</th><th>Harga</th></tr><tr><td><strong>Type A2</strong></td><td>Kondominium</td><td>—</td><td>—</td><td>Harga atas permintaan</td></tr><tr><td><strong>Type B1</strong></td><td>Kondominium</td><td>—</td><td>—</td><td>Harga atas permintaan</td></tr><tr><td><strong>Type C</strong></td><td>Kondominium</td><td>—</td><td>—</td><td>Harga atas permintaan</td></tr></table>
   <div class="note">Maklumat permit iklan belum lengkap disahkan. Harga ditahan dan halaman ditandakan <strong>noindex</strong>.</div>
 </div></section>
+<section id="pelan-lantai"><div class="wrap"><h2>Pelan lantai &amp; susun atur</h2><p class="tour-nota">Klik mana-mana pelan untuk besarkan. Semua pelan ialah bahan rasmi pemaju.</p><div class="fp-grid"><figure><button type="button" class="fp-zoom" data-src="assets/img/floorplan-terra-a2.png" data-cap="Type A2"><img src="assets/img/floorplan-terra-a2.png" alt="Pelan lantai Type A2" width="695" height="530" decoding="async"></button><figcaption><strong>Type A2</strong></figcaption></figure><figure><button type="button" class="fp-zoom" data-src="assets/img/floorplan-terra-b1.png" data-cap="Type B1"><img src="assets/img/floorplan-terra-b1.png" alt="Pelan lantai Type B1" width="695" height="530" decoding="async"></button><figcaption><strong>Type B1</strong></figcaption></figure><figure><button type="button" class="fp-zoom" data-src="assets/img/floorplan-terra-c.png" data-cap="Type C"><img src="assets/img/floorplan-terra-c.png" alt="Pelan lantai Type C" width="695" height="530" decoding="async"></button><figcaption><strong>Type C</strong></figcaption></figure></div></div></section>
 
 
 
@@ -152,6 +168,28 @@ footer a{color:#C8A96A}
   <p><strong></strong> &middot; Pemasaran &amp; jualan: Mr Tanah (PEA 2684 &amp; 2313), IQI Realty Sdn Bhd E(1)1584</p>
   <p><a href="https://zentrapropertygroup.com/privacy">Dasar Privasi</a> &middot; Dikendalikan melalui platform ZENTRA.</p>
 </div></footer>
+<div id="fpLb" role="dialog" aria-modal="true" aria-label="Pelan lantai">
+  <button id="fpLbX" aria-label="Tutup">&times;</button>
+  <img id="fpLbImg" alt="">
+  <div id="fpLbCap"></div>
+</div>
+<script>
+(function(){
+  var lb=document.getElementById('fpLb'), img=document.getElementById('fpLbImg'),
+      cap=document.getElementById('fpLbCap');
+  if(!lb) return;
+  document.querySelectorAll('.fp-zoom').forEach(function(b){
+    b.addEventListener('click',function(){
+      img.src=b.dataset.src; img.alt=b.dataset.cap||''; cap.textContent=b.dataset.cap||'';
+      lb.classList.add('on'); document.body.style.overflow='hidden';
+    });
+  });
+  function tutup(){lb.classList.remove('on'); document.body.style.overflow='';}
+  lb.addEventListener('click',function(e){ if(e.target===lb) tutup(); });
+  document.getElementById('fpLbX').addEventListener('click',tutup);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') tutup(); });
+})();
+</script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
