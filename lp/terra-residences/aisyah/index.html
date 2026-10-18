@@ -70,6 +70,13 @@ footer a{color:#c9a227}
 .tv-info span{color:#c8a96a;font-size:.78rem}
 .tv-nav{grid-column:1/-1;display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;
   scrollbar-width:thin;padding-bottom:3px}
+.tv-tabs{display:flex;gap:6px;padding:10px 14px;background:rgba(7,21,37,.97);
+  border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;flex-wrap:nowrap}
+.tv-tab{background:transparent;color:#8a9aa8;border:1px solid rgba(255,255,255,.12);
+  border-radius:100px;padding:6px 14px;font-size:.76rem;font-weight:600;cursor:pointer;
+  white-space:nowrap;flex:0 0 auto;transition:.2s;font-family:inherit}
+.tv-tab:hover{color:#fff;border-color:rgba(200,169,106,.5)}
+.tv-tab.aktif{background:#c8a96a;color:#0a1510;border-color:#c8a96a}
 .tv-nav::-webkit-scrollbar{height:4px}
 .tv-nav::-webkit-scrollbar-thumb{background:rgba(200,169,106,.4);border-radius:4px}
 .tv-btn{background:rgba(255,255,255,.07);color:#d5dde5;border:1px solid rgba(255,255,255,.12);
@@ -77,6 +84,7 @@ footer a{color:#c9a227}
   white-space:nowrap;flex:0 0 auto}
 .tv-btn:hover{background:rgba(200,169,106,.2);border-color:#c8a96a;color:#fff}
 .tv-btn.aktif{background:#c8a96a;color:#0a1510;border-color:#c8a96a;font-weight:700}
+.tv-petunjuk{font-size:.72rem;color:#8a9aa8}
 .tv-fs{color:#c8a96a;font-size:.78rem;text-decoration:none;white-space:nowrap;padding:6px 12px;
   border:1px solid rgba(200,169,106,.4);border-radius:100px}
 .tv-fs:hover{background:rgba(200,169,106,.15)}
@@ -105,7 +113,7 @@ footer a{color:#c9a227}
 
 
 
-<section><div class="wrap"><h2>Lawatan maya 360&deg;</h2><p><a href="https://vr3d.zentrapropertygroup.com/tour.html?id=terra-a2-main" target="_blank" rel="noopener">Buka lawatan 360&deg; ZENTRA &nearr;</a></p></div></section>
+
 <section><div class="wrap"><h2>Permit &amp; lesen pemaju</h2><table><tr><td>Pemaju</td><td>—</td></tr><tr><td>No. SSM pemaju</td><td>—</td></tr><tr><td>Lesen pemaju (APDL)</td><td>— (sah ? – ?)</td></tr><tr><td>Permit iklan &amp; jualan</td><td>— (sah ? – ?)</td></tr><tr><td>Pihak berkuasa tempatan</td><td>—</td></tr><tr><td>Perjanjian jual beli</td><td>—</td></tr><tr><td>Status projek</td><td>—</td></tr></table></div></section>
 <section><div class="wrap"><h2>Ejen anda</h2><div class="agent">
   <div class="card"><h3 style="margin:0 0 4px">Aisyah</h3>
@@ -197,6 +205,26 @@ footer a{color:#c9a227}
     else if(box.webkitRequestFullscreen) box.webkitRequestFullscreen();
   });
   if(btns.length) btns[0].classList.add('aktif');
+})();
+(function(){
+  var tv=document.getElementById('tvz'); if(!tv) return;
+  var f=document.getElementById('tvzFrame'), load=document.getElementById('tvzLoad');
+  var now=document.getElementById('tvzNow');
+  var tabs=tv.querySelectorAll('.tv-tab'), base='https://vr3d.zentrapropertygroup.com/embed.html?id=';
+  var MAP={};
+  var cur=Object.keys(MAP)[0];
+  // Nav scene dikendalikan DALAM iframe embed.html (elak duplikasi).
+  function pilih(tid){
+    cur=tid;
+    tabs.forEach(function(t){ t.classList.toggle('aktif', t.dataset.tour===tid); });
+    f.src=base+tid;
+    now.textContent=MAP[tid].label;
+    if(load) load.classList.remove('sorok');
+  }
+  tabs.forEach(function(t){ t.addEventListener('click',function(){ pilih(t.dataset.tour); }); });
+  f.addEventListener('load', function(){ if(load) load.classList.add('sorok'); });
+  setTimeout(function(){ if(load) load.classList.add('sorok'); }, 12000);
+
 })();
 </script>
 </body></html>
