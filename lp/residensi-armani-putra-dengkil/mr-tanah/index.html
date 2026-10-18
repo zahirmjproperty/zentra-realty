@@ -51,7 +51,13 @@ footer a{color:#C8A96A}
 .shot:hover img{transform:scale(1.03)}
 .shot figcaption{font-size:.8rem;padding:8px 11px;color:#4a5a68;background:#fff}
 .kredit{font-size:.76rem;color:#7b8794;font-style:italic;margin:.6rem 0 0}
-@media(max-width:640px){.hero-img img{aspect-ratio:4/3}}
+@media(max-width:640px){
+  .hero-img img{aspect-ratio:4/3}
+  /* Jadual jenis unit melebar pada telefon — benarkan skrol mendatar dalam bekas. */
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+  table tr{display:table-row}
+  .tv-frame{aspect-ratio:4/5}
+}
 /* ── Panel tour 360° (gaya vr3D: frame besar + bar bawah) ─────────────── */
 .tour-nota{color:#4a5a68;font-size:.92rem;margin:.2rem 0 1rem}
 .tv{border-radius:16px;overflow:hidden;background:#071525;box-shadow:0 20px 50px -24px rgba(0,0,0,.55)}
@@ -67,11 +73,15 @@ footer a{color:#C8A96A}
   background:rgba(7,21,37,.97);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.08)}
 .tv-info{display:flex;flex-direction:column;min-width:0}
 .tv-info strong{color:#fff;font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tv-info span{color:#c8a96a;font-size:.78rem}
+.tv-info span{color:#c8a96a;font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+@media(max-width:640px){.tv-bar{padding:10px 12px;gap:8px}.tv-info{flex:1}.tv-petunjuk{display:none}.tv-tabs{padding:8px 10px;gap:5px}.tv-tab{padding:5px 10px;font-size:.68rem}}
 .tv-nav{grid-column:1/-1;display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;
   scrollbar-width:thin;padding-bottom:3px}
 .tv-tabs{display:flex;gap:6px;padding:10px 14px;background:rgba(7,21,37,.97);
-  border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;flex-wrap:nowrap}
+  border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;overflow-y:hidden;
+  flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  overscroll-behavior-x:contain}
+.tv-tabs::-webkit-scrollbar{display:none}
 .tv-tab{background:transparent;color:#8a9aa8;border:1px solid rgba(255,255,255,.12);
   border-radius:100px;padding:6px 14px;font-size:.76rem;font-weight:600;cursor:pointer;
   white-space:nowrap;flex:0 0 auto;transition:.2s;font-family:inherit}
